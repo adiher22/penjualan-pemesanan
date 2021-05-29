@@ -26,15 +26,19 @@ class Master extends CI_Controller {
         $this->form_validation->set_rules('nama_produk', 'Nama Produk', 'trim|required', 
             array(	'required' => '%s Harus Diisi'));
 
-		$this->form_validation->set_rules('slug', 'Slug Produk', 'trim|required',
-			array(	'required' => '%s Harus Diisi'));
+		$this->form_validation->set_rules('nama', 'Nama Produk', 'trim|required|min_length[3]',
+			array(	'required' => '%s Harus Diisi',
+					'min_length' => '%s Minimal 3 karakter'));
 
-		$this->form_validation->set_rules('nama', 'Nama Produk', 'trim|required',
-			array(	'required' => '%s Harus Diisi'));
+		$this->form_validation->set_rules('kategori', 'Kategori Produk', 'trim|required',
+		array(	'required' => '%s Harus Diisi'));
 
 		$this->form_validation->set_rules('harga', 'Harga Produk', 'trim|required|is_numeric',
 		array(	'required' => '%s Harus Diisi',
 				'is_numeric' => '%s Harus Berupa Angka'));
+
+		$this->form_validation->set_rules('gambar', 'Gambar Produk', 'trim|required',
+		array(	'required' => '%s Harus Diisi'));
 
 		$this->form_validation->set_rules('deskripsi', 'Deskripsi Produk', 'trim|required',
 		array(	'required' => '%s Harus Diisi'));
@@ -45,6 +49,7 @@ class Master extends CI_Controller {
             
             $data['title'] = "Tambah Produk";
             $data['kd'] = $this->M_produk->id_produk();
+			$data['kategori'] = $this->M_kategori->get()->result();
             $this->template->load('admin/template', 'admin/produk/add_produk', $data);
 		}else {
 			$post = $this->input->post(null, TRUE);
