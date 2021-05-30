@@ -104,7 +104,7 @@ class M_produk extends CI_Model {
 	// 	return $query;
     // }
    
-	public function del_produk($id)
+	public function del($id)
 	{
 		$this->db->where('id_produk', $id);
 		$this->db->delete('produk');

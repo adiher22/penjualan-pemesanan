@@ -11,6 +11,7 @@ class Master extends CI_Controller {
         //Do your magic here
         $this->load->model('M_produk');
         $this->load->model('M_kategori');
+		check_not_login();
     }
      function get_ajax() {
         $list = $this->M_produk->get_datatables();
@@ -28,7 +29,7 @@ class Master extends CI_Controller {
             $row[] = $item->gambar != null ? '<img src="'.site_url('upload/produk/'.$item->gambar).'" class="img" style="width:100px">' : null;
             // add html for action
             $row[] = '<a href="'.site_url('admin/master/editProduk/'.sha1($item->id_produk)).'" class="btn btn-info btn-sm"><i class="fas fa-edit"></i> Edit</a>
-                    <a href="'.site_url('admin/master/delProduk/'.$item->id_produk).'" id="btn-hapus" class="btn btn-warning btn-sm"><i class="fas fa-trash"></i> Hapus</a>';
+                    <a href="'.site_url('admin/master/hapusProduk/'.$item->id_produk).'" id="btn-hapus" class="btn btn-warning btn-sm"><i class="fas fa-trash"></i> Hapus</a>';
             $data[] = $row;
         }
         $output = array(
@@ -171,7 +172,7 @@ class Master extends CI_Controller {
 				$this->M_produk->edit($post);
 				if($this->db->affected_rows() > 0) {
 					// jika gambar tidak di upload
-				$this->session->set_flashdata('warning','Data disimpan tanpa merubah gambar');
+				$this->session->set_flashdata('sukses','Data disimpan tanpa merubah gambar');
 				redirect(base_url('admin/master/produk'),'refresh');
 				}
 			
@@ -183,14 +184,17 @@ class Master extends CI_Controller {
 	}
 	public function hapusProduk(){
 		$id = $this->uri->segment(4);
-	
+		$produk = $this->M_produk->get($id)->row();
+		$target_file = './upload/produk/'.$produk->gambar;
+		unlink($target_file);
 		$this->M_produk->del($id);
+		
 		// Jika berhasil dihapus
 		if($this->db->affected_rows() > 0) {
 			$this->session->set_flashdata('sukses', 'Data Berhasil Dihapus');
-			redirect(site_url('admin/master/produk '), 'refresh');
+			
 		} 
-
+		redirect(site_url('admin/master/produk '), 'refresh');
 	}
 	
 	public function kategori()
