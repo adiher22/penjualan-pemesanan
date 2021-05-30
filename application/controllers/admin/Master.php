@@ -27,7 +27,7 @@ class Master extends CI_Controller {
             $row[] = $item->deskripsi;
             $row[] = $item->gambar != null ? '<img src="'.site_url('upload/produk/'.$item->gambar).'" class="img" style="width:100px">' : null;
             // add html for action
-            $row[] = '<a href="'.site_url('admin/master/editProduk/'.$item->id_produk).'" class="btn btn-info btn-sm"><i class="fas fa-edit"></i> Edit</a>
+            $row[] = '<a href="'.site_url('admin/master/editProduk/'.sha1($item->id_produk)).'" class="btn btn-info btn-sm"><i class="fas fa-edit"></i> Edit</a>
                     <a href="'.site_url('admin/master/delProduk/'.$item->id_produk).'" id="btn-hapus" class="btn btn-warning btn-sm"><i class="fas fa-trash"></i> Hapus</a>';
             $data[] = $row;
         }
@@ -103,19 +103,25 @@ class Master extends CI_Controller {
     {
         $id = $this->uri->segment(4);
 
+
+		// upload gambar produk
+		$config['upload_path'] = './upload/produk/';
+		$config['allowed_types'] = 'jpg|png|jpeg';
+		$config['max_size'] = 2048;
+		$config['file_name'] = 'produk-'.date('ymd').'-'.substr(md5(rand()),0,01); 
+
+		$this->load->library('upload', $config);
+		
         $this->form_validation->set_rules('nama_produk', 'Nama Produk', 'trim|required', 
             array(	'required' => '%s Harus Diisi'));
 
-		$this->form_validation->set_rules('slug', 'Slug Produk', 'trim|required',
-			array(	'required' => '%s Harus Diisi'));
-
-		$this->form_validation->set_rules('nama', 'Nama Produk', 'trim|required',
-			array(	'required' => '%s Harus Diisi'));
+		$this->form_validation->set_rules('id_kategori', 'Kategori Produk', 'trim|required',
+		array(	'required' => '%s Harus Diisi'));
 
 		$this->form_validation->set_rules('harga', 'Harga Produk', 'trim|required|is_numeric',
 		array(	'required' => '%s Harus Diisi',
 				'is_numeric' => '%s Harus Berupa Angka'));
-
+				
 		$this->form_validation->set_rules('deskripsi', 'Deskripsi Produk', 'trim|required',
 		array(	'required' => '%s Harus Diisi'));
 	
@@ -128,6 +134,7 @@ class Master extends CI_Controller {
 			if($query->num_rows() > 0){
                 $data['row'] = $query->row();
                 $data['title'] = "Edit Data Produk";
+				$data['kategori'] = $this->M_kategori->get()->result();
 
 				$this->template->load('admin/template', 'admin/produk/edit_produk',$data);
 
@@ -137,15 +144,40 @@ class Master extends CI_Controller {
 			}
 			
 		}else {
+			
 			$post = $this->input->post(null, TRUE);
-			$this->M_produk->edit($post);
-			if($this->db->affected_rows() > 0) {
-				$this->session->set_flashdata('sukses','Data Berhasil Diubah');
-				redirect(base_url('admin/master/produk'),'refresh');
+				// Upload foto
+			if($_FILES['gambar']['name'] != null) {
+				// jika gambar tidak ksong = ada maka upload
+				if($this->upload->do_upload('gambar')){
+			
+
+				$produk = $this->M_produk->get_edit($id)->row();
+				// jika gambar tidak kosong maka replace gambar
+					if($produk->gambar != null){
+						$target_file = './upload/produk/'.$produk->gambar;
+						unlink($target_file);
+					}
+				$post['gambar'] = $this->upload->data('file_name');
+				$this->M_produk->edit($post);
+				if($this->db->affected_rows() > 0) {
+					$this->session->set_flashdata('sukses','Data Berhasil Diubah Beserta Gambar');
+					redirect(base_url('admin/master/produk'),'refresh');
+				}
+			  }
 			}else{
-				$this->session->set_flashdata('warning','Data Tidak Diubah');
+				$post['gambar'] = null;
+				// jika gambar kosong / tidak kosong tapi fled ada maka 
+				$this->M_produk->edit($post);
+				if($this->db->affected_rows() > 0) {
+					// jika gambar tidak di upload
+				$this->session->set_flashdata('warning','Data disimpan tanpa merubah gambar');
 				redirect(base_url('admin/master/produk'),'refresh');
+				}
+			
 			}
+			
+			
 
 		}
 	}

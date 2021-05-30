@@ -71,7 +71,7 @@
                 </div>
                 <div class="form-group">
                     <label for="">Deskripsi Produk</label>
-                    <textarea name="deskripsi" class="form-control" id="deskripsi"></textarea>
+                    <textarea name="deskripsi" id="textarea" class="form-control" id="deskripsi"></textarea>
                 </div>
                       <?= form_error('deskripsi') ?>
                
@@ -80,8 +80,8 @@
             <!-- /.card-body -->
 
             <div class="card-footer">
-                <button type="submit" class="btn btn-danger"><i class="fas fa-save"></i> Simpan</button>
-                <button type="reset" class="btn btn-success"><i class="fas fa-times"></i> Reset</button>
+                <button type="reset" class="btn btn-danger"><i class="fas fa-times"></i> Reset</button>
+                <button type="submit" class="btn btn-success"><i class="fas fa-save"></i> Simpan</button>
             </div>
             </form>
          </div>

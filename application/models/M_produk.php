@@ -20,46 +20,14 @@ class M_produk extends CI_Model {
 		$query = $this->db->get();
 		return $query;
     }
-    public function get_dash($limit){
+	public function get_edit($id){
 
 		
 		$this->db->select('produk.*,
-                          warga.*');
+                          kategori.*');
 		$this->db->from('produk');
-        $this->db->join('warga', 'warga.id_warga = produk.id_warga', 'left');
+        $this->db->join('kategori', 'kategori.id_kategori = produk.id_kategori', 'left');
      
-        $this->db->limit($limit);
-        
-		$this->db->order_by('produk.id_produk', 'desc');
-		
-		$query = $this->db->get();
-		return $query;
-    }
-    public function get_last($limit,$id){
-
-		
-		$this->db->select('produk.*,
-                          warga.*');
-		$this->db->from('produk');
-        $this->db->join('warga', 'warga.id_warga = produk.id_warga', 'left');
-     
-        $this->db->limit($limit);
-        $this->db->where("produk.id_warga", $id);
-		$this->db->order_by('produk.id_produk', 'desc');
-		
-		$query = $this->db->get();
-		return $query;
-    }
-	public function get_detail($id = null){
-
-		
-		$this->db->select('produk.*,
-                          warga.*,
-                          rekening.*');
-		$this->db->from('produk');
-        $this->db->join('warga', 'warga.id_warga = produk.id_warga', 'left');
-        $this->db->join('rekening', 'rekening.id_rekening = produk.id_rekening', 'left');
-        
         
 		$this->db->order_by('produk.id_produk', 'desc');
 		
@@ -86,40 +54,55 @@ class M_produk extends CI_Model {
 		
     }
 
+    public function edit($post){
+        
+        $params['id_kategori'] = $post['id_kategori'];
+        $params['nama_produk'] = $post['nama_produk'];
+        $params['slug'] = url_title($post['nama_produk'], 'dash', TRUE);
+        $params['harga'] = $post['harga'];
+        $params['deskripsi'] = $post['deskripsi'];
+        
+        if($post['gambar'] != null) {
+            $params['gambar'] = $post['gambar'];
+        }
+        $this->db->where('sha1(id_produk)', $post['kd']);
+        $this->db->update('produk',$params);
+    }
+
   
   
-    public function detail($id = null){
-        $this->db->select('warga.*,
-                          produk.*,
-                          detail.*');
-		$this->db->from('warga');
-        $this->db->join('produk', 'produk.id_warga = warga.id_warga', 'left');
-        $this->db->join('detail','detail.id_warga = detail.id_warga', 'left');
+    // public function detail($id = null){
+    //     $this->db->select('warga.*,
+    //                       produk.*,
+    //                       detail.*');
+	// 	$this->db->from('warga');
+    //     $this->db->join('produk', 'produk.id_warga = warga.id_warga', 'left');
+    //     $this->db->join('detail','detail.id_warga = detail.id_warga', 'left');
         
-		$this->db->order_by('warga.id_warga', 'desc');
+	// 	$this->db->order_by('warga.id_warga', 'desc');
 		
-		if($id != null){
-			$this->db->where("sha1(warga.id_warga)", $id);
-		}
-		$query = $this->db->get();
-		return $query;
-    }
-    public function dataDetail($id = null){
-        $this->db->select('warga.*,
-                          produk.*,
-                          detail.*');
-		$this->db->from('detail');
-        $this->db->join('produk', 'produk.id_produk = detail.id_produk', 'left');
-        $this->db->join('warga','warga.id_warga = detail.id_warga', 'left');
+	// 	if($id != null){
+	// 		$this->db->where("sha1(warga.id_warga)", $id);
+	// 	}
+	// 	$query = $this->db->get();
+	// 	return $query;
+    // }
+    // public function dataDetail($id = null){
+    //     $this->db->select('warga.*,
+    //                       produk.*,
+    //                       detail.*');
+	// 	$this->db->from('detail');
+    //     $this->db->join('produk', 'produk.id_produk = detail.id_produk', 'left');
+    //     $this->db->join('warga','warga.id_warga = detail.id_warga', 'left');
         
-		$this->db->order_by('detail.id_produk', 'desc');
+	// 	$this->db->order_by('detail.id_produk', 'desc');
 		
-		if($id != null){
-			$this->db->where("sha1(detail.id_produk)", $id);
-		}
-		$query = $this->db->get();
-		return $query;
-    }
+	// 	if($id != null){
+	// 		$this->db->where("sha1(detail.id_produk)", $id);
+	// 	}
+	// 	$query = $this->db->get();
+	// 	return $query;
+    // }
    
 	public function del_produk($id)
 	{
