@@ -70,44 +70,23 @@ class M_produk extends CI_Model {
 		return $query;
 	}
 
-	public function add_produk($post){
+	public function add($post){
 
 		$params['id_produk'] = $post['id_produk'];
-		$params['id_warga'] = $post['id_warga'];
-        $params['nominal'] = $post['nominal'];
-        $params['id_rekening'] = $post['rekening'];
-        $params['total_biaya'] = $post['total_biaya'];
-		$params['tgl_bayar'] = $post['tgl_bayar'];
+		$params['id_kategori'] = $post['id_kategori'];
+        $params['nama_produk'] = $post['nama_produk'];
+        $params['slug'] = url_title($post['nama_produk'], 'dash', TRUE);
+        $params['harga'] = $post['harga'];
+        $params['gambar'] = $post['gambar'];
+        $params['deskripsi'] = $post['deskripsi'];
+	
 		
 
 		$this->db->insert('produk', $params);
 		
     }
 
-    public function upload_bukti($post){
-        $params['bukti_bayar'] = $post['bukti_bayar'];
-
-        
-        $this->db->where('id_produk', $post['id_produk']);
-        
-        $this->db->update('produk', $params);
-        
-    }
-    
-    public function add_detail($post){
-        $bulan_spp = $post['bulan'];
-        $params['id_produk'] = $post['id_produk'];
-		$params['id_warga'] = $post['id_warga'];
-		
-        $params['tahun'] = $post['tahun'];
-        foreach($bulan_spp as $bulan) {
-            $params['bulan'] = $bulan;
-
-            $this->db->insert('detail', $params);
-        }
-	
-		
-	}
+  
   
     public function detail($id = null){
         $this->db->select('warga.*,
@@ -168,64 +147,7 @@ class M_produk extends CI_Model {
         date_default_timezone_set('Asia/Jakarta');
         return $no.date('ymd-').$kd;
     }
-    function getdetail($params = array())
-    {
-        
-        if(isset($params['id_produk']))
-        {
-            $this->db->where('id_produk', $params['id_produk']);
-        }
-
-        if(isset($params['id_warga']))
-        {
-            $this->db->where('id_warga', $params['id_warga']);
-        }
-        
-        if(isset($params['bulan']))
-        {
-            $this->db->where('bulan', $params['bulan']);
-        }
-        if(isset($params['tahun']))
-        {
-            $this->db->where('tahun', $params['tahun']);
-        }
-        
-
-        if(isset($params['limit']))
-        { 
-            if(!isset($params['offset']))
-            {
-                $params['offset'] = NULL;
-            }
-
-            $this->db->limit($params['limit'], $params['offset']);
-        }
-
-        if(isset($params['order_by']))
-        {
-            $this->db->order_by($params['order_by'], 'desc');
-        }
-        
-
-        $this->db->select('id_detail, id_warga, bulan,
-            tahun');
-        $res = $this->db->get('detail');
-
-       
-            return $res->result_array();
-    }
-        function get_tahun($kode)
-    {
-        $query=$this->db->query("SELECT DISTINCT tahun FROM detail WHERE id_warga = '$kode'");
-        return $query->result_array();
-    }
-
-    function get_butun($kode, $tahun)
-    {
-        $query=$this->db->query("SELECT * FROM detail WHERE id_warga = '$kode' and tahun = '$tahun' order by tahun asc");
-        return $query->result_array();
-    }
-
+ 
     public function report($where){
 		$this->db->select('produk.*,
         warga.*');
@@ -257,6 +179,56 @@ class M_produk extends CI_Model {
 		$query = $this->db->get();
 		return $query;
 	}
+
+      // start datatables
+    var $column_order = array(null, 'id_produk', 'nama_produk', 'kategori', 'harga'); //set column field database for datatable orderable
+    var $column_search = array('id_produk', 'nama_produk', 'kategori','harga'); //set column field database for datatable searchable
+    var $order = array('id_produk' => 'asc'); // default order 
+ 
+    private function _get_datatables_query() {
+        $this->db->select('produk.*, kategori.kategori as kategori');
+        $this->db->from('produk');
+        $this->db->join('kategori', 'produk.id_kategori = kategori.id_kategori');
+      
+        $i = 0;
+        foreach ($this->column_search as $item) { // loop column 
+            if(@$_POST['search']['value']) { // if datatable send POST for search
+                if($i===0) { // first loop
+                    $this->db->group_start(); // open bracket. query Where with OR clause better with bracket. because maybe can combine with other WHERE with AND.
+                    $this->db->like($item, $_POST['search']['value']);
+                } else {
+                    $this->db->or_like($item, $_POST['search']['value']);
+                }
+                if(count($this->column_search) - 1 == $i) //last loop
+                    $this->db->group_end(); //close bracket
+            }
+            $i++;
+        }
+         
+        if(isset($_POST['order'])) { // here order processing
+            $this->db->order_by($this->column_order[$_POST['order']['0']['column']], $_POST['order']['0']['dir']);
+        }  else if(isset($this->order)) {
+            $order = $this->order;
+            $this->db->order_by(key($order), $order[key($order)]);
+        }
+    }
+    function get_datatables() {
+        $this->_get_datatables_query();
+        if(@$_POST['length'] != -1)
+        $this->db->limit(@$_POST['length'], @$_POST['start']);
+        $query = $this->db->get();
+        return $query->result();
+    }
+    function count_filtered() {
+        $this->_get_datatables_query();
+        $query = $this->db->get();
+        return $query->num_rows();
+    }
+    function count_all() {
+        $this->db->from('produk');
+        return $this->db->count_all_results();
+    }
+    // end datatables
 }
 
 /* EM_siswae ModelName.php */

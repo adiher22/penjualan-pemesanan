@@ -36,25 +36,21 @@
     </div>
     <!-- /.card-header -->
     <!-- form start -->
-            <form action="<?= site_url('admin/master/tambahProduk') ?>" method="post">
+            <form action="<?= site_url('admin/master/tambahProduk') ?>" enctype="multipart/form-data" method="post">
             <div class="card-body">
                 <div class="form-group">
                     <label for="exampleInputEmail1">Nama Produk</label>
-                    <input type="hidden" name="id_produk" value="<?= sha1($kd) ?>">
+                    <input type="hidden" name="id_produk" value="<?= $kd ?>">
                     <input type="text" class="form-control" name="nama_produk" id="nama_produk" placeholder="Nama Produk"
-                    data-validation="length " data-validation-length="3-20" data-validation-error-msg="Minimal 3 karakter">
-                    <?= form_error('nama_produk')?>
-                </div>
-                <div class="form-group">
-                    <label for="exampleInputEmail1">Nama Produk</label>
-                    <input type="text" class="form-control" name="nama_produk" id="nama_produk" placeholder="Nama Produk"
-                    data-validation="length " data-validation-length="3-20" data-validation-error-msg="Minimal 3 karakter">
+                    data-validation="length " data-validation-length="3-300" data-validation-error-msg="Minimal 3 karakter">
                     <?= form_error('nama_produk')?>
                 </div>
                 <div class="from-group">
                     <label for="kategori">Kategori Produk</label>
                     <select name="id_kategori" id="" class="form-control">
+                        <option value="">--Pilih Kategori--</option>
                     <?php foreach($kategori as $k ) {?>
+                       
                         <option value="<?= $k->id_kategori ?>"><?= $k->kategori ?></option>
                     <?php } ?>
                     </select>
@@ -84,8 +80,8 @@
             <!-- /.card-body -->
 
             <div class="card-footer">
-                <button type="submit" class="btn btn-danger">Submit</button>
-                <button type="reset" class="btn btn-danger">Reset</button>
+                <button type="submit" class="btn btn-danger"><i class="fas fa-save"></i> Simpan</button>
+                <button type="reset" class="btn btn-success"><i class="fas fa-times"></i> Reset</button>
             </div>
             </form>
          </div>

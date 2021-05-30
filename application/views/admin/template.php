@@ -10,6 +10,8 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- Font Awesome -->
   <link rel="stylesheet" href="<?= site_url('assets/template/plugins/fontawesome-free/css/all.min.css')?>">
+   <!-- Summernote -->
+  <link rel="stylesheet" href="<?= site_url('assets/template/plugins/summernote/summernote-bs4.min.css') ?>">
   <!-- Ionicons -->
   <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
   <!-- Datatables -->
@@ -256,7 +258,8 @@
 <script src="<?= site_url('assets/template/plugins/datatables-buttons/js/buttons.html5.min.js')?>"></script>
 <script src="<?= site_url('assets/template/plugins/datatables-buttons/js/buttons.print.min.js')?>"></script>
 <script src="<?= site_url('assets/template/plugins/datatables-buttons/js/buttons.colVis.min.js')?>"></script>
-
+<!-- Summernote -->
+<script src="<?= site_url('assets/template/plugins/summernote/summernote-bs4.min.js') ?>"></script>
 <!-- Bootstrap 4 -->
 <script src="<?= site_url('assets/template/plugins/bootstrap/js/bootstrap.bundle.min.js')?>"></script>
 
@@ -271,10 +274,7 @@
 <script src="<?= site_url('assets/template/plugins/toastr/toastr.min.js')?>"></script>
 <!-- AdminLTE App -->
 <script src="<?= site_url('assets/template/dist/js/adminlte.js')?>"></script>
-<!-- AdminLTE for demo purposes -->
-<script src="<?= site_url('assets/template/dist/js/demo.js')?>"></script>
-<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-<script src="<?= site_url('assets/template/dist/js/pages/dashboard.js')?>"></script>
+
 <!-- Tempusdominus Bootstrap 4 -->
 <script src="<?= site_url('assets/template/plugins/moment/moment.min.js')?>"></script>
 <script src="<?= site_url('assets/template/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js')?>"></script>

@@ -12,7 +12,34 @@ class Master extends CI_Controller {
         $this->load->model('M_produk');
         $this->load->model('M_kategori');
     }
-    
+     function get_ajax() {
+        $list = $this->M_produk->get_datatables();
+        $data = array();
+        $no = @$_POST['start'];
+        foreach ($list as $item) {
+            $no++;
+            $row = array();
+            $row[] = $no.".";
+            $row[] = $item->id_produk;
+            $row[] = $item->nama_produk;
+            $row[] = $item->kategori;
+            $row[] = indo_curency($item->harga);
+            $row[] = $item->deskripsi;
+            $row[] = $item->gambar != null ? '<img src="'.site_url('upload/produk/'.$item->gambar).'" class="img" style="width:100px">' : null;
+            // add html for action
+            $row[] = '<a href="'.site_url('admin/master/editProduk/'.$item->id_produk).'" class="btn btn-info btn-sm"><i class="fas fa-edit"></i> Edit</a>
+                    <a href="'.site_url('admin/master/delProduk/'.$item->id_produk).'" id="btn-hapus" class="btn btn-warning btn-sm"><i class="fas fa-trash"></i> Hapus</a>';
+            $data[] = $row;
+        }
+        $output = array(
+                    "draw" => @$_POST['draw'],
+                    "recordsTotal" => $this->M_produk->count_all(),
+                    "recordsFiltered" => $this->M_produk->count_filtered(),
+                    "data" => $data,
+                );
+        // output to json format
+        echo json_encode($output);
+    }
 
     public function produk()
     {
@@ -26,20 +53,13 @@ class Master extends CI_Controller {
         $this->form_validation->set_rules('nama_produk', 'Nama Produk', 'trim|required', 
             array(	'required' => '%s Harus Diisi'));
 
-		$this->form_validation->set_rules('nama', 'Nama Produk', 'trim|required|min_length[3]',
-			array(	'required' => '%s Harus Diisi',
-					'min_length' => '%s Minimal 3 karakter'));
-
-		$this->form_validation->set_rules('kategori', 'Kategori Produk', 'trim|required',
+		$this->form_validation->set_rules('id_kategori', 'Kategori Produk', 'trim|required',
 		array(	'required' => '%s Harus Diisi'));
 
 		$this->form_validation->set_rules('harga', 'Harga Produk', 'trim|required|is_numeric',
 		array(	'required' => '%s Harus Diisi',
 				'is_numeric' => '%s Harus Berupa Angka'));
-
-		$this->form_validation->set_rules('gambar', 'Gambar Produk', 'trim|required',
-		array(	'required' => '%s Harus Diisi'));
-
+				
 		$this->form_validation->set_rules('deskripsi', 'Deskripsi Produk', 'trim|required',
 		array(	'required' => '%s Harus Diisi'));
 
@@ -53,15 +73,31 @@ class Master extends CI_Controller {
             $this->template->load('admin/template', 'admin/produk/add_produk', $data);
 		}else {
 			$post = $this->input->post(null, TRUE);
-			$this->M_produk->add($post);
-			if($this->db->affected_rows() > 0) {
-                $this->session->set_flashdata('sukses','Data Berhasil Ditambahkan');
-                redirect(base_url('admin/master/produk'),'refresh');
-            }
-		}
+				// upload gambar produk
+			$config['upload_path'] = './upload/produk/';
+			$config['allowed_types'] = 'jpg|png|jpeg';
+			$config['max_size'] = 2048;
+			$config['file_name'] = 'produk-'.date('ymd').'-'.substr(md5(rand()),0,01); 
 
-		
-    }
+			$this->load->library('upload', $config);
+			// Upload foto
+			if($this->upload->do_upload('gambar')){
+			$post['gambar'] = $this->upload->data('file_name');
+
+			$this->M_produk->add($post);
+				if($this->db->affected_rows() > 0) {
+					$this->session->set_flashdata('sukses','Data Berhasil Ditambahkan');
+					redirect(base_url('admin/master/produk'),'refresh');
+				}
+			}else{
+				$error = $this->upload->display_errors();
+			 	$this->session->set_flashdata('error',$error);
+				redirect(base_url('admin/master/produk'),'refresh');
+    		 	}
+			}
+	}
+
+
 
     public function editProduk()
     {
