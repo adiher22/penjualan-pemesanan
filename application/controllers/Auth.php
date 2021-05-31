@@ -8,15 +8,15 @@ class Auth extends CI_Controller {
 	{
 		parent::__construct();
 		//Do your magic here
-		$this->load->model('M_warga');
-		
+		$this->load->model('M_customer');
+		check_already_user_login();
 	}
 	
 
     public function index()
     {
-		check_already_warga_login();
-
+		
+		$data['title'] = "Login Customer";
 		$data['copyright'] = "Adiher";
 
         $this->load->view('auth/login',$data);
@@ -27,12 +27,12 @@ class Auth extends CI_Controller {
 
 		$post = $this->input->post(null, TRUE);
 		if(isset($post['login'])){
-			$this->load->model('M_warga');
-			$query = $this->M_warga->login($post);
+			$this->load->model('M_customer');
+			$query = $this->M_customer->login($post);
 			if($query->num_rows() > 0){
 				$row = $query->row();
 
-				$param = ['wargaid' => $row->id_warga,
+				$param = ['customerid' => $row->id_customer,
 						  'nama'    => $row->nama]; 
 			
 				$this->session->set_userdata($param);
@@ -48,9 +48,9 @@ class Auth extends CI_Controller {
 
     public function register()
     {
-		check_already_warga_login();
 		
-		$this->form_validation->set_rules('username', 'Username', 'trim|required|is_unique[warga.nama_pengguna]', 
+		
+		$this->form_validation->set_rules('username', 'Username', 'trim|required|is_unique[customer.nama_pengguna]', 
 		array(	'required' => '%s Harus Diisi',
 				'is_unique' => '%s / nama pengguna sudah digunakan! gunakan useranme lain..'));
 
@@ -66,7 +66,7 @@ class Auth extends CI_Controller {
 					'min_length' => '%s Minimal 4 Karakter',
 					'max_length' => '%s Maksimal 20 Karakter'));
 
-		$this->form_validation->set_rules('nama', 'Nama Warga', 'trim|required',
+		$this->form_validation->set_rules('nama', 'Nama Customer', 'trim|required',
 			array(	'required' => '%s Harus Diisi'));
 
 		$this->form_validation->set_rules('alamat', 'Alamat', 'trim|required', 
@@ -75,13 +75,16 @@ class Auth extends CI_Controller {
 		$this->form_validation->set_error_delimiters('<span class="text-danger">','</span>');
 
 		if($this->form_validation->run() == FALSE) {
+		
 			
-			$data['title'] = "Registrasi Data Warga";
+			$data['title'] = "Registrasi Data Customer";
 			$data['copyright'] = "Adiher";
+		
+
 			$this->load->view('auth/register',$data);
 		}else {
 			$post = $this->input->post(null, TRUE);
-			$this->M_warga->add($post);
+			$this->M_customer->add($post);
 			if($this->db->affected_rows() > 0) {
 				$this->session->set_flashdata('sukses','Registrasi Berhasil..! Anda bisa login sekarang');
 				redirect(base_url('auth'),'refresh');
@@ -90,10 +93,27 @@ class Auth extends CI_Controller {
 	}
 	public function logout()
 	{
-		$param = ['wargaid', 'nama'];
+		$param = ['customerid', 'nama'];
 		$this->session->unset_userdata($param);
 		$this->session->set_flashdata('sukses_logout','Anda Berhasil Logout');
 		redirect(base_url('auth'),'refresh');
+	}
+
+	function check_email(){
+		
+		$email = $this->input->get('email');
+		$where = ['email' => $email];
+		$query = $this->M_customer->where($where);
+		 
+		
+		if($query->num_rows() > 0){
+			echo  "Unvailable";
+		}else{
+			echo "Available";
+		}
+		
+		return $query;
+		
 	}
 }
 

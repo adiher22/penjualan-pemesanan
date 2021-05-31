@@ -1,11 +1,11 @@
 <?php 
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class M_warga extends CI_Model {
+class M_customer extends CI_Model {
    
 	public function login($post){
 		$this->db->select('*');
-		$this->db->from('warga');
+		$this->db->from('customer');
 		$this->db->where('nama_pengguna', $post['username']);
 		$this->db->where('password', password_verify($post['password'], PASSWORD_BCRYPT));
 		$query = $this->db->get();
@@ -14,39 +14,39 @@ class M_warga extends CI_Model {
 
 	public function get($id = null){
 
-		$this->db->from('warga');
+		$this->db->from('customer');
 		if($id != null){
-			$this->db->where('id_warga',$id);
+			$this->db->where('id_customer',$id);
 		}
 		$query = $this->db->get();
 		return $query;
 	}
 	public function get_lib($id = null){
 
-		$this->db->from('warga');
+		$this->db->from('customer');
 		if($id != null){
-			$this->db->where("id_warga", $id);
+			$this->db->where("id_customer", $id);
 		}
 		$query = $this->db->get();
 		return $query;
 	}
 	public function where($where){
 		
-		$this->db->select('no_rek');
+		$this->db->select('*');
 		
-		$this->db->from('warga');
+		$this->db->from('customer');
 		$this->db->where($where);
 		$query = $this->db->get();
-		$query->row();
+	
 		return $query;
 		
 		
 	}
 	public function get_edit($id = null){
 
-		$this->db->from('warga');
+		$this->db->from('customer');
 		if($id != null){
-			$this->db->where("sha1(id_warga)", $id);
+			$this->db->where("sha1(id_customer)", $id);
 		}
 		$query = $this->db->get();
 		return $query;
@@ -69,7 +69,7 @@ class M_warga extends CI_Model {
 		$params['alamat'] = $post['alamat'];
 		$params['tgl_daftar'] = date('Y-m-d');
 		
-		$this->db->insert('warga', $params);
+		$this->db->insert('customer', $params);
 		
 	}
 
@@ -86,14 +86,14 @@ class M_warga extends CI_Model {
 		}
 		$params['alamat'] = $post['alamat'];
 
-		$this->db->where('id_warga', $post['id_warga']);
-		$this->db->update('warga', $params);
+		$this->db->where('id_customer', $post['id_customer']);
+		$this->db->update('customer', $params);
 	}
 
 	public function del($id)
 	{
-		$this->db->where('id_warga', $id);
-		$this->db->delete('warga');
+		$this->db->where('id_customer', $id);
+		$this->db->delete('customer');
 	}
     
 }

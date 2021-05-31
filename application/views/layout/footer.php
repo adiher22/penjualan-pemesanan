@@ -1,46 +1,73 @@
- <!-- Footer -->
- <footer class="footer">
-        <div class="container"> 
-            <div class="row">
-               <div class="col-12">
-                  <div class="footer-credits text-center">
-                     <p class="mb-0"><a href="#" >Yank</a> &copy; 2020 | Designed By - <a href="https://angrystudio.com">Angry Studio</a></p>
-                  </div>
-               </div>
-            </div>
-         </div>
-      </footer>
-      <script src="<?= site_url('assets/front-end/js/jquery.min.js')?>"></script>
-      <script src="<?= site_url('assets/front-end/js/bootstrap.min.js')?>"></script>
-      <script src="<?= site_url('assets/front-end/js/main.js')?>"></script>
-      <!-- SweetAlert2 -->
-      <script src="<?= base_url('assets/login/vendor/sweetalert2/dist/sweetalert2.min.js')?>"></script>
-   </body>
+<script src="<?= site_url('assets/front-end/vendor/jquery/jquery.slim.min.js') ?>"></script>
+    <script src="<?= site_url('assets/front-end/vendor/bootstrap/js/bootstrap.bundle.min.js') ?>"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    
+    <script>
+      AOS.init();
+    </script>
+    <script src="<?= site_url('assets/front-end/vendor/vue/vue.js') ?>"></script>
+    <script src="https://unpkg.com/vue-toasted"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script>
+      Vue.use(Toasted);
+
+       var register = new Vue({
+        el: '#register',
+        mounted() {
+          AOS.init();
+        },
+     
+    methods:{
+      EmailAvailability: function(){
+          var self = this;
+          var email = this.email.trim();
+          // Make a request for a user with a given ID
+          axios.get('<?= site_url('auth/check_email') ?>', {
+            params: {
+              email:email
+            }
+          })
+            .then(function (response) {
+
+              if(response.data == 'Available'){
+                self.$toasted.success(
+                  "Email anda tersedia.. Silahkan lanjut langkah selanjutnya",
+                  {
+                    position: "top-center",
+                    className: "rounded",
+                    duration: 5000,
+                  }
+                );
+                self.email_unavailable = false;
+              }else{
+                self.$toasted.error(
+                  "Maaf, tampaknya email sudah terdaftar pada sistem kami.",
+                  {
+                    position: "top-center",
+                    className: "rounded",
+                    duration: 5000,
+                  }
+                );
+                self.email_unavailable = true;
+              }
+            })
+            .catch(function (error) {
+              console.log(error);
+            });
+        
+      }
+    },
+      data() {
+          return {
+            name: "",
+            email: "",
+            is_rekening: true,
+            store_name: "",
+            email_unavailable: false
+          }
+      }
+  });
+    </script>
+    <script src="<?= site_url('assets/front-end/script/navbar-scroll.js') ?>"></script>
+  </body>
 </html>
-<script>
-    // Substring for name user 
-      var ses = <?= json_encode($this->session->userdata('nama'))?>;
-      var cut = ses.split(' ')[0]; // Script substr
-      document.getElementById('ses').innerHTML = cut;
-
-      
-  // Logout
-  $(document).on('click', '#btn-logout', function(e){
-      e.preventDefault();
-      var link = $(this).attr('href');
-
-      Swal.fire({
-      title: 'Apakah anda yakin?',
-      text: "Anda akan keluar!",
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#28a745',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Ya, Keluar!'
-      }).then((result) => {
-        if (result.isConfirmed) {
-            window.location = link;
-        }
-      })
-  })
-</script>

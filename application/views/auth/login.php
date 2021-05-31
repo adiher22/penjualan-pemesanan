@@ -8,7 +8,8 @@
     />
     <meta name="description" content="" />
     <meta name="author" content="" />
-
+    <!-- Icon -->
+    <link rel="icon" type="image/png" href="<?= base_url('assets/template/dist/img/logo.png') ?>"/>
     <title>PT KOGAWA TEKNIK INDONESIA </title>
 
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
@@ -23,7 +24,7 @@
     data-aos="fade-down">
       <div class="container">
         <a href="#" class="navbar-brand">
-          <img src="<?= site_url('assets/front-end/images/logo.svg') ?>" alt="Logo" />
+          <img src="<?= site_url('assets/template/dist/img/logo.png') ?>" alt="Logo" />
         </a>
       
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive">
@@ -48,23 +49,23 @@
        <div class="container">
          <div class="row align-items-center row-login">
            <div class="col-lg-6 text-center">
-             <img src="<?= site_url('assets/front-end/images/login-placeholder.png') ?>" alt="" class="w-50 mb-4 mb-lg-none">
+             <img src="<?= site_url('assets/front-end/images/undraw_authentication_fsn5.svg') ?>" alt="" class="w-50 mb-4 mb-lg-none">
            </div>
            <div class="col-lg-5">
              <h2>
                Transaksi lebih mudah, <br> pemesanan lebih nyaman
-             </h2>
-             <form action="" class="mt-3">
+             </h2><br>
+             <form action="<?= site_url('auth/proses') ?>" method="POST" class="mt-3">
               <div class="form-group">
                 <label>Email Address</label>
-                <input type="email" name="email" class="form-control w-75">
+                <input type="email" name="email" class="form-control w-75" required>
               </div>
               <div class="form-group">
                 <label>Password</label>
-                <input type="password" name="password" class="form-control w-75">
+                <input type="password" name="password" class="form-control w-75" required>
               </div>
-              <button type="submit" name="login" class="btn btn-info btn-block w-75 mt-4">Masuk Untuk Akun Anda</button>
-              <a href="" class="btn btn-signup btn-block w-75 mt-2">Registrasi Akun</a>
+              <button type="submit" name="login" class="btn btn-primary btn-block w-75 mt-4">Masuk Untuk Akun Anda</button>
+              <a href="<?= site_url('auth/register') ?>" class="btn btn-signup btn-block w-75 mt-2">Registrasi Akun</a>
              </form>
            </div>
          </div>

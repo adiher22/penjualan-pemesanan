@@ -18,7 +18,7 @@ function check_not_login() {
   }
 }
 
-function check_already_warga_login() {
+function check_already_user_login() {
 
     $ci =& get_instance();
     $user_session = $ci->session->userdata('wargaid');
@@ -55,7 +55,7 @@ if(!function_exists('cek_csrf')){
     }
 }
 
-function check_not_warga_login() {
+function check_not_user_login() {
 
     $ci =& get_instance();
     $user_session = $ci->session->userdata('wargaid');
