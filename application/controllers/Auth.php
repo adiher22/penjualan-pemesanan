@@ -17,7 +17,9 @@ class Auth extends CI_Controller {
     {
 		check_already_warga_login();
 
-        $this->load->view('auth/login');
+		$data['copyright'] = "Adiher";
+
+        $this->load->view('auth/login',$data);
     }
     public function proses()
 	{
@@ -75,7 +77,7 @@ class Auth extends CI_Controller {
 		if($this->form_validation->run() == FALSE) {
 			
 			$data['title'] = "Registrasi Data Warga";
-			
+			$data['copyright'] = "Adiher";
 			$this->load->view('auth/register',$data);
 		}else {
 			$post = $this->input->post(null, TRUE);

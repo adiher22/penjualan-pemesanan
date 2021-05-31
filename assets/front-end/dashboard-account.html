@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+
+    <title>Store Jajan - Tempat Belanja Terbaik </title>
+
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+    <link href="style/main.css" rel="stylesheet" />
+  </head>
+
+  <body>
+    <div class="page-dashboard">
+      <div class="d-flex" id="wrapper" data-aos="fade-right">
+        <!-- Sidebar -->
+        <div class="border-right" id="sidebar-wrapper">
+          <div class="sidebar-heading text-center">
+            <img src="images/dashboard-store-logo.svg" alt="" class="my-4">
+          </div>
+          <div class="list-group list-group-flush">
+            <a href="dashboard.html" class="list-group-item list-group-item-action">
+              Dashboard
+            </a>
+            <a href="dashboard-product.html" class="list-group-item list-group-item-action">
+              My Product
+            </a>
+            <a href="dashboard-transaction.html" class="list-group-item list-group-item-action">
+              Transaction
+            </a>
+            <a href="dashboard-settings.html" class="list-group-item list-group-item-action">
+              Store Settings
+            </a>
+            <a href="dashboard-account.html" class="list-group-item list-group-item-action active">
+              My Account
+            </a>
+            <a href="index.html" class="list-group-item list-group-item-action">
+              Sign Out
+            </a>
+          </div>
+        
+      </div>
+       <!-- /Sidebar -->
+      <!-- Page Content -->
+      <div id="page-content-wrapper">
+       <nav class="navbar navbar-expand-lg navbar-light navbar-store fixed-top"
+          data-aos="fade-down">
+            
+            <button class="btn btn-secondary d-md-none mr-auto mr-2" id="menu-toggle">&laquo; Menu</button>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              
+              <!-- Dekstop menu -->
+              <ul class="navbar-nav d-none d-lg-flex ml-auto">
+                <li class="nav-item dropdown">
+                
+                <a href="#" class="nav-link" id="navbarDropdown" role="button" data-toggle="dropdown">
+                  <img src="/images/cat.jpg" alt="" class="rounded-circle mr-2 profile-picture">
+                  Hi, Adi
+                </a>
+                <div class="dropdown-menu">
+                  <a href="/index.html" class="dropdown-item">Back to Store</a>
+                  <a href="/dashboard-account.html" class="dropdown-item">Settings</a>
+                  <div class="dropdown-divider"></div>
+                  <a href="/" class="dropdown-item">Logout</a>
+                </div>
+                  
+              </li>
+              <li class="nav-item">
+                <a href="" class="nav-link d-inline-block mt-2">
+                  <img src="/images/icon-cart-filled.svg" alt="" />
+                  <div class="card-badge">3</div>
+                </a>
+              </li>
+              </ul>
+              <!-- Mobile Menu -->
+              <ul class="navbar-nav d-block d-lg-none">
+                <li class="nav-item">
+                  <a href="#" class="nav-link">
+                    Hi, Adi
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="#" class="nav-link d-inline-block">
+                    Cart
+                  </a>
+                </li>
+              </ul>
+            </div>
+        </nav>
+
+        <!-- Section Content -->
+        <div class="section-content section-dashboard-home" data-aos="fade-up">
+          <div class="container-fluid">
+            <div class="dashboard-heading">
+              <h2 class="dashboard-title">My Account</h2>
+              <p class="dashboard-subtitle">
+                Update your current profile
+              </p>
+            </div>
+            <div class="dashboard-content">
+              <div class="row">
+                <div class="col-12">
+                  <form action="">
+                    <div class="card">
+                      <div class="card-body">
+                        <div class="row">
+                          <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="name">Your Name</label>
+                                <input type="text" id="name" name="name" class="form-control" value="Adi Hernawan" />
+                            </div>
+                           </div>
+                          <div class="col-md-6">
+                              <div class="form-group">
+                                  <label for="email">Your Email</label>
+                                  <input type="email" id="email" name="email" class="form-control" value="adi@adiher-store.com" />
+                              </div>
+                          </div>
+                          <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="addressOne">Address 1</label>
+                                <input type="text" id="addressOne" name="addressOne" class="form-control" value="Setra Dutra Centra" />
+                            </div>
+                           </div>
+                          <div class="col-md-6">
+                              <div class="form-group">
+                                  <label for="addressTwo">Address 2</label>
+                                  <input type="text" id="addressTwo" name="addressTwo" class="form-control" value="Bekasi, Cikarang Selatan." />
+                              </div>
+                          </div>
+                          <div class="col-md-4">
+                              <div class="form-group">
+                                  <label for="province">Province</label>
+                                  <select id="province" name="province" class="form-control">
+                                      <option value="West Java">West Java</option>
+                                  </select>
+                              </div>
+                          </div>
+                          <div class="col-md-4">
+                              <div class="form-group">
+                                  <label for="city">City</label>
+                                  <select id="city" name="city" class="form-control">
+                                      <option value="Bekasi">Bekasi</option>
+                                  </select>
+                              </div>
+                          </div>
+                          <div class="col-md-4">
+                              <div class="form-group">
+                                  <label for="postalCode">Postal Code</label>
+                                  <input type="text" id="postalCode" name="postalCode" class="form-control" value="17533" />
+                              </div>
+                          </div>
+                          <div class="col-md-6">
+                              <div class="form-group">
+                                  <label for="country">Country</label>
+                                  <input type="text" id="country" name="country" class="form-control" value="Indonesia" />
+                              </div>
+                          </div>
+                          <div class="col-md-6">
+                              <div class="form-group">
+                                  <label for="mobile">Mobile</label>
+                                  <input type="text" id="mobile" name="mobile" class="form-control" value="+628 998 2233" />
+                              </div>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col text-right">
+                            <button type="submit" class="btn btn-success px-5">Save Now</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      <!-- </ Page Content Wrapper -->
+     </div>
+    </div>
+    <!-- Bootstrap core JavaScript -->
+    <script src="/vendor/jquery/jquery.slim.min.js"></script>
+    <script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  
+    <script>
+      AOS.init();
+    </script>
+     <script>
+       $('#menu-toggle').click(function (e){
+         e.preventDefault();
+         $('#wrapper').toggleClass('toggled');
+       });
+     </script>
+  </body>
+</html>
