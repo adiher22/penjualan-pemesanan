@@ -10,7 +10,7 @@
     <meta name="author" content="" />
     <!-- Icon -->
     <link rel="icon" type="image/png" href="<?= base_url('assets/template/dist/img/logo.png') ?>"/>
-    <title>PT KOGAWA TEKNIK INDONESIA </title>
+    <title>PT KOGAWA TEKNIK INDONESIA - <?= $title ?></title>
 
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
     <link href="<?= site_url('assets/front-end/style/main.css') ?>" rel="stylesheet" />
@@ -36,7 +36,10 @@
             <a href="#" class="nav-link">Home</a>
           </li>
           <li class="nav-item">
-            <a href="#" class="nav-link">Categories</a> 
+            <a href="#" class="nav-link">Tentang Perusahaan</a> 
+          </li>
+           <li class="nav-item">
+            <a href="#" class="nav-link">Kontak</a> 
           </li>
           
          

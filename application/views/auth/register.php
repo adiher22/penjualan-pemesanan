@@ -1,5 +1,49 @@
+<!DOCTYPE html>
+  <html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+     <!-- Icon -->
+    <link rel="icon" type="image/png" href="<?= base_url('assets/template/dist/img/logo.png') ?>"/>
+    <title> PT KOGAWA TEKNIK INDONESIA - <?= $title ?> </title>
 
-    <?= $this->load->view('layout/header.php') ?>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+    <link href="<?= site_url('assets/front-end/style/main.css') ?>" rel="stylesheet" />
+  </head>
+
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-light navbar-store fixed-top navbar-fixed-top"
+    data-aos="fade-down">
+      <div class="container">
+        <a href="#" class="navbar-brand">
+          <img src="<?= site_url('assets/template/dist/img/logo.png') ?>" alt="Logo" />
+        </a>
+      
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a href="#" class="nav-link">Home</a>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link">Tentang Perusahaan</a> 
+          </li>
+           <li class="nav-item">
+            <a href="#" class="nav-link">Kontak</a> 
+          </li>
+         
+        </ul>
+      </div>
+    </div>
+  </nav>
+  
    <div class="page-content page-auth" id="register">
      <div class="section-store-auth" data-aos="fade-up">
        <div class="container">
@@ -63,5 +107,78 @@
        </div>
      </div>
    </div>
-   
+   <script src="<?= site_url('assets/front-end/vendor/jquery/jquery.slim.min.js') ?>"></script>
+    <script src="<?= site_url('assets/front-end/vendor/bootstrap/js/bootstrap.bundle.min.js') ?>"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    
+    <script>
+      AOS.init();
+    </script>
+    <script src="<?= site_url('assets/front-end/vendor/vue/vue.js') ?>"></script>
+    <script src="https://unpkg.com/vue-toasted"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script>
+      Vue.use(Toasted);
+
+       var register = new Vue({
+        el: '#register',
+        mounted() {
+          AOS.init();
+        },
+     
+    methods:{
+      EmailAvailability: function(){
+          var self = this;
+          var email = this.email.trim();
+          // Make a request for a user with a given ID
+          axios.get('<?= site_url('auth/check_email') ?>', {
+            params: {
+              email:email
+            }
+          })
+            .then(function (response) {
+
+              if(response.data == 'Available'){
+                self.$toasted.success(
+                  "Email anda tersedia.. Silahkan lanjut langkah selanjutnya",
+                  {
+                    position: "top-center",
+                    className: "rounded",
+                    duration: 5000,
+                  }
+                );
+                self.email_unavailable = false;
+              }else{
+                self.$toasted.error(
+                  "Maaf, tampaknya email sudah terdaftar pada sistem kami.",
+                  {
+                    position: "top-center",
+                    className: "rounded",
+                    duration: 5000,
+                  }
+                );
+                self.email_unavailable = true;
+              }
+            })
+            .catch(function (error) {
+              console.log(error);
+            });
+        
+      }
+    },
+      data() {
+          return {
+            name: "",
+            email: "",
+            is_rekening: true,
+            store_name: "",
+            email_unavailable: false
+          }
+      }
+  });
+    </script>
+    <script src="<?= site_url('assets/front-end/script/navbar-scroll.js') ?>"></script>
+  </body>
+</html>
+
   
