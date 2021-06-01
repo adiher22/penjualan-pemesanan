@@ -53,27 +53,27 @@
              <h2>
                Memulai untuk transaksi <br> dengan cara terbaru
              </h2>
-             <form class="mt-3" action="<?= site_url('auth/register') ?>" method="post">
+             <form class="mt-3" action="<?= site_url('auth/register') ?>" method="POST">
               <div class="form-group">
                 <label>Nama Customer</label>
-                <input type="text" name="nama" class="form-control is-valid" v-model="name" autofocus>
+                <input type="text" name="nama_cust" class="form-control is-valid" v-model="name" required>
+                <input type="hidden" name="kd" value="<?= $kd ?>">
+                  <strong><?= form_error('nama_cust') ?></strong>
               </div>
               <div class="form-group">
                <label>Email Address</label>
              
-               <input id="email" type="email"  v-model="email" @change="EmailAvailability()" class="form-control <?= form_error('email') ?>" 
+               <input id="email" type="email"  v-model="email" @change="EmailAvailability()" class="form-control" 
                :class="{ 'is_invalid' : this.email_unavailable }"
                name="email" required="email">
-
-               <!-- @error('email')
-                   <span class="invalid-feedback" role="alert">
-                       <strong>{{ $message }}</strong>
-                   </span>
-               @enderror -->
+                  <strong><?= form_error('email') ?></strong>
+                
+           
               </div>
               <div class="form-group">
                 <label>Password</label>
-                <input type="password" name="password" class="form-control">
+                <input type="password" name="password" class="form-control" required>
+                  <strong><?= form_error('password') ?></strong>
               </div>
               <div class="form-group">
                 <label>Rekening </label>
@@ -89,15 +89,17 @@
               </div>
               <div class="form-group" v-if="is_rekening">
                 <label>Nomor Rekening</label>
-                <input type="text" name="no_rek" class="form-control">
+                <input type="number" name="no_rek" class="form-control">
               </div>
               <div class="form-group">
                 <label>No Hanphone</label>
-                  <input type="number" name="no_hp" class="form-control">
+                  <input type="number" name="no_hp" class="form-control" required="number">
+                    <strong><?= form_error('no_hp') ?></strong>
               </div>
               <div class="form-group">
                 <label>Alamat</label>
-                  <textarea type="number" name="alamat" class="form-control"></textarea>
+                  <textarea type="number" name="alamat" class="form-control" required></textarea>
+                    <strong><?= form_error('alamat') ?></strong>
               </div>
               <button type="submit" name="registrasi" :disabled="this.email_unavailable" class="btn btn-primary btn-block  mt-4">Registrasi Sekarang</button>
               <a href="<?= site_url('auth') ?>" class="btn btn-signup btn-block mt-2">Kembali ke halaman masuk</a>

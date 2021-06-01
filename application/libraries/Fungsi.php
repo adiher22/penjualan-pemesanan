@@ -21,9 +21,9 @@ class Fungsi
 	}
 
 	function user_login() {
-		$this->ci->load->model('M_warga');
-		$warga_id = $this->ci->session->userdata('wargaid');
-		$user_data = $this->ci->M_warga->get_lib($warga_id)->row();
+		$this->ci->load->model('M_customer');
+		$id_cust = $this->ci->session->userdata('customerid');
+		$user_data = $this->ci->M_customer->get_lib($id_cust)->row();
 
 		return $user_data;
 	}

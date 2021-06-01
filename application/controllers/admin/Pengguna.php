@@ -106,10 +106,10 @@ class Pengguna extends CI_Controller {
 						$this->session->set_flashdata('sukses','Data Berhasil Diubah');
 						redirect(base_url('admin/dashboard'),'refresh');
 					}
-				}else{
-						$this->session->set_flashdata('warning','Data Tidak Diubah');
-						redirect(base_url('admin/dashboard'),'refresh');
-					}
+			}else{
+					$this->session->set_flashdata('sukses','Data Diubah Tanpa Gambar');
+					redirect(base_url('admin/dashboard'),'refresh');
+				}
 				
      			
 				

@@ -63,13 +63,13 @@
                 
                 <a href="#" class="nav-link" id="navbarDropdown" role="button" data-toggle="dropdown">
                   <img src="<?= site_url('assets/front-end/images/cat.jpg') ?>" alt="" class="rounded-circle mr-2 profile-picture">
-                  Hi, Adi
+                  Hi, <?= $this->fungsi->user_login()->nama_cust ?>
                 </a>
                 <div class="dropdown-menu">
                   <a href="/index.html" class="dropdown-item">Back to Store</a>
                   <a href="/dashboard-account.html" class="dropdown-item">Settings</a>
                   <div class="dropdown-divider"></div>
-                  <a href="/" class="dropdown-item">Logout</a>
+                  <a href="<?= site_url('auth/logout') ?>" class="dropdown-item">Logout</a>
                 </div>
                   
               </li>

@@ -21,7 +21,7 @@ function check_not_login() {
 function check_already_user_login() {
 
     $ci =& get_instance();
-    $user_session = $ci->session->userdata('wargaid');
+    $user_session = $ci->session->userdata('customerid');
     if($user_session) {
         redirect('dashboard','refresh');
     }
@@ -58,7 +58,7 @@ if(!function_exists('cek_csrf')){
 function check_not_user_login() {
 
     $ci =& get_instance();
-    $user_session = $ci->session->userdata('wargaid');
+    $user_session = $ci->session->userdata('customerid');
    
     if(!$user_session) {
         $ci->session->set_flashdata('warning', 'Silahkan login atau daftar dulu..!');

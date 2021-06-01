@@ -6,11 +6,11 @@ class Dashboard extends CI_Controller {
 	
 public function __construct()
 {
-parent::__construct();  
+		parent::__construct();  
         //Do your magic here
 		// check_not_user_login();
 		$this->load->model('M_customer');
-	
+		check_not_user_login();
 
 	}
 	
