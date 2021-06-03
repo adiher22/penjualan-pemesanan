@@ -19,5 +19,14 @@
       AOS.init();
     </script>
     <script src="<?= site_url('assets/front-end/script/navbar-scroll.js') ?>"></script>
+    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.9"></script>
+    <script>
+      new Typed('#jumbotron',{
+      strings : ['Beli produk kesayangan anda menjadi mudah....','Daftar->Pesan->Bayar->Kirim....','Biaya pengiriman gratis, sudah termasuk pemesanan...'],
+      typeSpeed : 100,
+      delaySpeed : 100,
+      loop : true
+    });
+    </script>
   </body>
 </html>

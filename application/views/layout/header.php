@@ -43,7 +43,7 @@
       <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav ml-auto">
           <li class="nav-item">
-            <a href="#" class="nav-link">Home</a>
+            <a href="<?= site_url() ?>" class="nav-link">Home</a>
           </li>
           <li class="nav-item">
             <a href="#" class="nav-link">Tentang Perusahaan</a> 
@@ -52,7 +52,7 @@
             <a href="#" class="nav-link">Kontak</a> 
           </li>
            <li class="nav-item">
-            <a href="<?= site_url('auth') ?>" class="nav-link">Register</a> 
+            <a href="<?= site_url('auth/register') ?>" class="nav-link">Register</a> 
           </li>
           <li class="nav-item">
             <a href="<?= site_url('auth') ?>" class="btn btn-primary nav-link px-4 text-white">Login</a> 
@@ -69,9 +69,9 @@
             <div class="col-lg-12" data-aos="zoom-in">
               <div class="jumbotron jumbotron-fluid">
                 <div class="container-fluid text-center">
-                  <h1 class="display-4">Fluid jumbotron</h1>
-                  <p class="lead">This is a modified jumbotron that occupies the entire horizontal space of its parent.</p>
-                  <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
+                  <h1 class="display-4">Halo, Selamat Datang!!</h1>
+                  <p class="lead" id="jumbotron"></p><br>
+                  <a class="btn btn-primary btn-lg" href="#" role="button">Lihat Produk</a>
                 </div>
               </div>
             </div>
