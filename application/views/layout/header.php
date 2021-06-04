@@ -51,12 +51,51 @@
            <li class="nav-item">
             <a href="<?= site_url('kontak') ?>" class="nav-link">Kontak</a> 
           </li>
+          <?php if($this->session->userdata('customerid') == null) {?>
            <li class="nav-item">
             <a href="<?= site_url('auth/register') ?>" class="nav-link">Register</a> 
           </li>
           <li class="nav-item">
             <a href="<?= site_url('auth') ?>" class="btn btn-primary nav-link px-4 text-white">Login</a> 
           </li>
+          <?php  }else{?>
+            <!-- Dekstop menu -->
+              <ul class="navbar-nav d-none d-lg-flex">
+                <li class="nav-item dropdown">
+                
+                <a href="#" class="nav-link" id="navbarDropdown" role="button" data-toggle="dropdown">
+                  <img src="<?= site_url('assets/front-end/images/cat.jpg') ?>" alt="" class="rounded-circle mr-2 profile-picture">
+                  Hi, <?= $this->fungsi->user_login()->nama_cust ?>
+                </a>
+                <div class="dropdown-menu">
+                  <a href="<?= site_url('dashboard') ?>" class="dropdown-item">Dashboard</a>
+                  <a href="/dashboard-account.html" class="dropdown-item">Settings</a>
+                  <div class="dropdown-divider"></div>
+                  <a href="<?= site_url('auth/logout') ?>" class="dropdown-item">Logout</a>
+                </div>
+                  
+              </li>
+              <li class="nav-item">
+                <a href="" class="nav-link d-inline-block mt-2">
+                  <img src="<?= site_url('assets/front-end/images/icon-cart-filled.svg') ?>" alt="" />
+                  <div class="card-badge">3</div>
+                </a>
+              </li>
+              </ul>
+              <!-- Mobile Menu -->
+              <ul class="navbar-nav d-block d-lg-none">
+                <li class="nav-item">
+                  <a href="#" class="nav-link">
+                    Hi, Adi
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="#" class="nav-link d-inline-block">
+                    Cart
+                  </a>
+                </li>
+              </ul>
+              <?php } ?>
         </ul>
       </div>
     </div>

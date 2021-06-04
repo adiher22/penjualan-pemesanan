@@ -19,7 +19,7 @@
   --white: #fff;
   --gray: #6c757d;
   --gray-dark: #343a40;
-  --primary: #009FFC;
+  --primary: #007bff;
   --secondary: #6c757d;
   --success: #28a745;
   --info: #17a2b8;
@@ -10870,7 +10870,7 @@ footer p {
   border-radius: 50%;
   font-size: 10px;
   text-align: center;
-  background: #29a867;
+  background: #007bff;
   color: #fefefe;
   margin-left: -10px;
 }
@@ -10886,12 +10886,8 @@ footer p {
   margin-bottom: 15px;
 }
 
-.page-home .store-trend-categories {
+.page-home .container {
   margin-top: 30px;
-}
-
-.page-home .store-trend-product {
-  margin-top: 16px;
 }
 
 .page-details h5 {

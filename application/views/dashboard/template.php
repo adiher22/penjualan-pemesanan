@@ -9,7 +9,7 @@
     <meta name="description" content="" />
     <meta name="author" content="" />
 
-    <title>Store Jajan - Tempat Belanja Terbaik </title>
+    <title><?= $title  ?></title>
 
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
     <link href="<?= site_url('assets/front-end/style/main.css') ?>" rel="stylesheet" />
@@ -66,7 +66,7 @@
                   Hi, <?= $this->fungsi->user_login()->nama_cust ?>
                 </a>
                 <div class="dropdown-menu">
-                  <a href="/index.html" class="dropdown-item">Back to Store</a>
+                  <a href="<?= site_url() ?>" class="dropdown-item">Ke Home</a>
                   <a href="/dashboard-account.html" class="dropdown-item">Settings</a>
                   <div class="dropdown-divider"></div>
                   <a href="<?= site_url('auth/logout') ?>" class="dropdown-item">Logout</a>
@@ -98,7 +98,19 @@
       <!-- Section Content -->
       <?php echo $contents ?>
       <!-- Page content wrapper -->
+        <footer class="main-footer">
+        <div class="container">
+          <div class="row">
+            <div class="col-12 text-center">
+              <p class="pt-4 pb-2">
+                &copy; 2020 Copyright. All Right Reserved <?= $footer ?>.
+              </p>
+            </div>
+          </div>
+        </div>
+    </footer>
      </div>
+    </div>
     </div>
     <!-- Bootstrap core JavaScript -->
     <script src="<?= site_url('assets/front-end/vendor/jquery/jquery.slim.min.js') ?>"></script>

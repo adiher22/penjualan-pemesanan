@@ -20,6 +20,7 @@ public function __construct()
 		// $id = $this->session->userdata('customerid');
 		
 		$data['title'] = "Halaman Dashboard Customer";
+		$data['footer'] = "Adiher";
 		// $data['paymen_last'] = $this->M_pembayaran->get_last(5,$id);
 		$this->template->load('dashboard/template', 'dashboard/dashboard',$data);
 	}
