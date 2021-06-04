@@ -10,7 +10,7 @@
     <meta name="author" content="" />
      <!-- Icon -->
     <link rel="icon" type="image/png" href="<?= base_url('assets/template/dist/img/logo.png') ?>"/>
-    <title> PT KOGAWA TEKNIK INDONESIA - <?= $title ?> </title>
+    <title> <?= $title ?> </title>
 
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
     <link href="<?= site_url('assets/front-end/style/main.css') ?>" rel="stylesheet" />
@@ -46,7 +46,7 @@
             <a href="<?= site_url() ?>" class="nav-link">Home</a>
           </li>
           <li class="nav-item">
-            <a href="#" class="nav-link">Tentang Perusahaan</a> 
+            <a href="<?= site_url('tentang') ?>" class="nav-link">Tentang Perusahaan</a> 
           </li>
            <li class="nav-item">
             <a href="#" class="nav-link">Kontak</a> 
@@ -70,7 +70,7 @@
               <div class="jumbotron jumbotron-fluid">
                 <div class="container-fluid text-center">
                   <h1 class="display-4">Halo, Selamat Datang!!</h1>
-                  <p class="lead" id="jumbotron"></p><br>
+                  <p class="lead" id="jumbotron"></p>
                   <a class="btn btn-primary btn-lg" href="#" role="button">Lihat Produk</a>
                 </div>
               </div>

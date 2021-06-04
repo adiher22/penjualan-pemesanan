@@ -65,9 +65,10 @@ class Auth extends CI_Controller {
 				'is_unique' => '%s Sudah terdaftar pada sistem',
 				'valid_email' => '%s Tidak valid!'));
 
-		$this->form_validation->set_rules('no_hp', 'No HP', 'trim|required|is_numeric', 
+		$this->form_validation->set_rules('no_hp', 'No HP', 'trim|required|is_numeric|min_length[11]', 
 		array(	'required' => '%s Harus Diisi',
-				'is_numeric' => '%s Harus Diisi Angka'));
+				'is_numeric' => '%s Harus Diisi Angka',
+				'min_length' => '%s Minimal 11 angka'));
 
 		$this->form_validation->set_rules('password', 'Password', 'trim|required|min_length[4]|max_length[25]',
 			array(	'required' => '%s Harus Diisi',

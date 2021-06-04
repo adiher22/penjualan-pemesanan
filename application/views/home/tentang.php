@@ -1,13 +1,11 @@
   <!-- Stories Section -->
-  <section class="stories hk-section">
-         <svg class="waves-top" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 100" preserveAspectRatio="none">
-            <path d="M421.9,6.5c22.6-2.5,51.5,0.4,75.5,5.3c23.6,4.9,70.9,23.5,100.5,35.7c75.8,32.2,133.7,44.5,192.6,49.7  c23.6,2.1,48.7,3.5,103.4-2.5c54.7-6,106.2-25.6,106.2-25.6V0H0v30.3c0,0,72,32.6,158.4,30.5c39.2-0.7,92.8-6.7,134-22.4  c21.2-8.1,52.2-18.2,79.7-24.2C399.3,7.9,411.6,7.5,421.9,6.5z"></path>
-         </svg>
+  <section class="stories">
+       
          <div class="container">
             <div class="row text-center">
                <div class="col">
-                  <h2 class="section-title">Profil</h2>
-                  <p class="section-subtitle">Perumahan Grand Cikarang City</p>
+                  <h2 class="section-title">Tentang Perusahaan</h2>
+                  <p class="section-subtitle">PT. Kogawa Teknik Indonesia</p>
                </div>
             </div><br>
             <div class="col-12 col-lg-6 order-2 order-lg-1">
@@ -15,14 +13,43 @@
             
             </div>
             <div class="col-12 col-lg-8 order-1 order-lg-2 mt-4">
-                <address>
+                <span>
                 
-                Alamat: Perumahan Grand Cikarang City (GCC, Jl. Gatot Subroto No.KM. 2, Karangraharja, Kec. Cikarang Utara, Bekasi, Jawa Barat 17530.<br>
-                Provinsi: Jawa Barat
-                </address> 
+         
+
+                  Kami adalah badan usaha yang bergerak di bidang General Trading & Fabrication, dengan komitmen yang kuat kami akan memberikan pelayananyang terbaik bagi setiap kebutuhan costumer kami.<br>
+
+                  Dengan bangga kami setiap saat siap untuk melayani kebutuhan yang anda perlukan dalam rangka untuk memenuhi kepuasan costumer yang sangat berharga,<br>
+
+                  segenap manajemen PT. KOGAWA TEKNIK INDONESIA dan para staff siap memberikan perhatian setiap kebutuhan anda,<br>
+
+                  VISI & MISI<br>
+
+                  VISI<br>
+
+                  “Menjadi Perusahaan Terbaik dan Tangguh Dalam Bidang Perdagangan Barang. Peralatan Mesin Industri<br>
+
+                  dan Pabrikasi yang Dikelola secara profesional dengan produk berkualitas tinggi”.<br>
+
+                  
+
+                  MISI<br>
+
+                     Mengutamakan kebutuhan yang berksinambungan, berkualitas, dan berwawasan lingkungan.<br>
+                     Mengutamakan mutu, Keselamatan kerja, keandalan pelayanan untuk kepuasan pelanggan.<br>
+                     Menciptakan peluang dan nilai tambah bagi stakeholder melalui inovasi & teknologi.<br>
+                     Membangun sumber daya manusia unggul dan berprestasi, berkreasi, dan tumbuh bersama berlandaskan nilai-nilai budaya jaya.<br>
+                     Menjadi salah satu perusahaan besar di Negara Indonesia.<br>
+
+                  
+
+                  
+
+                  Hormat kami,<br><br><br>
+
+                  PT. KOGAWA TEKNIK INDONESIA
+                </span> 
             </div>
            
-         <svg class="waves-bottom" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 100" preserveAspectRatio="none">
-            <path d="M421.9,6.5c22.6-2.5,51.5,0.4,75.5,5.3c23.6,4.9,70.9,23.5,100.5,35.7c75.8,32.2,133.7,44.5,192.6,49.7  c23.6,2.1,48.7,3.5,103.4-2.5c54.7-6,106.2-25.6,106.2-25.6V0H0v30.3c0,0,72,32.6,158.4,30.5c39.2-0.7,92.8-6.7,134-22.4  c21.2-8.1,52.2-18.2,79.7-24.2C399.3,7.9,411.6,7.5,421.9,6.5z"></path>
-         </svg>
+       
       </section>
