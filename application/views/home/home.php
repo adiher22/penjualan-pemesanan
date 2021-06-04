@@ -1,3 +1,20 @@
+<!-- Page Content -->
+   <div class="page-content page-home">
+     <section class="store-carousel">
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-12" data-aos="zoom-in">
+              <div class="jumbotron jumbotron-fluid">
+                <div class="container-fluid text-center">
+                  <h1 class="display-4">Halo, Selamat Datang!!</h1>
+                  <p class="lead" id="jumbotron"></p>
+                  <a class="btn btn-primary btn-lg" href="#" role="button">Lihat Produk</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+     </section>
 <section id="services" class="container">
    <h2 class="display-4 text-center mt-5 mb-3" data-aos="fade-out">Layanan Kami</h2>
    
@@ -46,7 +63,7 @@
    </div>
 </section>
 <section id="pemesanan" class="container">
-    <h2 class="display-4 text-center mt-5 mb-3" data-aos="fade-out"> Tatat Cara Pemesanan</h2>
+    <h2 class="display-4 text-center mt-5 mb-3" data-aos="fade-down"> Tatat Cara Pemesanan</h2>
    
          <div class="row d-flex align-items-center h-100" data-aos="zoom-out">
                <div class="col-12 col-lg-6 order-2 order-lg-1">
@@ -65,7 +82,7 @@
                            <li>
                               <h3 class="services-list-title">Dashboard Warga</h3>
                               <p class="services-list-txt">Pada halaman dashboard warga, terdapat beberapa menu, anda bisa melihat riwayat produk yang sudah dipesan.
-                           <li>
+                           </li>
                            <li>
                               <h3 class="services-list-title">Halaman Produk</h3>
                               <p class="services-list-txt">Halaman produk menampilkan produk yang bisa anda lihat secara detail.</p>

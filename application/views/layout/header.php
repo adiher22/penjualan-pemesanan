@@ -33,7 +33,7 @@
     <nav class="navbar navbar-expand-lg navbar-light navbar-store fixed-top navbar-fixed-top"
     data-aos="fade-down">
       <div class="container">
-        <a href="#" class="navbar-brand">
+        <a href="<?= site_url() ?>" class="navbar-brand">
           <img src="<?= site_url('assets/template/dist/img/logo.png') ?>" alt="Logo" />
         </a>
       
@@ -49,7 +49,7 @@
             <a href="<?= site_url('tentang') ?>" class="nav-link">Tentang Perusahaan</a> 
           </li>
            <li class="nav-item">
-            <a href="#" class="nav-link">Kontak</a> 
+            <a href="<?= site_url('kontak') ?>" class="nav-link">Kontak</a> 
           </li>
            <li class="nav-item">
             <a href="<?= site_url('auth/register') ?>" class="nav-link">Register</a> 
@@ -61,20 +61,4 @@
       </div>
     </div>
   </nav>
-   <!-- Page Content -->
-   <div class="page-content page-home">
-     <section class="store-carousel">
-        <div class="container">
-          <div class="row">
-            <div class="col-lg-12" data-aos="zoom-in">
-              <div class="jumbotron jumbotron-fluid">
-                <div class="container-fluid text-center">
-                  <h1 class="display-4">Halo, Selamat Datang!!</h1>
-                  <p class="lead" id="jumbotron"></p>
-                  <a class="btn btn-primary btn-lg" href="#" role="button">Lihat Produk</a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-     </section>
+   
