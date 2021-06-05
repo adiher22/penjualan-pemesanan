@@ -8,7 +8,7 @@
                 <div class="container-fluid text-center">
                   <h1 class="display-4">Halo, Selamat Datang!!</h1>
                   <p class="lead" id="jumbotron"></p>
-                  <a class="btn btn-primary btn-lg" href="#" role="button">Lihat Produk</a>
+                  <a class="btn btn-primary btn-lg" href="<?= site_url('produk') ?>" role="button">Lihat Produk</a>
                 </div>
               </div>
             </div>

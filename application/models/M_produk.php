@@ -43,7 +43,7 @@ class M_produk extends CI_Model {
 		$params['id_produk'] = $post['id_produk'];
 		$params['id_kategori'] = $post['id_kategori'];
         $params['nama_produk'] = $post['nama_produk'];
-        $params['slug'] = url_title($post['nama_produk'], 'dash', TRUE);
+        $params['slug_produk'] = url_title($post['nama_produk'], 'dash', TRUE);
         $params['harga'] = $post['harga'];
         $params['gambar'] = $post['gambar'];
         $params['deskripsi'] = $post['deskripsi'];
@@ -58,7 +58,7 @@ class M_produk extends CI_Model {
         
         $params['id_kategori'] = $post['id_kategori'];
         $params['nama_produk'] = $post['nama_produk'];
-        $params['slug'] = url_title($post['nama_produk'], 'dash', TRUE);
+        $params['slug_produk'] = url_title($post['nama_produk'], 'dash', TRUE);
         $params['harga'] = $post['harga'];
         $params['deskripsi'] = $post['deskripsi'];
         
@@ -71,22 +71,16 @@ class M_produk extends CI_Model {
 
   
   
-    // public function detail($id = null){
-    //     $this->db->select('warga.*,
-    //                       produk.*,
-    //                       detail.*');
-	// 	$this->db->from('warga');
-    //     $this->db->join('produk', 'produk.id_warga = warga.id_warga', 'left');
-    //     $this->db->join('detail','detail.id_warga = detail.id_warga', 'left');
-        
-	// 	$this->db->order_by('warga.id_warga', 'desc');
+    public function detail($slug){
+        $this->db->select('*');
+		$this->db->from('produk');
+        $this->db->order_by('id_produk', 'desc');
+	
+		$this->db->where("slug_produk", $slug);
 		
-	// 	if($id != null){
-	// 		$this->db->where("sha1(warga.id_warga)", $id);
-	// 	}
-	// 	$query = $this->db->get();
-	// 	return $query;
-    // }
+		$query = $this->db->get();
+		return $query;
+    }
     // public function dataDetail($id = null){
     //     $this->db->select('warga.*,
     //                       produk.*,
