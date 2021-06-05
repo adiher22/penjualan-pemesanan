@@ -33,6 +33,19 @@ class Produk extends CI_Controller {
         $this->load->view('layout/wrapper', $data);
     }
 
+     public function kategori($slug)
+    {
+        $data['title'] = "Kategori";
+        $data['isi'] = 'produk/list_produk';
+        $data['footer'] = "Adiher";
+        $query = $this->M_produk->getProdukKategori($slug)->result(); 
+        $data['kategori'] = $this->M_kategori->get()->result();
+        
+        $data['produk'] = $query;
+
+        $this->load->view('layout/wrapper', $data);
+    }
+
 }
 
 /* End of file Controllername.php */

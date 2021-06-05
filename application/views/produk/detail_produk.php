@@ -7,10 +7,10 @@
             <nav>
               <ol class="breadcrumb">
                 <li class="breadcrumb-item">
-                  <a href="/index.html">Home</a>
+                  <a href="<?= site_url('produk') ?>">Produk</a>
                 </li>
                 <li class="breadcrumb-item active">
-                 Product Details
+                 Detail Produk
                 </li>
               </ol>
             </nav>
@@ -22,25 +22,16 @@
       <div class="container">
         <div class="row">
           <div class="col-lg-8" data-aos="zoom-in">
-            <transition name="slide-fade" mode="out-in">
-              <img :src="photos[activePhoto].url" :key="photos[activePhoto].id" class="w-100 min-image" alt="">
-            </transition>
+          
+              <img src="<?= site_url('upload/produk/' . $d->gambar) ?>"  class="w-200 min-image" alt="">
+            
           </div>
-          <div class="col-lg-2">
-            <div class="row">
-              <div class="col-3 col-lg-12 mt-2 mt-lg-0" v-for="(photo, index) in photos" :key="photo.id" data-aos="zoom-in" data-aos-delay="100">
-                <a href="#" @click="changeActive(index)">
-                  <img :src="photo.url" class="w-100 thumbnail-image" :class="{ active: index == activePhoto }" alt="">
-                </a>
-
-              </div>
-            </div>
-          </div>
+         
         </div>
       </div>
     </section>
 
-    <div class="store-details-container" data-aos="fade-up">
+    <div class="store-details-container mt-4" data-aos="fade-up">
       <section class="store-heading">
         <div class="container">
           <div class="row">

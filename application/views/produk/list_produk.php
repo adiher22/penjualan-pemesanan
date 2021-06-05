@@ -25,7 +25,7 @@
          <div class="row">
           <?php foreach($kategori as $k) : ?>
            <div class="col-6 col-md-3 col-lg-2" data-aos="fade-up" data-aos-delay="500">
-            <a href="<?= $k->slug ?>" class="component-categories d-block">
+            <a href="<?= site_url('produk/kategori/' . $k->slug) ?>" @click="produkKategoriAvailability()" class="component-categories d-block">
               <div class="categories-image">
                 <img src="<?= site_url('assets/front-end/images/categories-tools.svg') ?>" alt="" class="w-100">
               </div>
@@ -49,7 +49,7 @@
          <div class="row">
            <?php foreach($produk as $p) : ?>
            <div class="col-6 col-md-4 col-lg-3" data-aos="fade-up" data-aos-delay="100">
-             <a href="<?= site_url('produk/detail/' . $p->slug_produk)  ?>" class="component-products d-block">
+             <a href="<?= site_url('produk/detail/' . $p->slug_produk)  ?>"  class="component-products d-block">
               <div class="products-thumbnail">
                 <div class="products-image" style="background-image: url('<?= site_url('upload/produk/' . $p->gambar) ?>');">
 

@@ -81,22 +81,19 @@ class M_produk extends CI_Model {
 		$query = $this->db->get();
 		return $query;
     }
-    // public function dataDetail($id = null){
-    //     $this->db->select('warga.*,
-    //                       produk.*,
-    //                       detail.*');
-	// 	$this->db->from('detail');
-    //     $this->db->join('produk', 'produk.id_produk = detail.id_produk', 'left');
-    //     $this->db->join('warga','warga.id_warga = detail.id_warga', 'left');
+    public function getProdukKategori($slug){
+        $this->db->select('kategori.*,
+                          produk.*');
+		$this->db->from('produk');
+        $this->db->join('kategori', 'produk.id_kategori = kategori.id_kategori', 'left');
         
-	// 	$this->db->order_by('detail.id_produk', 'desc');
+		$this->db->order_by('produk.id_kategori', 'desc');
 		
-	// 	if($id != null){
-	// 		$this->db->where("sha1(detail.id_produk)", $id);
-	// 	}
-	// 	$query = $this->db->get();
-	// 	return $query;
-    // }
+		$this->db->where("kategori.slug", $slug);
+		
+		$query = $this->db->get();
+		return $query;
+    }
    
 	public function del($id)
 	{
