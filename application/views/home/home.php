@@ -63,7 +63,7 @@
    </div>
 </section>
 <section id="pemesanan" class="container">
-    <h2 class="display-4 text-center mt-5 mb-3" data-aos="fade-down"> Tatat Cara Pemesanan</h2>
+    <h2 class="display-4 text-center mt-5 mb-3" data-aos="fade-down"> Tata Cara Pemesanan</h2>
    
          <div class="row d-flex align-items-center h-100" data-aos="zoom-out">
                <div class="col-12 col-lg-6 order-2 order-lg-1">
@@ -80,8 +80,8 @@
                               <p class="services-list-txt">Setelah berhasil melakukan pendaftaran, silahkan login, masukan email dan password anda.</p>
                            </li>
                            <li>
-                              <h3 class="services-list-title">Dashboard Warga</h3>
-                              <p class="services-list-txt">Pada halaman dashboard warga, terdapat beberapa menu, anda bisa melihat riwayat produk yang sudah dipesan.
+                              <h3 class="services-list-title">Dashboard Customer</h3>
+                              <p class="services-list-txt">Pada halaman dashboard customer, terdapat beberapa menu, anda bisa melihat riwayat produk yang sudah dipesan.
                            </li>
                            <li>
                               <h3 class="services-list-title">Halaman Produk</h3>

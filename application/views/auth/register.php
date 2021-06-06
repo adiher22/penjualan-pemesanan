@@ -33,10 +33,10 @@
             <a href="<?= site_url() ?>" class="nav-link">Home</a>
           </li>
           <li class="nav-item">
-            <a href="#" class="nav-link">Tentang Perusahaan</a> 
+            <a href="<?= site_url('tentang') ?>" class="nav-link">Tentang Perusahaan</a> 
           </li>
            <li class="nav-item">
-            <a href="#" class="nav-link">Kontak</a> 
+            <a href="<?= site_url('kontak')?> " class="nav-link">Kontak</a> 
           </li>
          
         </ul>

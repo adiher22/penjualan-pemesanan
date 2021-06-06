@@ -74,9 +74,12 @@
                   
               </li>
               <li class="nav-item">
-                <a href="" class="nav-link d-inline-block mt-2">
+                 <?php
+                $id_customer = $this->session->userdata('customerid');
+                $query = $this->db->where(['id_cust'=>$id_customer])->from("keranjang")->count_all_results(); ?>
+                <a href="<?= site_url('keranjang') ?>" class="nav-link d-inline-block mt-2">
                   <img src="<?= site_url('assets/front-end/images/icon-cart-filled.svg') ?>" alt="" />
-                  <div class="card-badge">3</div>
+                  <div class="card-badge"><?= $query ?></div>
                 </a>
               </li>
               </ul>

@@ -41,7 +41,7 @@
               <div class="price"><?= indo_curency($d->harga) ?></div>
             </div>
             <div class="col-lg-2" data-aos="zoom-in">
-              <a href="<?= site_url('keranjang/add') ?>" class="btn btn-primary px-4 text-white btn-block mb-3">Tambah Ke Keranjang</a>
+              <a href="<?= site_url('keranjang/add/' . encrypt_url($d->id_produk). '') ?>" class="btn btn-primary px-4 text-white btn-block mb-3">Tambah Ke Keranjang</a>
             </div>
           </div>
         </div>

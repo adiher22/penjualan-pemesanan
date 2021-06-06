@@ -69,6 +69,16 @@ class M_customer extends CI_Model {
 		
 	}
 
+	public function getCust($id_cust){
+		$this->db->select('alamat, no_telp,');
+		$this->db->from('keranjang');
+		$this->db->join('customer', 'keranjang.id_cust = customer.id_cust', 'left');
+		$this->db->where('keranjang.id_cust', $id_cust);
+		
+		$query = $this->db->get();
+		return $query;
+		
+	}
 	public function edit($post){
 
 		$params['nik'] = $post['no_ktp'];
