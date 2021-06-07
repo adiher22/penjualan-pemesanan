@@ -90,7 +90,7 @@ class Auth extends CI_Controller {
 			$this->load->view('auth/register',$data);
 		}else {
 			$post = $this->input->post(null, TRUE);
-			$param = ['customerid' => $post['kd'],
+			$param = ['customerid' => decrypt_url($post['kd']),
 					 'nama'    => $post['nama_cust']]; 
 			
 			$this->M_customer->add($post);
@@ -102,7 +102,9 @@ class Auth extends CI_Controller {
 		}
 	}
 	public function sukses(){
-		$this->load->view('auth/sukses');
+		$data['title'] = "Registrasi Sukses";
+
+		$this->load->view('auth/sukses', $data);
 	}
 	public function logout()
 	{

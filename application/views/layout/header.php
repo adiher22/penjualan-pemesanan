@@ -14,6 +14,8 @@
 
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
     <link href="<?= site_url('assets/front-end/style/main.css') ?>" rel="stylesheet" />
+     <!-- SweetAlert2 -->
+    <link rel="stylesheet" href="<?= base_url('assets/login/vendor/sweetalert2/dist/sweetalert2.min.css')?>">
   </head>
   <style>
     
@@ -71,7 +73,7 @@
                   <a href="<?= site_url('dashboard') ?>" class="dropdown-item">Dashboard</a>
                   <a href="/dashboard-account.html" class="dropdown-item">Settings</a>
                   <div class="dropdown-divider"></div>
-                  <a href="<?= site_url('auth/logout') ?>" class="dropdown-item">Logout</a>
+                  <a href="<?= site_url('auth/logout') ?>" id="btn-logout" class="dropdown-item">Logout</a>
                 </div>
                   
               </li>

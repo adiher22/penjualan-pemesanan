@@ -12,7 +12,7 @@ class Keranjang extends CI_Controller {
         $this->load->model('M_produk');
         $this->load->model('M_pemesanan');
         $this->load->model('M_customer');
-        
+        check_not_user_login();
     }
     
     public function index()
@@ -45,13 +45,23 @@ class Keranjang extends CI_Controller {
 
         if($data!=null)
         {
-            $this->db->insert('keranjang', $data);
-
-            redirect(site_url('produk'));
+                $this->db->insert('keranjang', $data);
+				$this->session->set_flashdata('sukses','Berhasil Ditambahkan.. Cek keranjang anda..!');
+				redirect(base_url('produk'),'refresh');
+			
         }else{
 
             echo "Data not found";
         }
+    }
+    public function del($id_keranjang)
+    {
+        $id_keranjang = decrypt_url($id_keranjang);
+        
+        $this->db->where('id_keranjang', $id_keranjang);
+        $this->db->delete('keranjang');  
+        
+        redirect(site_url('keranjang'));
     }
 }
 

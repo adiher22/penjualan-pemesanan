@@ -52,7 +52,7 @@ class M_customer extends CI_Model {
 		return $query;
 	}
 	public function add($post){
-		$params['id_cust'] = $post['kd'];
+		$params['id_cust'] = decrypt_url($post['kd']);
 		$params['nama_cust'] = $post['nama_cust'];
 		$params['email'] = $post['email'];
 		$params['no_telp'] = $post['no_hp'];
@@ -70,10 +70,11 @@ class M_customer extends CI_Model {
 	}
 
 	public function getCust($id_cust){
-		$this->db->select('alamat, no_telp,');
-		$this->db->from('keranjang');
-		$this->db->join('customer', 'keranjang.id_cust = customer.id_cust', 'left');
-		$this->db->where('keranjang.id_cust', $id_cust);
+
+		$this->db->select('alamat, no_rek,');
+		$this->db->from('customer');
+		$this->db->join('keranjang', 'keranjang.id_cust = customer.id_cust', 'left');
+		$this->db->where('customer.id_cust', $id_cust);
 		
 		$query = $this->db->get();
 		return $query;

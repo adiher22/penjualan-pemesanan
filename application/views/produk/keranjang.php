@@ -1,5 +1,5 @@
   <!-- Page Content -->
-  <div class="page-content page-cart">
+  <div class="page-content page-cart" id="pemesanan_detail">
     <section class="store-breadcrumbs" data-aos="fade-down" data-aos-delay="100">
       <div class="container">
         <div class="row">
@@ -48,7 +48,7 @@
                                     <div class="product-subtitle">Rupiah</div>
                                 </td>
                                 <td style="width: 20%;">
-                                    <a href="#" class="btn btn-remove-cart">Remove</a>
+                                    <a href="<?= site_url('keranjang/del/' . encrypt_url($produk['id_keranjang'])) ?>" id="btn-hapus" class="btn btn-remove-cart">Remove</a>
                                 </td>
                             </tr>
                         <?php endforeach?>
@@ -65,7 +65,7 @@
                 </div>
             </div>
          
-            <div class="row mb-2" data-aos="fade-up" data-aos-delay="200">
+            <div  class="row mb-2" data-aos="fade-up" data-aos-delay="200">
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="addressOne">Alamat Perusahaan</label>
@@ -81,37 +81,55 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         <label for="province">Pilih Metode Pembayaran</label>
-                        <select id="province" name="metode" class="form-control">
-                            <option value="DP">Down Payment</option>
-                            <option value="FP">Full Payment</option>
+                        <select id="province" id="metode" name="metode" v-model="is_dp" class="form-control">
+                            <option  :value="true">Down Payment</option>
+                            <option  :value="false">Full Payment</option>
                         </select>
                     </div>
                 </div>
+                <div class="col-md-4" v-if="is_dp">
+                    <div class="form-group">
+                        <label for="postalCode">Down Payment</label>
+                        <input type="number" id="down_payment" name="down_payment" class="form-control" value="" />
+                    </div>
+                </div>
+                <div class="col-md-4" v-else="is_dp">
+                    <div class="form-group">
+                        <label for="postalCode">Full Payment</label>
+                        <input type="number" id="down_payment" name="down_payment" class="form-control" value="" />
+                    </div>
+                </div>    
                 <div class="col-md-4">
                     <div class="form-group">
-                        <label for="city">Pilih Bank</label>
-                        <select id="city" name="city" class="form-control">
-                            <option value="Bekasi">Bekasi</option>
+                        <label for="bank">Pilih Bank</label>
+                        <select id="bank" name="bank" class="form-control">
+                            <option value="BRI">BRI</option>
                         </select>
                     </div>
-                </div>
+                </div>  
                 <div class="col-md-4">
                     <div class="form-group">
-                        <label for="postalCode">Postal Code</label>
-                        <input type="text" id="postalCode" name="postalCode" class="form-control" value="17533" />
+                        <label for="rekening">No Rekening Anda</label>
+                        <input type="text" id="no_rek" name="no_rek" class="form-control" value="<?php if($cust->no_rek != null) { echo $cust->no_rek;} echo "Rekening Anda Kosong"; ?>" />
                     </div>
-                </div>
-          
-                <div class="col-md-6">
+                </div>  
+                <div class="col-md-4">
                     <div class="form-group">
-                        <label for="mobile">No Telepon</label>
-                        <input type="text" id="no_telp" name="no_telp" class="form-control" value="<?= $cust->no_telp ?>" />
+                        <label for="mobile">Nama Pemilik Rekening</label>
+                        <input type="text" disabled id="norek_pemilik" name="nama_pemilik_rekening" class="form-control" value="" />
                     </div>
-                </div>
-                <div class="col-md-6">
+                </div>  
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="mobile">Nomor Rekening</label>
+                        <input type="text" disabled id="norek_pemilik" name="norek_pemilik" class="form-control" value="" />
+                    </div>
+                </div>    
+                
+                <div class="col-md-12">
                     <div class="form-group">
                         <label for="mobile">Deskripsi Pemesanan</label>
-                        <input type="text" id="deskripsi" name="deskripsi" class="form-control" value="" />
+                        <textarea type="text" id="deskripsi" name="deskripsi" class="form-control" value=""></textarea>
                         <p>*Boleh kosong</p>
                     </div>
                 </div>
@@ -150,3 +168,20 @@
     </section>
   </div>
   <!-- End Page Content -->
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script src="<?= site_url('assets/front-end/vendor/vue/vue.js') ?>"></script>
+  <script>
+  
+       var pemesanan_detail = new Vue({
+        el: '#pemesanan_detail',
+        mounted() {
+          AOS.init();
+        },
+      data() {
+          return {
+            is_dp: true,
+          
+          }
+      }
+  });
+  </script>

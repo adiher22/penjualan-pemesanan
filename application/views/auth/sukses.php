@@ -9,7 +9,7 @@
     <meta name="description" content="" />
     <meta name="author" content="" />
 
-    <title>Store Jajan - Tempat Belanja Terbaik </title>
+    <title><?= $title ?> </title>
 
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
     <link href="<?= site_url('assets/front-end/style/main.css') ?>" rel="stylesheet" />

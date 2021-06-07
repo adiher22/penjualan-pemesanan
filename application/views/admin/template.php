@@ -136,7 +136,12 @@
                   <p>Data Kategori</p>
                 </a>
               </li>
-            
+              <li class="nav-item">
+                <a href="<?= site_url('admin/master/bank') ?>" class="nav-link <?= $this->uri->segment(3) == 'bank' || $this->uri->segment(3) == 'tambahBank' ||  $this->uri->segment(3) == 'editBank' ? 'active' : ''; ?>">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Data Bank</p>
+                </a>
+              </li>
             
             </ul>
           </li>
@@ -330,25 +335,7 @@
         }
       })
   })
-  // Edit
-  $(document).on('click', '#btn-edit', function(e){
-      e.preventDefault();
-      var link = $(this).attr('href');
 
-      Swal.fire({
-      title: 'Apakah anda yakin?',
-      text: "Anda akan mengubah data warga..!",
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#28a745',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Ya, Update!'
-      }).then((result) => {
-        if (result.isConfirmed) {
-            window.location = link;
-        }
-      })
-  })
 </script>
 <!-- Get Datatables Config -->
 <script>

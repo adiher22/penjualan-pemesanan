@@ -11,6 +11,8 @@ class Master extends CI_Controller {
         //Do your magic here
         $this->load->model('M_produk');
         $this->load->model('M_kategori');
+		$this->load->model('M_bank');
+		
 		check_not_login();
     }
      function get_ajax() {
@@ -273,6 +275,96 @@ class Master extends CI_Controller {
 			redirect(site_url('admin/master/kategori '), 'refresh');
 		}
 
+	}
+
+	public function bank()
+	{
+		$data['title'] = "Manajemen Bank";
+        $data['bank'] = $this->M_bank->get()->result();
+        $this->template->load('admin/template', 'admin/bank/data', $data);
+	}
+	
+	public function tambahBank()
+	{
+		$this->form_validation->set_rules('nama_bank', 'Nama Bank', 'trim|required',
+		array(	'required' => '%s Harus Diisi'));
+
+		$this->form_validation->set_rules('nomor_rekening', 'Nomor Rekening', 'trim|required',
+		array(	'required' => '%s Harus Diisi'));
+
+		$this->form_validation->set_rules('nama_pemilik', 'Nama Pemilik', 'trim|required',
+		array(	'required' => '%s Harus Diisi'));
+
+		$this->form_validation->set_error_delimiters('<span class="text-danger">','</span>');
+
+		if($this->form_validation->run() == FALSE) {
+            
+            $data['title'] = "Tambah Data Rekening";
+		
+            
+            $this->template->load('admin/template', 'admin/bank/add_bank', $data);
+		}else {
+			$post = $this->input->post(null, TRUE);
+			$this->M_bank->add($post);
+			if($this->db->affected_rows() > 0) {
+                $this->session->set_flashdata('sukses','Data Berhasil Ditambahkan');
+                redirect(base_url('admin/master/bank'),'refresh');
+            }
+		}
+	}
+	public function editBank()
+    {
+        $id = $this->uri->segment(4);
+
+       	$this->form_validation->set_rules('nama_bank', 'Nama Bank', 'trim|required',
+		array(	'required' => '%s Harus Diisi'));
+
+		$this->form_validation->set_rules('nomor_rekening', 'Nomor Rekening', 'trim|required',
+		array(	'required' => '%s Harus Diisi'));
+
+		$this->form_validation->set_rules('nama_pemilik', 'Nama Pemilik', 'trim|required',
+		array(	'required' => '%s Harus Diisi'));
+
+	  
+
+		$this->form_validation->set_error_delimiters('<span class="text-danger">','</span>');
+
+		if($this->form_validation->run() == FALSE) {
+			$query = $this->M_bank->get_edit($id);
+			if($query->num_rows() > 0){
+                $data['row'] = $query->row();
+                $data['title'] = "Edit Data Bank";
+
+				$this->template->load('admin/template', 'admin/bank/edit_bank',$data);
+
+			}else{
+				echo "<script>alert('Data Tidak Ditemukan');</script>";
+				echo "<script>window.location='".site_url('admin/master/bank')."';</script>";
+			}
+			
+		}else {
+			$post = $this->input->post(null, TRUE);
+			$this->M_bank->edit($post);
+			if($this->db->affected_rows() > 0) {
+				$this->session->set_flashdata('sukses','Data Berhasil Diubah');
+				redirect(base_url('admin/master/bank'),'refresh');
+			}else{
+				$this->session->set_flashdata('warning','Data Tidak Diubah');
+				redirect(base_url('admin/master/bank'),'refresh');
+			}
+
+		}
+	}
+	public function hapusBank()
+	{
+		$id = $this->uri->segment(4);
+	
+		$this->M_bank->del($id);
+		// Jika berhasil dihapus
+		if($this->db->affected_rows() > 0) {
+			$this->session->set_flashdata('sukses', 'Data Berhasil Dihapus');
+			redirect(site_url('admin/master/bank '), 'refresh');
+		}
 	}
 }
 

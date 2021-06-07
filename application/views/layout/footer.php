@@ -14,6 +14,8 @@
     <script src="<?= site_url('assets/front-end/vendor/jquery/jquery.slim.min.js')?>"></script>
     <script src="<?= site_url('assets/front-end/vendor/bootstrap/js/bootstrap.bundle.min.js')?>"></script>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    	<!-- SweetAlert2 -->
+    <script src="<?= base_url('assets/login/vendor/sweetalert2/dist/sweetalert2.min.js')?>"></script>
     <script>
       AOS.init();
     </script>
@@ -27,5 +29,65 @@
       loop : true
     });
     </script>
+     <?php if($this->session->flashdata('sukses')) { ?>
+		<script>
+			Swal.fire({
+			title: 'Berhasil ',
+			text: '<?= $this->session->flashdata('sukses')?>',
+			icon: 'success'
+				})
+		
+		</script>
+		<?php } ?>
+		<?php if($this->session->flashdata('gagal')) { ?>
+		<script>
+			Swal.fire({
+			title: 'Gagal!',
+			text: '<?= $this->session->flashdata('gagal')?>',
+			icon: 'error'
+				})
+		</script>
+		<?php } ?>
+    <script>
+     // Logout
+      $(document).on('click', '#btn-logout', function(e){
+          e.preventDefault();
+          var link = $(this).attr('href');
+
+          Swal.fire({
+          title: 'Apakah anda yakin?',
+          text: "Anda akan keluar!",
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#28a745',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Ya, Keluar!'
+          }).then((result) => {
+            if (result.isConfirmed) {
+                window.location = link;
+            }
+          })
+      });
+         // Hapus
+          $(document).on('click', '#btn-hapus', function(e){
+            e.preventDefault();
+            var link = $(this).attr('href');
+
+            Swal.fire({
+            title: 'Apakah anda yakin?',
+            text: "Data warga akan dihapus!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Ya, hapus!'
+            }).then((result) => {
+              if (result.isConfirmed) {
+                  window.location = link;
+              }
+            })
+        });
+    </script>
+		<!-- END -->
   </body>
 </html>

@@ -96,7 +96,7 @@ class M_produk extends CI_Model {
     }
     public function getCartProduk($id_cust)
     {
-        $this->db->select('nama_produk, gambar, harga');
+        $this->db->select('id_keranjang, nama_produk, gambar, harga');
         $this->db->from('keranjang');
         $this->db->join('produk', 'keranjang.id_produk = produk.id_produk', 'left');
         $this->db->join('customer', 'keranjang.id_cust = customer.id_cust', 'left');

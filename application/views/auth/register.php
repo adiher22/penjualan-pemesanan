@@ -57,7 +57,7 @@
               <div class="form-group">
                 <label>Nama Customer</label>
                 <input type="text" name="nama_cust" class="form-control is-valid" v-model="name" required>
-                <input type="hidden" name="kd" value="<?= $kd ?>">
+                <input type="hidden" name="kd" value="<?= encrypt_url($kd) ?>">
                   <strong><?= form_error('nama_cust') ?></strong>
               </div>
               <div class="form-group">
