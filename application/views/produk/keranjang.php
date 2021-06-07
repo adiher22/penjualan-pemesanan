@@ -102,8 +102,10 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         <label for="bank">Pilih Bank</label>
-                        <select id="bank" name="bank" class="form-control">
-                            <option value="BRI">BRI</option>
+                        <select id="bank" name="bank" v-model="id_bank" @change="getBank()" class="form-control">
+                        <?php foreach($bank as $b) : ?>
+                            <option :value="<?= $b->id_bank ?>"><?= $b->nama_bank ?></option>
+                        <?php endforeach ?>
                         </select>
                     </div>
                 </div>  
@@ -116,13 +118,13 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         <label for="mobile">Nama Pemilik Rekening</label>
-                        <input type="text" disabled id="norek_pemilik" name="nama_pemilik_rekening" class="form-control" value="" />
+                        <input type="text" disabled id="norek_pemilik" name="nama_pemilik" v-model="nama_pemilik" class="form-control" />
                     </div>
                 </div>  
                 <div class="col-md-4">
                     <div class="form-group">
                         <label for="mobile">Nomor Rekening</label>
-                        <input type="text" disabled id="norek_pemilik" name="norek_pemilik" class="form-control" value="" />
+                        <input type="text" disabled id="norek_pemilik"  name="norek_pemilik" v-model="nomor_rekening" class="form-control" />
                     </div>
                 </div>    
                 
@@ -168,8 +170,11 @@
     </section>
   </div>
   <!-- End Page Content -->
+
+  <!-- Aos & vue & axios -->
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
   <script src="<?= site_url('assets/front-end/vendor/vue/vue.js') ?>"></script>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
   <script>
   
        var pemesanan_detail = new Vue({
@@ -177,11 +182,24 @@
         mounted() {
           AOS.init();
         },
-      data() {
-          return {
-            is_dp: true,
+         
+      data: {
           
-          }
-      }
+            is_dp: true,
+            nama_pemilik : "",
+            nomor_rekening : "",
+            id_bank : "",
+          
+      },
+       methods: {
+                getBank(){
+                var self = this
+                axios.get('<?= site_url('keranjang/getBank/') ?>' + self.id_bank)
+                .then(function(response){
+                    self.nama_pemilik = response.data.nama_pemilik,
+                    self.nomor_rekening = response.data.nomor_rekening
+                })
+            },    
+            }
   });
   </script>

@@ -24,6 +24,13 @@ class M_bank extends CI_Model {
 		$query = $this->db->get();
 		return $query;
 	}
+    public function getBank($id_bank){
+
+		$this->db->from('bank');
+		$this->db->where("id_bank", $id_bank);
+		$query = $this->db->get();
+		return $query;
+	}
 	public function add($post){
 		
 		$params['nama_bank'] = $post['nama_bank'];

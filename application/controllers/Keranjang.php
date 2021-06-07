@@ -12,9 +12,20 @@ class Keranjang extends CI_Controller {
         $this->load->model('M_produk');
         $this->load->model('M_pemesanan');
         $this->load->model('M_customer');
+        $this->load->model('M_bank');
+        
         check_not_user_login();
     }
-    
+    function getBank($id_bank)
+    {
+        
+
+		 $query = $this->M_bank->getBank($id_bank)->row_array();
+       
+         output_json($query);
+         
+         return $query;
+    }
     public function index()
     {
         $id_cust = $this->session->userdata('customerid');
@@ -25,7 +36,7 @@ class Keranjang extends CI_Controller {
         $data['produk'] = $this->M_produk->getCartProduk($id_cust);
         $data['cust'] = $this->M_customer->getCust($id_cust)->row();
         $data['id_pemesanan'] = $this->M_pemesanan->id_pemesanan();
-
+        $data['bank'] = $this->M_bank->get()->result();
         
        
 
