@@ -39,7 +39,7 @@ class Pemesanan extends CI_Controller {
                     'min_length' => '%s Minimal 11 angka'));
 
         $this->form_validation->set_error_delimiters('<span class="invalid-feedback" role="alert"></span>');
-
+        
 		if($this->form_validation->run() == FALSE) {
             
            $id_cust = $this->session->userdata('customerid');
@@ -51,20 +51,22 @@ class Pemesanan extends CI_Controller {
             $data['cust'] = $this->M_customer->getCust($id_cust)->row();
             $data['id_pemesanan'] = $this->M_pemesanan->id_pemesanan();
             $data['bank'] = $this->M_bank->get()->result();
-        
+         
             $data['sum'] = $this->M_produk->getCartTotal($id_cust)->row_array();
 
+            
             $this->load->view('layout/wrapper', $data);
 		}else {
 			$post = $this->input->post(null, TRUE);
-            $id = $this->session->userdata('customerid');
-            
-			$this->M_pemesanan->add($post);
-            $this->M_customer->edit($post,$id);
-            $this->M_pemesanan->addDetail($post);
-            $this->delCart($id);
+            $id = $this->session->userdata('customerid'); // ambil id dari user custmer yg sedang login
+            $cart = $this->M_pemesanan->getCart($id)->result_array(); // get data dari keranjang
+         
+			$this->M_pemesanan->add($post); // insert / add table pemesanan
+            $this->M_customer->edit($post,$id); // edit table customer
+            $this->M_pemesanan->addDetail($post,$cart);//inset data transaksi detail
+            $this->delCart($id); // delete table cart jadi 0
 				if($this->db->affected_rows() > 0) {
-					$this->session->set_flashdata('sukses','Data Berhasil Ditambahkan');
+					$this->session->set_flashdata('sukses','Pemesanan Berhasil... Cek Data Pemesanan!!');
 					redirect(base_url('dashboard/pemesanan'),'refresh');
 				}
 			}

@@ -73,7 +73,7 @@
                     <h2 class="mb-4">Pemesanan Detail</h2>
                 </div>
             </div>
-            <form action="<?= site_url('pemesanan/add') ?>" method="POST" enctype="multipart/form-data">               
+            <form action="<?= site_url('pemesanan/add') ?>" method="POST" enctype="multipart/form-data">
             <div  class="row mb-2" data-aos="fade-up" data-aos-delay="200">
                 <div class="col-md-6">
                     <div class="form-group">
@@ -118,13 +118,14 @@
                             <option value="<?= encrypt_url($b->id_bank) ?>"><?= $b->nama_bank ?></option>
                         <?php endforeach ?>
                         </select>
+                        <strong><?= form_error('bank') ?></strong>
                     </div>
-                    <strong><?= form_error('bank') ?></strong>
+                    
                 </div>  
                 <div class="col-md-4">
                     <div class="form-group">
                         <label for="rekening">No Rekening Anda</label>
-                        <input type="text" id="no_rek" name="no_rek" class="form-control" value="<?php if($cust->no_rek != null) { echo $cust->no_rek;} echo "Rekening Anda Kosong"; ?>" />  
+                        <input type="text" id="no_rek" name="no_rek" class="form-control" value="<?php if($cust->no_rek != null) { echo $cust->no_rek;} else{ echo "Rekening Anda Kosong"; } ?>" />  
                     </div>
                     <strong><?= form_error('no_rek') ?>  </strong>
                 </div>  
@@ -144,7 +145,7 @@
                 <div class="col-md-12">
                     <div class="form-group">
                         <label for="mobile">Deskripsi Pemesanan</label>
-                        <textarea type="text" id="deskripsi" name="deskripsi" class="form-control" value=""></textarea>
+                        <textarea type="text" id="deskripsi" name="deskripsi_pemesanan" class="form-control" value=""></textarea>
                         <p>*Boleh kosong</p>
                     </div>
                 </div>

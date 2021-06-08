@@ -37,7 +37,7 @@ class Keranjang extends CI_Controller {
         $data['cust'] = $this->M_customer->getCust($id_cust)->row();
         $data['id_pemesanan'] = $this->M_pemesanan->id_pemesanan();
         $data['bank'] = $this->M_bank->get()->result();
-       
+        
         $data['sum'] = $this->M_produk->getCartTotal($id_cust)->row_array();
       
        

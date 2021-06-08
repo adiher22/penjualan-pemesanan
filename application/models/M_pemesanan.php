@@ -50,6 +50,31 @@ class M_pemesanan extends CI_Model {
 		$this->db->insert('pemesanan', $params);
 		
 	}
+   
+    public function getCart($id){
+        
+        $this->db->select('keranjang.id_produk');
+		$this->db->from('keranjang');
+        $this->db->join('produk', 'keranjang.id_produk = produk.id_produk', 'left');
+        
+		$this->db->where("id_cust", $id);
+		$query = $this->db->get();
+		return $query;
+	}
+    public function addDetail($post,$cart)
+    {
+        $params = array();
+        foreach($cart as $cart) : 
+            $params[] = [
+                'id_produk' => $cart['id_produk'],
+                'id_pemesanan' => decrypt_url($post['id_pemesanan'])
+            ];
+            endforeach;
+     
+
+        $this->db->insert_batch('transaksi_detail', $params);
+    }
+    
 }
 
 /* End of file ModelName.php */
