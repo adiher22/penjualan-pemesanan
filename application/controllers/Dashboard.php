@@ -25,6 +25,13 @@ public function __construct()
 		$this->template->load('dashboard/template', 'dashboard/dashboard',$data);
 	}
 
+	public function pemesanan()
+	{
+		$data['title'] = "Halaman Dashboard Pemesanan";
+		$data['footer'] = "Adiher";
+		// $data['paymen_last'] = $this->M_pembayaran->get_last(5,$id);
+		$this->template->load('dashboard/template', 'dashboard/pemesanan',$data);
+	}
 // 	public function profile(){
 
 // 	   $customer_id = $this->session->userdata('customerid');

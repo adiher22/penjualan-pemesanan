@@ -170,5 +170,25 @@
             })
         });
      </script>
+      </script>
+      <?php if($this->session->flashdata('sukses')) { ?>
+      <script>
+        Swal.fire({
+        title: 'Berhasil ',
+        text: '<?= $this->session->flashdata('sukses')?>',
+        icon: 'success'
+          })
+      
+      </script>
+      <?php } ?>
+      <?php if($this->session->flashdata('gagal')) { ?>
+      <script>
+        Swal.fire({
+        title: 'Gagal!',
+        text: '<?= $this->session->flashdata('gagal')?>',
+        icon: 'error'
+          })
+      </script>
+      <?php } ?>
   </body>
 </html>

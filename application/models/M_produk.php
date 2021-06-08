@@ -105,6 +105,17 @@ class M_produk extends CI_Model {
         $query = $this->db->get();
         return $query;
     }
+    public function getCartTotal($id_cust)
+    {
+        $this->db->select_sum('harga');
+        $this->db->from('keranjang');
+        $this->db->join('produk', 'keranjang.id_produk = produk.id_produk', 'left');
+        $this->db->join('customer', 'keranjang.id_cust = customer.id_cust', 'left');
+        $this->db->where('keranjang.id_cust', $id_cust);
+        
+        $query = $this->db->get();
+        return $query;
+    }
    
 	public function del($id)
 	{

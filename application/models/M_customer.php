@@ -80,20 +80,15 @@ class M_customer extends CI_Model {
 		return $query;
 		
 	}
-	public function edit($post){
+	public function edit($post,$id){
 
-		$params['nik'] = $post['no_ktp'];
-		$params['nama'] = $post['nama'];
-		$params['no_hp'] = $post['no_hp']
-;		$params['no_kk'] = $post['no_kk'];
-		$params['no_rek'] = $post['norek'];
-		$params['nama_pengguna'] = $post['username'];
-		if(!empty($post['password'])) {
-		$params['password'] = password_verify($post['password'], PASSWORD_BCRYPT);
+		if(!empty($post['no_rek'])){
+			$params['no_rek'] = $post['no_rek'];
 		}
-		$params['alamat'] = $post['alamat'];
-
-		$this->db->where('id_customer', $post['id_customer']);
+		if(!empty($post['alamat_cust'])){
+			$params['alamat'] = $post['alamat_cust'];
+		}
+		$this->db->where('id_cust', $id);
 		$this->db->update('customer', $params);
 	}
 

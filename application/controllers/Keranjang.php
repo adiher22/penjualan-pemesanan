@@ -19,8 +19,8 @@ class Keranjang extends CI_Controller {
     function getBank($id_bank)
     {
         
-
-		 $query = $this->M_bank->getBank($id_bank)->row_array();
+        
+		 $query = $this->M_bank->getBank(decrypt_url($id_bank))->row_array();
        
          output_json($query);
          
@@ -37,7 +37,9 @@ class Keranjang extends CI_Controller {
         $data['cust'] = $this->M_customer->getCust($id_cust)->row();
         $data['id_pemesanan'] = $this->M_pemesanan->id_pemesanan();
         $data['bank'] = $this->M_bank->get()->result();
-        
+       
+        $data['sum'] = $this->M_produk->getCartTotal($id_cust)->row_array();
+      
        
 
         $this->load->view('layout/wrapper', $data);
@@ -71,7 +73,7 @@ class Keranjang extends CI_Controller {
         
         $this->db->where('id_keranjang', $id_keranjang);
         $this->db->delete('keranjang');  
-        
+        $this->session->set_flashdata('sukses','Keranjang Berhasil Dihapus...!');
         redirect(site_url('keranjang'));
     }
 }

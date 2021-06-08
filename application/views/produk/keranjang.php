@@ -52,6 +52,15 @@
                                 </td>
                             </tr>
                         <?php endforeach?>
+                            <tr>
+                                <td colspan="2" class="text-center" style="width: 20%;">
+                                    <div class="product-title"> Total Harga</div>
+                                </td>
+                                <td  style="width: 35%;">
+                                    <div class="product-title"><?= indo_curency($sum['harga']) ?></div>
+                                    <div class="product-subtitle">Total Harga</div>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>
@@ -64,18 +73,19 @@
                     <h2 class="mb-4">Pemesanan Detail</h2>
                 </div>
             </div>
-         
+            <form action="<?= site_url('pemesanan/add') ?>" method="POST" enctype="multipart/form-data">               
             <div  class="row mb-2" data-aos="fade-up" data-aos-delay="200">
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="addressOne">Alamat Perusahaan</label>
-                        <input type="text" id="addressOne" name="addressOne" class="form-control" value="Perum The Citaville Blok B1 No.10 RT 005 RW 005, Jl. Citarik Raya Jati Baru Cikarang Timur, Bekasi" />
+                        <input type="text"  class="form-control" value="Perum The Citaville Blok B1 No.10 RT 005 RW 005, Jl. Citarik Raya Jati Baru Cikarang Timur, Bekasi" />
+                        <input type="hidden" id="id_pemesanan" name="id_pemesanan" value="<?= encrypt_url($id_pemesanan) ?>">
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="addressTwo">Alamat Customer</label>
-                        <input type="text" id="addressTwo" name="addressTwo" class="form-control" value="<?= $cust->alamat ?>" />
+                        <input type="text" id="addressTwo" name="alamat_cust" class="form-control" value="<?= $cust->alamat ?>" />
                     </div>
                 </div>
                 <div class="col-md-4">
@@ -92,6 +102,7 @@
                         <label for="postalCode">Down Payment</label>
                         <input type="number" id="down_payment" name="down_payment" class="form-control" value="" />
                     </div>
+                  
                 </div>
                 <div class="col-md-4" v-else="is_dp">
                     <div class="form-group">
@@ -104,16 +115,18 @@
                         <label for="bank">Pilih Bank</label>
                         <select id="bank" name="bank" v-model="id_bank" @change="getBank()" class="form-control">
                         <?php foreach($bank as $b) : ?>
-                            <option :value="<?= $b->id_bank ?>"><?= $b->nama_bank ?></option>
+                            <option value="<?= encrypt_url($b->id_bank) ?>"><?= $b->nama_bank ?></option>
                         <?php endforeach ?>
                         </select>
                     </div>
+                    <strong><?= form_error('bank') ?></strong>
                 </div>  
                 <div class="col-md-4">
                     <div class="form-group">
                         <label for="rekening">No Rekening Anda</label>
-                        <input type="text" id="no_rek" name="no_rek" class="form-control" value="<?php if($cust->no_rek != null) { echo $cust->no_rek;} echo "Rekening Anda Kosong"; ?>" />
+                        <input type="text" id="no_rek" name="no_rek" class="form-control" value="<?php if($cust->no_rek != null) { echo $cust->no_rek;} echo "Rekening Anda Kosong"; ?>" />  
                     </div>
+                    <strong><?= form_error('no_rek') ?>  </strong>
                 </div>  
                 <div class="col-md-4">
                     <div class="form-group">
@@ -142,30 +155,40 @@
                     <hr>
                 </div>
                 <div class="col-12">
-                    <h2 class="mb-1">Payment Information</h2>
+                    <h2 class="mb-1">Informasi Pembayaran</h2>
                 </div>
             </div>
+            <?php 
+                $ppn = number_format($sum['harga'] / 1.10 * 0.10,0,',','');
+                $kirim = 20000;
+                $asuransi = 5000;
+                $total = $ppn + $kirim + $asuransi + $sum['harga'];
+            ?>
+
             <div class="row" data-aos="fade-up" data-aos-delay="200">
                 <div class="col-4 col-md-2">
-                    <div class="product-title">$10</div>
-                    <div class="product-subtitle">Country Tax</div>
+                    <div class="product-title"><?= indo_curency($ppn) ?></div>
+                    <div class="product-subtitle">Pajak Negara</div>
                 </div>
                 <div class="col-4 col-md-3">
-                    <div class="product-title">$200</div>
-                    <div class="product-subtitle">Product Insurance</div>
+                    <div class="product-title"><?= indo_curency($asuransi) ?></div>
+                    <div class="product-subtitle">Product Asuransi</div>
                 </div>
                 <div class="col-4 col-md-2">
-                    <div class="product-title">$500</div>
-                    <div class="product-subtitle">Ship to Bandung</div>
+                    <div class="product-title"><?= indo_curency($kirim) ?></div>
+                    <div class="product-subtitle">Biaya Pengiriman</div>
                 </div>
                 <div class="col-4 col-md-2">
-                    <div class="product-title text-primary">$394,200</div>
-                    <div class="product-subtitle">Total</div>
+                    <div class="product-title text-primary"><?= indo_curency($total) ?>
+                    <input type="hidden" name="total" value="<?= $total ?>">
+                    </div>
+                    <div class="product-subtitle">Total Keseluruhan</div>
                 </div>
                 <div class="col-8 col-md-3">
-                    <a href="success.html" class="btn btn-primary mt-4 px-4 btn-block">Checkout Now</a>
+                    <button type="submit" class="btn btn-primary mt-4 px-4 btn-block">Pesan Sekarang</button>
                 </div>
             </div>
+            </form>
         </div>
     </section>
   </div>
