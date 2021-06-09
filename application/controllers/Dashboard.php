@@ -10,25 +10,30 @@ public function __construct()
         //Do your magic here
 		// check_not_user_login();
 		$this->load->model('M_customer');
+		$this->load->model('M_pemesanan');
+		$this->load->model('M_produk');
 		check_not_user_login();
 
 	}
 	
 
-	public function index()
+	public function dasbor()
 	{
-		// $id = $this->session->userdata('customerid');
+		$id = $this->session->userdata('customerid');
 		
 		$data['title'] = "Halaman Dashboard Customer";
 		$data['footer'] = "Adiher";
-		// $data['paymen_last'] = $this->M_pembayaran->get_last(5,$id);
+		$data['pemesanan'] = $this->M_pemesanan->get($id);
+	
 		$this->template->load('dashboard/template', 'dashboard/dashboard',$data);
 	}
 
 	public function pemesanan()
 	{
+		$id = $this->session->userdata('customerid');
 		$data['title'] = "Halaman Dashboard Pemesanan";
 		$data['footer'] = "Adiher";
+		$data['pemesanan'] = $this->M_pemesanan->getPemesanan($id);
 		// $data['paymen_last'] = $this->M_pembayaran->get_last(5,$id);
 		$this->template->load('dashboard/template', 'dashboard/pemesanan',$data);
 	}

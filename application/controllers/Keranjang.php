@@ -29,20 +29,27 @@ class Keranjang extends CI_Controller {
     public function index()
     {
         $id_cust = $this->session->userdata('customerid');
+        $cart = $this->M_produk->getCartProduk($id_cust)->result();
 
-        $data['title'] = "Pemesanan Produk";
-        $data['isi'] = 'produk/keranjang';
-        $data['footer'] = "Adiher";
-        $data['produk'] = $this->M_produk->getCartProduk($id_cust);
-        $data['cust'] = $this->M_customer->getCust($id_cust)->row();
-        $data['id_pemesanan'] = $this->M_pemesanan->id_pemesanan();
-        $data['bank'] = $this->M_bank->get()->result();
+        if(!empty($cart)){
+            $data['title'] = "Pemesanan Produk";
+            $data['isi'] = 'produk/keranjang';
+            $data['footer'] = "Adiher";
+            $data['produk'] = $this->M_produk->getCartProduk($id_cust);
+            $data['cust'] = $this->M_customer->getCust($id_cust)->row();
+            $data['id_pemesanan'] = $this->M_pemesanan->id_pemesanan();
+            $data['bank'] = $this->M_bank->get()->result();
+            
+            $data['sum'] = $this->M_produk->getCartTotal($id_cust)->row_array();
         
-        $data['sum'] = $this->M_produk->getCartTotal($id_cust)->row_array();
-      
-       
+        
 
-        $this->load->view('layout/wrapper', $data);
+            $this->load->view('layout/wrapper', $data);
+        }else{
+            $this->session->set_flashdata('gagal','Keranjang Anda Masih Kosong... Pilih produk anda..!');
+			redirect(base_url('produk'),'refresh');
+        }
+      
     }
 
     public function add($id_produk)

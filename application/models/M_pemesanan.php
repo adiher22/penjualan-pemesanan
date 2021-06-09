@@ -5,15 +5,30 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class M_pemesanan extends CI_Model {
 
     public function get($id = null){
-
+        $this->db->select('*');
 		$this->db->from('pemesanan');
+        $this->db->join('customer', 'pemesanan.id_cust = customer.id_cust', 'left');
 		if($id != null){
-			$this->db->where('id_pemesanan',$id);
+			$this->db->where('pemesanan.id_cust',$id);
 		}
 		$query = $this->db->get();
 		return $query;
 	}
-	
+	 public function getPemesanan($id){
+        $this->db->select('produk.*,
+                          transaksi_detail.*,
+                          pemesanan.*');
+		$this->db->from('pemesanan');
+        $this->db->join('transaksi_detail', 'pemesanan.id_pemesanan = transaksi_detail.id_pemesanan', 'left');
+        $this->db->join('produk', 'transaksi_detail.id_produk = produk.id_produk', 'left');
+        $this->db->order_by('pemesanan.id_pemesanan', 'asc');
+        $this->db->group_by('pemesanan.id_pemesanan');
+        
+		$this->db->where('pemesanan.id_cust',$id);
+		
+		$query = $this->db->get();
+		return $query;
+	}
     function id_pemesanan(){
       
         $q = $this->db->query("SELECT MAX(RIGHT(id_pemesanan,4)) AS kd_max FROM pemesanan WHERE DATE(tgl_pesan)=CURDATE()");

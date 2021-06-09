@@ -8,7 +8,8 @@
     />
     <meta name="description" content="" />
     <meta name="author" content="" />
-
+       <!-- Icon -->
+    <link rel="icon" type="image/png" href="<?= base_url('assets/template/dist/img/logo.png') ?>"/>
     <title><?= $title  ?></title>
 
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
@@ -23,23 +24,20 @@
         <!-- Sidebar -->
         <div class="border-right" id="sidebar-wrapper">
           <div class="sidebar-heading text-center">
-            <img src="<?= site_url('assets/front-end/images/dashboard-store-logo.svg') ?>" alt="" class="my-4">
+            <img src="<?= site_url('assets/front-end/images/customer-logo.png') ?>" alt="" style="width: 100px; height: 100px;" class="my-4">
           </div>
           <div class="list-group list-group-flush">
-            <a href="dashboard.html" class="list-group-item list-group-item-action active">
+            <a href="<?= site_url('dashboard/dasbor') ?>" class="list-group-item list-group-item-action <?= $this->uri->segment(2) == 'dasbor' || $this->uri->segment(2) == 'detailPemesanan' ? 'active' : ''; ?>">
               Dashboard
             </a>
-            <a href="dashboard-product.html" class="list-group-item list-group-item-action">
-              My Product
+            <a href="<?= site_url('dashboard/pemesanan') ?>" class="list-group-item list-group-item-action <?= $this->uri->segment(2) == 'pemesanan' || $this->uri->segment(2) == 'detailPemesanan' ? 'active' : ''; ?>">
+              Pemesanan
             </a>
             <a href="dashboard-transaction.html" class="list-group-item list-group-item-action">
-              Transaction
-            </a>
-            <a href="dashboard-settings.html" class="list-group-item list-group-item-action">
-              Store Settings
+              Pengiriman
             </a>
             <a href="dashboard-account.html" class="list-group-item list-group-item-action">
-              My Account
+              Akun Saya
             </a>
             <a href="index.html" class="list-group-item list-group-item-action">
               Sign Out
@@ -64,7 +62,7 @@
                 <li class="nav-item dropdown">
                 
                 <a href="#" class="nav-link" id="navbarDropdown" role="button" data-toggle="dropdown">
-                  <img src="<?= site_url('assets/front-end/images/cat.jpg') ?>" alt="" class="rounded-circle mr-2 profile-picture">
+                  <img src="<?= site_url('assets/front-end/images/man.png') ?>" alt="" class="rounded-circle mr-2 profile-picture">
                   Hi, <?= $this->fungsi->user_login()->nama_cust ?>
                 </a>
                 <div class="dropdown-menu">
@@ -103,19 +101,9 @@
       <!-- Section Content -->
       <?php echo $contents ?>
       <!-- Page content wrapper -->
-        <footer class="main-footer">
-        <div class="container">
-          <div class="row">
-            <div class="col-12 text-center">
-              <p class="pt-4 pb-2">
-                &copy; 2020 Copyright. All Right Reserved <?= $footer ?>.
-              </p>
-            </div>
-          </div>
-        </div>
-    </footer>
+    
      </div>
-    </div>
+    </div>   
     </div>
     <!-- Bootstrap core JavaScript -->
     <script src="<?= site_url('assets/front-end/vendor/jquery/jquery.slim.min.js') ?>"></script>

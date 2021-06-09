@@ -29,7 +29,11 @@ class Pemesanan extends CI_Controller {
     
     public function add()
     {
+        $id = $this->session->userdata('customerid'); // ambil id dari user custmer yg sedang login
         
+
+       
+
         $this->form_validation->set_rules('bank', 'Bank', 'trim|required', 
             array(	'required' => '%s Harus Diisi'));
 
@@ -58,7 +62,7 @@ class Pemesanan extends CI_Controller {
             $this->load->view('layout/wrapper', $data);
 		}else {
 			$post = $this->input->post(null, TRUE);
-            $id = $this->session->userdata('customerid'); // ambil id dari user custmer yg sedang login
+         
             $cart = $this->M_pemesanan->getCart($id)->result_array(); // get data dari keranjang
          
 			$this->M_pemesanan->add($post); // insert / add table pemesanan
@@ -70,6 +74,7 @@ class Pemesanan extends CI_Controller {
 					redirect(base_url('dashboard/pemesanan'),'refresh');
 				}
 			}
+        
     }
 
 }

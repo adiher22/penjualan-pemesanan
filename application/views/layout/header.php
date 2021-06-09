@@ -66,7 +66,7 @@
                 <li class="nav-item dropdown">
                 
                 <a href="#" class="nav-link" id="navbarDropdown" role="button" data-toggle="dropdown">
-                  <img src="<?= site_url('assets/front-end/images/cat.jpg') ?>" alt="" class="rounded-circle mr-2 profile-picture">
+                  <img src="<?= site_url('assets/front-end/images/man.png') ?>" alt="" class="rounded-circle mr-2 profile-picture">
                   Hi, <?= $this->fungsi->user_login()->nama_cust ?>
                 </a>
                 <div class="dropdown-menu">

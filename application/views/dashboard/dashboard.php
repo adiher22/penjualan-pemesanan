@@ -3,9 +3,9 @@
         <div class="section-content section-dashboard-home" data-aos="fade-up">
           <div class="container-fluid">
             <div class="dashboard-heading">
-              <h2 class="dashboard-title">Dashboard</h2>
+              <h2 class="dashboard-title">Dasbor Customer</h2>
               <p class="dashboard-subtitle">
-                Look what you have made today!
+                 Lihat transaksi anda hari ini!
               </p>
             </div>
             <div class="dashboard-content">
@@ -49,73 +49,34 @@
               </div>
               <div class="row mt-3">
                 <div class="col-12 mt-2">
-                  <h5 class="mb-3">Recent Transactions</h5>
+                  <h5 class="mb-3">Transaksi Terbaru</h5>
+                  <?php foreach($pemesanan->result() as $p) : ?>
                   <a href="dashboard-transactions-details.html" class="card card-list d-block">
                     <div class="card-body">
                       <div class="row">
-                        <div class="col-md-1">
-                          <img src="images/dashboard-icon-product-1.png" alt="">
+                      
+                        <div class="col-md-3">
+                          <?= $p->nama_cust ?>
                         </div>
-                        <div class="col-md-4">
-                          Coffe Boga Rasa
+                        <div class="col-md-2">
+                          <?= $p->status_pemesanan ?>
                         </div>
                         <div class="col-md-3">
-                          Adi Hernawan
+                          Tanggal Pesan: <?= indo_date($p->tgl_pesan) ?>
                         </div>
-                        <div class="col-md-3">
-                          12 Oktober 2020
+                         <div class="col-md-3">
+                          Tanggal Batas: <?= indo_date($p->tgl_batas) ?>
                         </div>
                         <div class="col-md-1 d-none d-md-block">
-                          <img src="images/dashboard-arrow-right.svg" alt="">
+                          <img src="<?= site_url('assets/front-end/images/dashboard-arrow-right.svg') ?>" alt="">
                         </div>
                       </div>
                     </div>
                   </a>
-                  <a href="dashboard-transactions-details.html" class="card card-list d-block">
-                    <div class="card-body">
-                      <div class="row">
-                        <div class="col-md-1">
-                          <img src="images/dashboard-icon-product-2.png" alt="">
-                        </div>
-                        <div class="col-md-4">
-                          Sapatu Cibaduyut
-                        </div>
-                        <div class="col-md-3">
-                          Kang Mus
-                        </div>
-                        <div class="col-md-3">
-                          11 Oktober 2020
-                        </div>
-                        <div class="col-md-1 d-none d-md-block">
-                          <img src="images/dashboard-arrow-right.svg" alt="">
-                        </div>
-                      </div>
-                    </div>
-                  </a>
-                  <a href="dashboard-transactions-details.html" class="card card-list d-block">
-                    <div class="card-body">
-                      <div class="row">
-                        <div class="col-md-1">
-                          <img src="images/dashboard-icon-product-3.png" alt="">
-                        </div>
-                        <div class="col-md-4">
-                          Sofa Tersantuy
-                        </div>
-                        <div class="col-md-3">
-                          Fatur Ahead
-                        </div>
-                        <div class="col-md-3">
-                          10 Oktober 2020
-                        </div>
-                        <div class="col-md-1 d-none d-md-block">
-                          <img src="images/dashboard-arrow-right.svg" alt="">
-                        </div>
-                      </div>
-                    </div>
-                  </a>
+                    <?php endforeach ?>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      <!-- </ Page Content Wrapper -->
+     

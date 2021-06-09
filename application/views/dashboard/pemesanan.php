@@ -1,121 +1,73 @@
-
+     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
        <!-- Section Content -->
         <div class="section-content section-dashboard-home" data-aos="fade-up">
           <div class="container-fluid">
             <div class="dashboard-heading">
-              <h2 class="dashboard-title">Dashboard</h2>
+              <h2 class="dashboard-title">Pemesanan</h2>
               <p class="dashboard-subtitle">
-                Look what you have made today!
+                 Penting! untuk data pemesanan yang sudah melewati batas tanpa bukti bayar akan di hapus oleh admin!!
               </p>
             </div>
             <div class="dashboard-content">
-              <div class="row">
-                <div class="col-md-4">
-                  <div class="card mb-2">
-                    <div class="card-body">
-                      <div class="dashboard-card-title">
-                        Customer
-                      </div>
-                      <div class="dashboard-card-subtitle">
-                        15.902
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-md-4">
-                  <div class="card mb-2">
-                    <div class="card-body">
-                      <div class="dashboard-card-title">
-                        Revenue
-                      </div>
-                      <div class="dashboard-card-subtitle">
-                        $39,900
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-md-4">
-                  <div class="card mb-2">
-                    <div class="card-body">
-                      <div class="dashboard-card-title">
-                        Transaction
-                      </div>
-                      <div class="dashboard-card-subtitle">
-                        22,333,545
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+             
               <div class="row mt-3">
-                <div class="col-12 mt-2">
-                  <h5 class="mb-3">Recent Transactions</h5>
-                  <a href="dashboard-transactions-details.html" class="card card-list d-block">
-                    <div class="card-body">
+                 <div class="col-12 mt-2">
+                  <h5 class="mb-3">Pemesanan Terbaru</h5>
+                    <div class="card card-body">
                       <div class="row">
-                        <div class="col-md-1">
-                          <img src="images/dashboard-icon-product-1.png" alt="">
-                        </div>
-                        <div class="col-md-4">
-                          Coffe Boga Rasa
-                        </div>
-                        <div class="col-md-3">
-                          Adi Hernawan
-                        </div>
-                        <div class="col-md-3">
-                          12 Oktober 2020
-                        </div>
-                        <div class="col-md-1 d-none d-md-block">
-                          <img src="images/dashboard-arrow-right.svg" alt="">
-                        </div>
+                          <table class="table table-bordered">
+                              <thead>
+                                  <tr>
+                                      <td>Id Pemesanan</td>
+                                      <td>Status Pemesanan</td>
+                                      <td>Tanggal Pesan</td>
+                                      <td>Tanggal Batas</td>
+                                      <td class="text-center">Opsi</td>
+                                  </tr>
+                              </thead>
+                              <tbody>
+                              <?php foreach($pemesanan->result() as $p) : ?>
+                                  <tr>
+                                      <td><?= $p->id_pemesanan ?></td>
+                                      <td class="text-danger"><?= $p->status_pemesanan?></td>
+                                      <td><?= indo_date($p->tgl_pesan)?></td>
+                                      <td class="text-danger"><?= indo_date($p->tgl_batas)?></td>
+                                      <td class="text-center">
+                                          <a href="" class="btn btn-secondary btn-sm">Detail</a>
+                                          <a href="" class="btn btn-primary btn-sm">Upload Bukti</a>
+                                      </td>
+                                  </tr>
+                                  <?php endforeach ?>
+                              </tbody>
+                              </table>
+                   
                       </div>
                     </div>
-                  </a>
-                  <a href="dashboard-transactions-details.html" class="card card-list d-block">
-                    <div class="card-body">
-                      <div class="row">
-                        <div class="col-md-1">
-                          <img src="images/dashboard-icon-product-2.png" alt="">
-                        </div>
-                        <div class="col-md-4">
-                          Sapatu Cibaduyut
-                        </div>
-                        <div class="col-md-3">
-                          Kang Mus
-                        </div>
-                        <div class="col-md-3">
-                          11 Oktober 2020
-                        </div>
-                        <div class="col-md-1 d-none d-md-block">
-                          <img src="images/dashboard-arrow-right.svg" alt="">
-                        </div>
-                      </div>
-                    </div>
-                  </a>
-                  <a href="dashboard-transactions-details.html" class="card card-list d-block">
-                    <div class="card-body">
-                      <div class="row">
-                        <div class="col-md-1">
-                          <img src="images/dashboard-icon-product-3.png" alt="">
-                        </div>
-                        <div class="col-md-4">
-                          Sofa Tersantuy
-                        </div>
-                        <div class="col-md-3">
-                          Fatur Ahead
-                        </div>
-                        <div class="col-md-3">
-                          10 Oktober 2020
-                        </div>
-                        <div class="col-md-1 d-none d-md-block">
-                          <img src="images/dashboard-arrow-right.svg" alt="">
-                        </div>
-                      </div>
-                    </div>
-                  </a>
+                  
+                    
+                     
                 </div>
               </div>
             </div>
           </div>
         </div>
       <!-- </ Page Content Wrapper -->
+      <script>
+        // script untuk memanggil id sesuai dengan data pemesanan
+          $(document).ready(function(){
+              $(document).on('click','#colaps', function() {
+                  var nama_produk = $(this).data('nama_produk');
+                  var harga = $(this).data('harga');
+                  var gambar = $(this).data('gambar');
+
+                  $('#nama_produk').html(nama_produk);
+                  $('#harga').html(harga);
+            
+                  $('#gambar').attr("src", gambar);
+           
+
+
+              });
+
+          });
+      </script>
