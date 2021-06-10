@@ -29,12 +29,18 @@
                               <?php foreach($pemesanan->result() as $p) : ?>
                                   <tr>
                                       <td><?= $p->id_pemesanan ?></td>
+                                      <?php if(empty($p->bukti_bayar)) { ?>
                                       <td class="text-danger"><?= $p->status_pemesanan?></td>
+                                      <?php }else{?>
+                                      <td class="text-info"><?= $p->status_pemesanan ?></td>
+                                      <?php }?>
                                       <td><?= indo_date($p->tgl_pesan)?></td>
                                       <td class="text-danger"><?= indo_date($p->tgl_batas)?></td>
                                       <td class="text-center">
                                           <a href="<?= site_url('dashboard/detailPemesanan/' . encrypt_url($p->id_pemesanan)) ?>" class="btn btn-secondary btn-sm">Detail</a>
-                                          <a href="" class="btn btn-primary btn-sm">Upload Bukti</a>
+                                          <?php if(empty($p->bukti_bayar)) { ?>
+                                          <a href="" data-toggle="modal" data-target="#modal-upload" class="btn btn-primary btn-sm">Upload Bukti</a>
+                                            <?php }?>
                                       </td>
                                   </tr>
                                   <?php endforeach ?>
@@ -48,6 +54,42 @@
           </div>
         </div>
       <!-- </ Page Content Wrapper -->
+       <!-- Modal upload bukti bayar -->
+<div class="modal" id="modal-upload" data-backdrop="false" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Upload Bukti Bayar</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form action="<?= site_url('dashboard/upload_bukti') ?>" method="POST" id="form-upload" enctype="multipart/form-data">
+      <div class="modal-body">
+       
+          
+         <div class="form-group">
+         <label for="bukti_bayar">Bukti Bayar</label>
+             <input type="hidden" name="id_pemesanan" value="<?= encrypt_url($pesan['id_pemesanan']) ?>">
+             <input type="file" class="form-control" id="bukti_bayar" name="bukti_bayar" onchange="return fileValidation() "/>   
+             <p class="text-danger">*JPG|PNG|JPEG</p> 
+             <div id="imagePreview"></div>
+         </div>
+         <div class="form-group">
+           <label for="norek">Nomor Rekening Anda</label>
+           <input type="text" class="form-control" id="norek" name="norek" readonly value="<?= $pesan['nomor_rekening'] ?>">
+         </div>
+
+       
+      </div>
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-primary">Save changes</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+      </form>
+    </div>
+  </div>
+</div>
       <script>
         // script untuk memanggil id sesuai dengan data pemesanan
           $(document).ready(function(){
@@ -67,3 +109,70 @@
 
           });
       </script>
+ 
+<script> 
+        function fileValidation() { 
+            var fileInput = document.getElementById('bukti_bayar'); 
+              
+            var filePath = fileInput.value; 
+          
+            // Allowing file type 
+            var allowedExtensions =  
+                    /(\.jpg|\.jpeg|\.png)$/i; 
+              
+            if (!allowedExtensions.exec(filePath)) { 
+               
+                Swal.fire('File tipe tidak sesuai');
+                fileInput.value = ''; 
+                return false; 
+            }  
+            else  
+            { 
+              
+                // Image preview 
+                if (fileInput.files && fileInput.files[0]) { 
+                    var reader = new FileReader(); 
+                    reader.onload = function(e) { 
+                        document.getElementById( 
+                            'imagePreview').innerHTML =  
+                            '<img src="' + e.target.result 
+                            + '" style="width:200px; height:auto;"/>'; 
+                    }; 
+                      
+                    reader.readAsDataURL(fileInput.files[0]); 
+                } 
+            } 
+        } 
+     
+    </script> 
+
+    <!-- Priview Image -->
+
+    <!--Modal: Name-->
+    <div class="modal fade" id="modal-image" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg" role="document">
+
+        <!--Content-->
+        <div class="modal-content">
+
+          <!--Body-->
+          <div class="modal-body mb-0 p-0">
+
+            <div class="embed-responsive">
+                <img src="" id="bukti" class="img-fluid w-100 h-100"  alt="Responsive image">
+            </div>
+
+          </div>
+
+          <!--Footer-->
+          <div class="modal-footer justify-content-center">
+          
+            <button type="button" class="btn btn-outline-primary btn-rounded btn-md ml-4" data-dismiss="modal">Close</button>
+
+          </div>
+
+        </div>
+        <!--/.Content-->
+
+      </div>
+    </div>

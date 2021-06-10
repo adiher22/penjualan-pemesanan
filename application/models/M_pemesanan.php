@@ -101,6 +101,16 @@ class M_pemesanan extends CI_Model {
 		$query = $this->db->get();
 		return $query;
 	}
+    public function upload_bukti($post)
+    {
+        $params['bukti_bayar'] = $post['bukti_bayar'];
+        $params['status_pemesanan'] = "SUDAH DIBAYAR";
+
+        $this->db->where('id_pemesanan', decrypt_url($post['id_pemesanan']));
+        
+        $this->db->update('pemesanan', $params);
+        
+    }
     public function addDetail($post,$cart)
     {
         $params = array();
