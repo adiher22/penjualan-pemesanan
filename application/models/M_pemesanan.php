@@ -29,6 +29,31 @@ class M_pemesanan extends CI_Model {
 		$query = $this->db->get();
 		return $query;
 	}
+    public function getProduk($id)
+    {
+         $this->db->select('produk.*,
+                          transaksi_detail.*');
+		$this->db->from('transaksi_detail');
+        $this->db->join('produk', 'transaksi_detail.id_produk = produk.id_produk', 'left');
+        $this->db->order_by('transaksi_detail.id_pemesanan', 'desc');
+		$this->db->where('transaksi_detail.id_pemesanan', decrypt_url($id));
+		
+		$query = $this->db->get();
+		return $query;
+    }
+     public function getDetailPemesanan($id){
+        $this->db->select('pemesanan.*,
+                          bank.*,
+                          customer.*');
+		$this->db->from('pemesanan');
+        $this->db->join('customer', 'pemesanan.id_cust = customer.id_cust', 'left');
+        $this->db->join('bank', 'bank.id_bank = pemesanan.id_bank', 'left');
+        $this->db->order_by('pemesanan.id_pemesanan', 'asc');
+		$this->db->where('pemesanan.id_pemesanan',decrypt_url($id));
+		
+		$query = $this->db->get();
+		return $query;
+	}
     function id_pemesanan(){
       
         $q = $this->db->query("SELECT MAX(RIGHT(id_pemesanan,4)) AS kd_max FROM pemesanan WHERE DATE(tgl_pesan)=CURDATE()");

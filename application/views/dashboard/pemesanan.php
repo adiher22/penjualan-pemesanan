@@ -33,19 +33,15 @@
                                       <td><?= indo_date($p->tgl_pesan)?></td>
                                       <td class="text-danger"><?= indo_date($p->tgl_batas)?></td>
                                       <td class="text-center">
-                                          <a href="" class="btn btn-secondary btn-sm">Detail</a>
+                                          <a href="<?= site_url('dashboard/detailPemesanan/' . encrypt_url($p->id_pemesanan)) ?>" class="btn btn-secondary btn-sm">Detail</a>
                                           <a href="" class="btn btn-primary btn-sm">Upload Bukti</a>
                                       </td>
                                   </tr>
                                   <?php endforeach ?>
                               </tbody>
-                              </table>
-                   
+                          </table>
                       </div>
-                    </div>
-                  
-                    
-                     
+                    </div>             
                 </div>
               </div>
             </div>

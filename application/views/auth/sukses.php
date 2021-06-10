@@ -26,7 +26,7 @@
                <h2>Selamat Datang!</h2>
                <p>Kamu sudah berhasil terdaftar <br> bersama kami. Let's grow up now</p>
                <div>
-                 <a href="<?= site_url('dashboard') ?>" class="btn btn-primary w-50 mt-4">Dashboard Saya</a>
+                 <a href="<?= site_url('dashboard/dasbor') ?>" class="btn btn-primary w-50 mt-4">Dashboard Saya</a>
                  <a href="<?= site_url('home') ?>" class="btn btn-signup w-50 mt-2">Pergi Ke Home</a>
                </div>
              </div>

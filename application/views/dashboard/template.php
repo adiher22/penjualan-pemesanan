@@ -27,7 +27,7 @@
             <img src="<?= site_url('assets/front-end/images/customer-logo.png') ?>" alt="" style="width: 100px; height: 100px;" class="my-4">
           </div>
           <div class="list-group list-group-flush">
-            <a href="<?= site_url('dashboard/dasbor') ?>" class="list-group-item list-group-item-action <?= $this->uri->segment(2) == 'dasbor' || $this->uri->segment(2) == 'detailPemesanan' ? 'active' : ''; ?>">
+            <a href="<?= site_url('dashboard/dasbor') ?>" class="list-group-item list-group-item-action <?= $this->uri->segment(2) == 'dasbor' ? 'active' : ''; ?>">
               Dashboard
             </a>
             <a href="<?= site_url('dashboard/pemesanan') ?>" class="list-group-item list-group-item-action <?= $this->uri->segment(2) == 'pemesanan' || $this->uri->segment(2) == 'detailPemesanan' ? 'active' : ''; ?>">

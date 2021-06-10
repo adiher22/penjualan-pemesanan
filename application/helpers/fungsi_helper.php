@@ -23,7 +23,7 @@ function check_already_user_login() {
     $ci =& get_instance();
     $user_session = $ci->session->userdata('customerid');
     if($user_session) {
-        redirect('dashboard','refresh');
+        redirect('dashboard/dasbor','refresh');
     }
   }
 if(!function_exists('get_csrf_token')){

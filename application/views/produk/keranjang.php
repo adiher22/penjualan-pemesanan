@@ -107,7 +107,7 @@
                 <div class="col-md-4" v-else="is_dp">
                     <div class="form-group">
                         <label for="postalCode">Full Payment</label>
-                        <input type="number" id="down_payment" name="down_payment" class="form-control" value="" />
+                        <input type="number" id="down_payment" name="full_payment" class="form-control" value="" />
                     </div>
                 </div>    
                 <div class="col-md-4">

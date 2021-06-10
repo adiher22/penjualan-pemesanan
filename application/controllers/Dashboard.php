@@ -34,8 +34,18 @@ public function __construct()
 		$data['title'] = "Halaman Dashboard Pemesanan";
 		$data['footer'] = "Adiher";
 		$data['pemesanan'] = $this->M_pemesanan->getPemesanan($id);
-		// $data['paymen_last'] = $this->M_pembayaran->get_last(5,$id);
+		
 		$this->template->load('dashboard/template', 'dashboard/pemesanan',$data);
+	}
+	
+	public function detailPemesanan($id)
+	{
+	
+		$data['title'] = "Halaman Detail Pemesanan";
+		$data['footer'] = "Adiher";
+		$data['detail'] = $this->M_pemesanan->getDetailPemesanan($id)->row();
+		$data['produk'] = $this->M_pemesanan->getProduk($id);
+		$this->template->load('dashboard/template', 'dashboard/detailPemesanan',$data);
 	}
 // 	public function profile(){
 

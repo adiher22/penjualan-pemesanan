@@ -51,7 +51,7 @@
                 <div class="col-12 mt-2">
                   <h5 class="mb-3">Transaksi Terbaru</h5>
                   <?php foreach($pemesanan->result() as $p) : ?>
-                  <a href="dashboard-transactions-details.html" class="card card-list d-block">
+                  <a href="<?= site_url('dashboard/detailPemesanan/' . encrypt_url($p->id_pemesanan)) ?>" class="card card-list d-block">
                     <div class="card-body">
                       <div class="row">
                       

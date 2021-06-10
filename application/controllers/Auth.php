@@ -41,7 +41,7 @@ class Auth extends CI_Controller {
 				}else{
 					$this->session->set_userdata($param);
 			    	$this->session->set_flashdata('sukses_login', 'Klik Oke Untuk Lanjut');
-					 redirect(site_url('dashboard'),'refresh');
+					 redirect(site_url('dashboard/dasbor'),'refresh');
 				}
 				
 			}
