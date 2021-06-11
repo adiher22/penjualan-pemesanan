@@ -46,10 +46,9 @@ class Transaksi extends CI_Controller {
             // add html for action
             if($batas <= $today && empty($item->bukti_bayar)){
                  $row[] = '<a href="" id="btn-hapus" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i> Hapus</a>
-                          <a href="" data-toggle="modal" data-target="#modal-detail" class="btn btn-secondary btn-sm"><i class="fas fa-eye"></i> Detail</a>';
+                          <a href="'.site_url('admin/transaksi/detailPemesanan/' . encrypt_url($item->id_pemesanan)) .'" class="btn btn-secondary btn-sm"><i class="fas fa-eye"></i> Detail</a>';
             }else{
-                $row[] = '<a href="" data-toggle="modal" data-target="#modal-detail" class="btn btn-secondary btn-sm"><i class="fas fa-eye"></i> Detail</a>
-                     <a href="" class="btn btn-success btn-sm"><i class="fas fa-paper-plane "></i> Kirim</a>';
+                $row[] = '<a href="'.site_url('admin/transaksi/detailPemesanan/' . encrypt_url($item->id_pemesanan)) .'"" class="btn btn-secondary btn-sm"><i class="fas fa-eye"></i> Detail</a>';
             }
             
                 
@@ -70,6 +69,14 @@ class Transaksi extends CI_Controller {
         $data['title'] = "Transaksi Pemesanan";
        	$data['pemesanan'] = $this->M_pemesanan->get();
         $this->template->load('admin/template', 'admin/pemesanan/pemesanan_data', $data);
+    }
+    public function detailPemesanan($id)
+    {
+        $data['title'] = "Detail Pemesanan";
+        $data['detail'] = $this->M_pemesanan->getDetailPemesanan($id)->row();
+		$data['produk'] = $this->M_pemesanan->getProduk($id);
+        $data['sum'] = $this->M_pemesanan->getSubtotal($id)->row_array();
+        $this->template->load('admin/template', 'admin/pemesanan/detail_pemesanan', $data);
     }
 
 }

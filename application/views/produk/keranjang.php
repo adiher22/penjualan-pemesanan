@@ -181,7 +181,11 @@
                 </div>
                 <div class="col-4 col-md-2">
                     <div class="product-title text-primary"><?= indo_curency($total) ?>
+                    <input type="hidden" name="pajak" value="<?= $ppn ?>">
+                    <input type="hidden" name="produk_asuransi" value="<?= $asuransi ?>">
+                    <input type="hidden" name="biaya_pengiriman" value="<?= $kirim ?>">
                     <input type="hidden" name="total" value="<?= $total ?>">
+                    
                     </div>
                     <div class="product-subtitle">Total Keseluruhan</div>
                 </div>

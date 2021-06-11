@@ -31,7 +31,19 @@ class M_pemesanan extends CI_Model {
 	}
     public function getProduk($id)
     {
-         $this->db->select('produk.*,
+        $this->db->select('produk.*,
+                          transaksi_detail.*');
+		$this->db->from('transaksi_detail');
+        $this->db->join('produk', 'transaksi_detail.id_produk = produk.id_produk', 'left');
+        $this->db->order_by('transaksi_detail.id_pemesanan', 'desc');
+		$this->db->where('transaksi_detail.id_pemesanan', decrypt_url($id));
+		
+		$query = $this->db->get();
+		return $query;
+    }
+     public function getSubtotal($id)
+    {
+        $this->db->select('SUM(produk.harga) AS subtotal,
                           transaksi_detail.*');
 		$this->db->from('transaksi_detail');
         $this->db->join('produk', 'transaksi_detail.id_produk = produk.id_produk', 'left');
@@ -86,6 +98,9 @@ class M_pemesanan extends CI_Model {
         }
         $params['tgl_batas'] = date("Y-m-d", mktime(0,0,0, date("m"), date("d") + 2, date("Y")));
         $params['status_pemesanan'] = "BELUM TRANSFER";
+        $params['pajak'] = $post['pajak'];
+        $params['produk_asuransi'] = $post['produk_asuransi'];
+        $params['biaya_pengiriman'] = $post['biaya_pengiriman'];
         $params['total'] = $post['total'];
 		$this->db->insert('pemesanan', $params);
 		
