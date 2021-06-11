@@ -49,7 +49,7 @@
                             </div>
                             <?php if($detail->down_payment != null) {?>
                             <div class="col-12 col-md-6">
-                              <div class="product-title">UangM Muka</div>
+                              <div class="product-title">Uang Muka</div>
                               <div class="product-subtitle"><?= indo_curency($detail->down_payment) ?></div>
                             </div>
                             <?php }else{?>

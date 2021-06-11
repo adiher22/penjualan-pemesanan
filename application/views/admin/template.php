@@ -157,7 +157,7 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="<?= site_url('admin/transaksi/pemesanan') ?>" class="nav-link  <?= $this->uri->segment(3) == 'DataPemesanan' || $this->uri->segment(3) == 'cekPayment' || $this->uri->segment(3) == 'detailPemesanan' ? 'active' : ''; ?>">
+                <a href="<?= site_url('admin/transaksi/pemesanan') ?>" class="nav-link  <?= $this->uri->segment(3) == 'pemesanan' || $this->uri->segment(3) == 'cekPayment' || $this->uri->segment(3) == 'detailPemesanan' ? 'active' : ''; ?>">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Data Customer Pemesan</p>
                 </a>
