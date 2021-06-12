@@ -26,21 +26,27 @@
                                   </tr>
                               </thead>
                               <tbody>
-                              <?php foreach($pemesanan->result() as $p) : ?>
+                              <?php foreach($pemesanan->result_array() as $p) : 
+                                 $today = (abs(strtotime(date('Y-m-d'))));
+                                 $batas = (abs(strtotime($p['tgl_batas'])));?>
                                   <tr>
-                                      <td><?= $p->id_pemesanan ?></td>
-                                      <?php if(empty($p->bukti_bayar)) { ?>
-                                      <td class="text-danger"><?= $p->status_pemesanan?></td>
-                                      <?php }else{?>
-                                      <td class="text-info"><?= $p->status_pemesanan ?></td>
+                                      <td><?= $p['id_pemesanan'] ?></td>
+                                      <?php if(empty($p['bukti_bayar'])) { ?>
+                                      <td class="text-danger"><?= $p['status_pemesanan']?></td>
+                                      <?php }else if($batas < $today && empty($p['bukti_bayar'])){?>
+                                      <td class="text-danger">EXPIRED!</td>
+                                      <?php }else{ ?>
+                                      <td class="text-info"><?= $p['status_pemesanan'] ?></td>
                                       <?php }?>
-                                      <td><?= indo_date($p->tgl_pesan)?></td>
-                                      <td class="text-danger"><?= indo_date($p->tgl_batas)?></td>
+                                      <td><?= indo_date($p['tgl_pesan'])?></td>
+                                      <td class="text-danger"><?= indo_date($p['tgl_batas'])?></td>
                                       <td class="text-center">
-                                          <a href="<?= site_url('dashboard/detailPemesanan/' . encrypt_url($p->id_pemesanan)) ?>" class="btn btn-secondary btn-sm">Detail</a>
-                                          <?php if(empty($p->bukti_bayar)) { ?>
-                                          <a href="" data-toggle="modal" data-target="#modal-upload" class="btn btn-primary btn-sm">Upload Bukti</a>
-                                            <?php }?>
+                                          <a href="<?= site_url('dashboard/detailPemesanan/' . encrypt_url($p['id_pemesanan'])) ?>" class="btn btn-secondary btn-sm">Detail</a>
+                                          <?php if(empty($p['bukti_bayar'])) { ?>
+                                          <a href="<?= site_url('dashboard/upload_bukti/' . encrypt_url($p['id_pemesanan'])) ?>" class="btn btn-primary btn-sm">Upload Bukti</a>
+                                            <?php }else if($batas <= $today && empty($p['bukti_bayar'])) {?>
+                                          <a href="<?= site_url('dashboard/detailPemesanan/' . encrypt_url($p['id_pemesanan'])) ?>" class="btn btn-secondary btn-sm">Detail</a>
+                                          <?php }?>
                                       </td>
                                   </tr>
                                   <?php endforeach ?>
@@ -66,11 +72,9 @@
       </div>
       <form action="<?= site_url('dashboard/upload_bukti') ?>" method="POST" id="form-upload" enctype="multipart/form-data">
       <div class="modal-body">
-       
-          
          <div class="form-group">
          <label for="bukti_bayar">Bukti Bayar</label>
-             <input type="hidden" name="id_pemesanan" value="<?= encrypt_url($pesan['id_pemesanan']) ?>">
+             <input type="hidden" name="id_pemesanan" id="upload_id" value="">
              <input type="file" class="form-control" id="bukti_bayar" name="bukti_bayar" onchange="return fileValidation() "/>   
              <p class="text-danger">*JPG|PNG|JPEG</p> 
              <div id="imagePreview"></div>
@@ -78,9 +82,7 @@
          <div class="form-group">
            <label for="norek">Nomor Rekening Anda</label>
            <input type="text" class="form-control" id="norek" name="norek" readonly value="<?= $pesan['nomor_rekening'] ?>">
-         </div>
-
-       
+         </div>      
       </div>
       <div class="modal-footer">
         <button type="submit" class="btn btn-primary">Save changes</button>
@@ -90,63 +92,8 @@
     </div>
   </div>
 </div>
-      <script>
-        // script untuk memanggil id sesuai dengan data pemesanan
-          $(document).ready(function(){
-              $(document).on('click','#colaps', function() {
-                  var nama_produk = $(this).data('nama_produk');
-                  var harga = $(this).data('harga');
-                  var gambar = $(this).data('gambar');
-
-                  $('#nama_produk').html(nama_produk);
-                  $('#harga').html(harga);
-            
-                  $('#gambar').attr("src", gambar);
-           
-
-
-              });
-
-          });
-      </script>
  
-<script> 
-        function fileValidation() { 
-            var fileInput = document.getElementById('bukti_bayar'); 
-              
-            var filePath = fileInput.value; 
-          
-            // Allowing file type 
-            var allowedExtensions =  
-                    /(\.jpg|\.jpeg|\.png)$/i; 
-              
-            if (!allowedExtensions.exec(filePath)) { 
-               
-                Swal.fire('File tipe tidak sesuai');
-                fileInput.value = ''; 
-                return false; 
-            }  
-            else  
-            { 
-              
-                // Image preview 
-                if (fileInput.files && fileInput.files[0]) { 
-                    var reader = new FileReader(); 
-                    reader.onload = function(e) { 
-                        document.getElementById( 
-                            'imagePreview').innerHTML =  
-                            '<img src="' + e.target.result 
-                            + '" style="width:200px; height:auto;"/>'; 
-                    }; 
-                      
-                    reader.readAsDataURL(fileInput.files[0]); 
-                } 
-            } 
-        } 
-     
-    </script> 
 
-    <!-- Priview Image -->
 
     <!--Modal: Name-->
     <div class="modal fade" id="modal-image" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">

@@ -14,6 +14,15 @@ class M_pemesanan extends CI_Model {
 		$query = $this->db->get();
 		return $query;
 	}
+    public function getUpload($id){
+        $this->db->select('*');
+		$this->db->from('pemesanan');
+        $this->db->join('customer', 'pemesanan.id_cust = customer.id_cust', 'left');
+		$this->db->where('pemesanan.id_pemesanan',decrypt_url($id));
+		
+		$query = $this->db->get();
+		return $query;
+	}
 	 public function getPemesanan($id){
         $this->db->select('produk.*,
                           transaksi_detail.*,

@@ -47,32 +47,54 @@ public function __construct()
 		$data['produk'] = $this->M_pemesanan->getProduk($id);
 		$this->template->load('dashboard/template', 'dashboard/detailPemesanan',$data);
 	}
-	 public function upload_bukti()
+	
+	public function upload_bukti()
     {
-        // variable dari data gambar
-        $post = $this->input->post(null, TRUE);
-        
+		$id = $this->uri->segment(3);		
+	  
+		$this->form_validation->set_rules('bukti_bayar', 'Bukti Bayar', 'trim|required', 
+		array(	'required' => '%s Harus Diisi'));
+		$this->form_validation->set_error_delimiters('<span class="text-danger">','</span>');
+		
+         
+		if($this->form_validation->run() == FALSE) {
+			$query = $this->M_pemesanan->getUpload($id);
+			
+                $data['row'] = $query->row();
+                $data['title'] = "Halaman upload bukti bayar";
+				
 
-         $config['upload_path'] = './upload/bukti/';
-		    $config['allowed_types'] = 'jpg|png|jpeg';
-		    $config['max_size'] = 5048;
-		    $config['file_name'] = 'bukti-bayar'.date('ymd').'-'.substr(md5(rand()),0,01); 
+				$this->template->load('dashboard/template', 'dashboard/upload_bukti',$data);
 
-        $this->load->library('upload', $config);
-        // Upload bukti
-		if($this->upload->do_upload('bukti_bayar')){
-		$post['bukti_bayar'] = $this->upload->data('file_name');
-        $this->M_pemesanan->upload_bukti($post);
-            
-		if($this->db->affected_rows() > 0) {
-            $this->session->set_flashdata('sukses','Bukti bayar berhasil diupload');
-			redirect(base_url('dashboard/pemesanan'),'refresh');
+			
+		}else{
+			  // variable dari data gambar
+			$post = $this->input->post(null, TRUE);
+			$id_cust = $this->session->userdata('customerid');
+
+				$config['upload_path'] = './upload/bukti/';
+				$config['allowed_types'] = 'jpg|png|jpeg';
+				$config['max_size'] = 2048;
+				$config['file_name'] = 'bukti-bayar'.date('ymd').'-'.substr(md5(rand()),0,01); 
+
+			$this->load->library('upload', $config);
+			// Upload bukti
+			if($this->upload->do_upload('bukti_bayar')){
+			$post['bukti_bayar'] = $this->upload->data('file_name');
+			$this->M_pemesanan->upload_bukti($post);
+			$this->M_customer->edit($post,$id_cust);
+
+			if($this->db->affected_rows() > 0) {
+				$this->session->set_flashdata('sukses','Bukti bayar berhasil diupload');
+				redirect(base_url('dashboard/pemesanan'),'refresh');
+			}
+			}else{
+				$error = $this->upload->display_errors();
+				$this->session->set_flashdata('error',$error);
+				redirect(base_url('dashboard/pemesanan'),'refresh');
+			}
 		}
-     	}else{
-     		$error = $this->upload->display_errors();
-			 $this->session->set_flashdata('error',$error);
-			redirect(base_url('dashboard/pemesanan'),'refresh');
-     	}
+      
     }
 
     
