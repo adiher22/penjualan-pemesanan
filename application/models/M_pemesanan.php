@@ -91,6 +91,22 @@ class M_pemesanan extends CI_Model {
         date_default_timezone_set('Asia/Jakarta');
         return $no.date('ymd-').$kd;
     }
+    function no_resi(){
+      
+        $q = $this->db->query("SELECT MAX(RIGHT(no_resi,4)) AS kd_max FROM pemesanan WHERE DATE(tgl_pesan)=CURDATE()");
+        $kd = "";
+        $no = "KTI";
+        if($q->num_rows()>0){
+            foreach($q->result() as $k){
+                $tmp = ((int)$k->kd_max)+1;
+                $kd = sprintf("%04s", $tmp);
+            }
+        }else{
+            $kd = "01";
+        }
+        date_default_timezone_set('Asia/Jakarta');
+        return $no.time().$kd;
+    }
     public function add($post){
 		$params['id_pemesanan'] = decrypt_url($post['id_pemesanan']);
 		$params['id_cust'] = $this->session->userdata('customerid');
@@ -131,6 +147,18 @@ class M_pemesanan extends CI_Model {
         $params['status_pemesanan'] = "SUDAH DIBAYAR";
 
         $this->db->where('id_pemesanan', decrypt_url($post['id_pemesanan']));
+        
+        $this->db->update('pemesanan', $params);
+        
+    }
+     public function update_pengiriman($post)
+    {
+        $params['status_pemesanan'] = $post['status_pemesanan'];
+
+            if($post['status_pemesanan'] === "DIKIRIM") {
+                $params['no_resi'] = $post['no_resi'];
+            }
+        $this->db->where('id_pemesanan', $post['id_pemesanan']);
         
         $this->db->update('pemesanan', $params);
         

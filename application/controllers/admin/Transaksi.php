@@ -12,7 +12,7 @@ class Transaksi extends CI_Controller {
         $this->load->model('M_pemesanan');
         $this->load->model('M_bank');
         $this->load->model('M_produk');
-        
+        check_not_login();
         
 
     }
@@ -57,19 +57,55 @@ class Transaksi extends CI_Controller {
         }
         $output = array(
                     "draw" => @$_POST['draw'],
-                    "recordsTotal" => $this->M_produk->count_all(),
-                    "recordsFiltered" => $this->M_produk->count_filtered(),
+                    "recordsTotal" => $this->M_pemesanan->count_all(),
+                    "recordsFiltered" => $this->M_pemesanan->count_filtered(),
                     "data" => $data,
                 );
         // output to json format
         echo json_encode($output);
     }
-    
+    function get_ajax_pengiriman() {
+        $list = $this->M_pemesanan->get_datatables();
+        
+        $data = array();
+        $no = @$_POST['start'];
+        foreach ($list as $item) {
+            if($item->status_pemesanan == "DIKIRIM") {
+            $no++;
+            $row = array();
+            $row[] = $no.".";
+            $row[] = $item->id_pemesanan;
+            $row[] = $item->nama_cust;
+            $row[] = '<span class="text-primary">' . $item->status_pemesanan. '</span>';
+            $row[] = indo_date($item->tgl_pesan);
+            $row[] = indo_curency($item->total);
+            // add html for action
+           
+            $row[] = '<a href="'.site_url('admin/transaksi/cetak_pengiriman/' . encrypt_url($item->id_pemesanan)) .'"" class="btn btn-primary btn-sm"><i class="fas fa-print"></i> Cetak Invoice</a>';
+
+            $data[] = $row;
+            }
+        }
+        $output = array(
+                    "draw" => @$_POST['draw'],
+                    "recordsTotal" => $this->M_pemesanan->count_all(),
+                    "recordsFiltered" => $this->M_pemesanan->count_filtered(),
+                    "data" => $data,
+                );
+        // output to json format
+        echo json_encode($output);
+    }
     public function pemesanan()
     {
         $data['title'] = "Transaksi Pemesanan";
        	$data['pemesanan'] = $this->M_pemesanan->get();
         $this->template->load('admin/template', 'admin/pemesanan/pemesanan_data', $data);
+    }
+    public function pengiriman()
+    {
+        $data['title'] = "Data Pengiriman";
+       	$data['pemesanan'] = $this->M_pemesanan->get();
+        $this->template->load('admin/template', 'admin/pengiriman/pengiriman_data', $data);
     }
     public function detailPemesanan($id)
     {
@@ -77,7 +113,32 @@ class Transaksi extends CI_Controller {
         $data['detail'] = $this->M_pemesanan->getDetailPemesanan($id)->row();
 		$data['produk'] = $this->M_pemesanan->getProduk($id);
         $data['sum'] = $this->M_pemesanan->getSubtotal($id)->row_array();
+        $data['no_resi'] = $this->M_pemesanan->no_resi();
         $this->template->load('admin/template', 'admin/pemesanan/detail_pemesanan', $data);
+    }
+
+    public function update_pengiriman()
+    {
+            $post = $this->input->post(null, TRUE);
+            $detail = $this->M_pemesanan->get($post['id_pemesanan'])->row();
+            if($detail->bukti_bayar != null ) {
+          
+                    $this->M_pemesanan->update_pengiriman($post);
+                
+
+                    if($this->db->affected_rows() > 0) {
+                        $this->session->set_flashdata('sukses','Data berhasil diupdate');
+                        redirect(base_url('admin/transaksi/pemesanan'),'refresh');
+                    
+                    }else{
+                    
+                        $this->session->set_flashdata('error','Data tidak diupdate');
+                        redirect(base_url('admin/transaksi/pemesanan'),'refresh');
+                    }
+            }else{
+                  $this->session->set_flashdata('error','Anda belum upload bukti bayar');
+                        redirect(base_url('admin/transaksi/pemesanan'),'refresh');
+            }
     }
 
 }

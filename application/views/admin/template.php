@@ -163,7 +163,7 @@
                 </a>
               </li>
                <li class="nav-item">
-                <a href="<?= site_url('admin/transaksi/pengiriman') ?>" class="nav-link  <?= $this->uri->segment(3) == 'DataPengiriman' || $this->uri->segment(3) == 'cekStatus' || $this->uri->segment(3) == 'detailPengiriman' ? 'active' : ''; ?>">
+                <a href="<?= site_url('admin/transaksi/pengiriman') ?>" class="nav-link  <?= $this->uri->segment(3) == 'pengiriman' ? 'active' : ''; ?>">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Data Pengiriman Barang</p>
                 </a>
@@ -335,7 +335,23 @@
         }
       })
   })
+    $(document).ready(function(){
+      let status_pemesanan = $('#select_status');
+      let no_resi = $('#no_resi');
+      $(document).on('change','#select_status', function() {
+              if($(this).val() == "DIKIRIM" ) {
+              $(this).prop("selected", true);
+              $('#no_resi').show(500);
+              }else{
+              $(this).prop("selected", true);
+              $('#no_resi').hide(500);
+              
+             }
 
+        });
+        $('#no_resi').hide();
+        
+      });
 </script>
 <!-- Get Datatables Config -->
 <script>

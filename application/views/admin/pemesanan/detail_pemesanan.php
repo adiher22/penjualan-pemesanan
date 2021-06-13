@@ -56,7 +56,7 @@
                   Data Pemesanan
                   <address>
                     <br>
-                    Metode Pembayaran : <?= $detail->down_payment != null ? $detail->down_payment : $detail->full_payment ?><br>
+                    Metode Pembayaran : <?= $detail->down_payment != null ? 'Down Payment ' : 'Full Payment ' ?><br>
                     Nama Rekening Yang Ditransfer : <?= $detail->nama_pemilik ?><br>
                     Norek : <?= $detail->nomor_rekening ?><br>
                     Bank : <?= $detail->nama_bank ?>
@@ -130,19 +130,56 @@
                       </tr>
                       <tr>
                         <th>Pajak (10%)</th>
-                        <td>$10.34</td>
+                        <td><?= indo_curency($detail->pajak) ?></td>
+                      </tr>
+                       <tr>
+                        <th>Produk Asuransi:</th>
+                        <td><?= indo_curency($detail->produk_asuransi) ?></td>
                       </tr>
                       <tr>
                         <th>Biaya Pengiriman:</th>
-                        <td>$5.80</td>
+                        <td><?= indo_curency($detail->biaya_pengiriman) ?></td>
                       </tr>
                       <tr>
                         <th>Total:</th>
                         <td><?= indo_curency($detail->total) ?></td>
                       </tr>
+                      <?php if($detail->down_payment != null ) {?>
+                      <tr>
+                        <th>Down Payment:</th>
+                        <td><?= indo_curency($detail->down_payment) ?></td>
+                      </tr>
+                      <tr>
+                        <th>Sisa Pembayaran:</th>
+                        <?php $sisa = $detail->total - $detail->down_payment;?>
+                        <td><?= indo_curency($sisa) ?></td>
+                      </tr>
+                      <?php }else{?>
+                      <tr>
+                        <th>Full Payment:</th>
+                        <td><?= indo_curency($detail->full_payment) ?></td>
+                      </tr>
+                      <?php }?>
                     </table>
                   </div>
+                  <div class="form-group col-md-6">
+                    <form action="<?= site_url('admin/transaksi/update_pengiriman') ?>" method="POST">
+                      <label for="status_pemesanan">Status Pemesanan</label>
+                      <select name="status_pemesanan" id="select_status" class="form-control">
+                          <option value="<?= $detail->status_pemesanan ?>"><?= $detail->status_pemesanan ?></option>
+                          <option value="PENDING">PENDING</option>
+                          <option value="DIKEMAS">DIKEMAS</option>
+                          <option value="DIKIRIM">DIKIRIM</option>
+                      </select>
+                  </div>
+                  <div class="form-group col-md-6" id="no_resi">
+                      <label for="status_pemesanan">No Resi</label>
+                        <input type="hidden" name="id_pemesanan" value="<?= $detail->id_pemesanan ?>">
+                        <input type="text" name="no_resi" class="form-control" value="<?= $no_resi ?>">
+                  </div>
+                    
                 </div>
+                  
                 <!-- /.col -->
               </div>
               <!-- /.row -->
@@ -150,13 +187,10 @@
               <!-- this row will not appear when printing -->
               <div class="row no-print">
                 <div class="col-12">
-                  <a href="invoice-print.html" rel="noopener" target="_blank" class="btn btn-default"><i class="fas fa-print"></i> Print</a>
-                  <button type="button" class="btn btn-success float-right"><i class="far fa-credit-card"></i> Submit
-                    Payment
+                 
+                  <button type="submit" class="btn btn-success float-right"><i class="fa fa-truck"></i> Update Pengiriman
                   </button>
-                  <button type="button" class="btn btn-primary float-right" style="margin-right: 5px;">
-                    <i class="fas fa-download"></i> Generate PDF
-                  </button>
+                  </form>    
                 </div>
               </div>
             </div>
