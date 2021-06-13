@@ -28,13 +28,14 @@
                               <div class="product-title">Tanggal Batas Bayar</div>
                               <div class="product-subtitle"><?= indo_date($detail->tgl_batas) ?></div>
                             </div>
+                           
                             <div class="col-12 col-md-6">
                               <div class="product-title">Status</div>
                               <div class="product-subtitle text-danger">
                                 <?= $detail->status_pemesanan ?>
                               </div>
                             </div>
-                          
+                     
                             <div class="col-12 col-md-6">
                               <div class="product-title">Telepon</div>
                               <div class="product-subtitle"><?= $detail->no_telp ?></div>
@@ -47,38 +48,57 @@
                               <div class="product-title">Bank Transfer</div>
                               <div class="product-subtitle">Nama bank : <?= $detail->nama_bank ?>, A/n : <?= $detail->nama_pemilik ?></div>
                             </div>
-                            <?php if($detail->down_payment != null) {?>
-                            <div class="col-12 col-md-6">
-                              <div class="product-title">Uang Muka</div>
-                              <div class="product-subtitle"><?= indo_curency($detail->down_payment) ?></div>
-                            </div>
-                            <?php }else{?>
-                            <div class="col-12 col-md-6">
-                              <div class="product-title">Full Pembayaran</div>
-                              <div class="product-subtitle"><?= indo_curency($detail->full_payment) ?></div>
-                            </div>
-                            <?php }?>
+                            
                             <div class="col-12 col-md-6">
                               <div class="product-title">Alamat Customer</div>
                               <div class="product-subtitle"><?= $detail->alamat ?></div>
                             </div>
-                            <div class="col-12 col-md-6">
-                              <div class="product-title">Total</div>
-                              <div class="product-subtitle"><?= indo_curency($detail->total) ?></div>
+                           
+                            <div class="col-12 col-md-4">
+                              <div class="product-title">Bukti Bayar</div>
+                              <div class="product-subtitle"><img src="<?= site_url('upload/bukti/' . $detail->bukti_bayar ) ?>" style="width: 350px;" alt=""></div>
                             </div>
                           </div>
                           
                         </div>
+                        <div class="col-12 mt-5">
+                          <h5> Informasi Pembayaran </h5>
+                        </div>
+                        <?php if($detail->down_payment != null) {?>
+                        <div class="col-12 col-md-6">
+                              <div class="product-title">Uang Muka</div>
+                              <div class="product-subtitle"><?= indo_curency($detail->down_payment) ?></div>
+                        </div>
+                            <?php }else{?>
+                         <div class="col-12 col-md-6">
+                            <div class="product-title">Full Pembayaran</div>
+                            <div class="product-subtitle"><?= indo_curency($detail->full_payment) ?></div>
+                         </div>
+                            <?php }?>
+                         <div class="col-12 col-md-6">
+                              <div class="product-title">PPN 10%</div>
+                              <div class="product-subtitle"><?= indo_curency($detail->pajak) ?></div>
+                         </div>
+                         <div class="col-12 col-md-6">
+                              <div class="product-title">Produk Asuransi</div>
+                              <div class="product-subtitle"><?= indo_curency($detail->produk_asuransi) ?></div>
+                         </div>
+                         <div class="col-12 col-md-6">
+                              <div class="product-title">Biaya Pengiriman</div>
+                              <div class="product-subtitle"><?= indo_curency($detail->biaya_pengiriman) ?></div>
+                         </div>
+                         <div class="col-12 col-md-6">
+                              <div class="product-title">Total</div>
+                              <div class="product-subtitle"><?= indo_curency($detail->total) ?></div>
+                          </div>
                       </div>
                       <div class="row">
                         <div class="col-12 mt-5">
                           <h5>Detail Produk </h5>
                         </div>
-                        <div class="col-12 mt-2">
+                        <div class="col-12 ">
                           <div class="row">
-                            <div class="col-12 text-left">
-                                <a href="" class="btn btn-primary mt-4">Cetak</a>
-                            </div>
+                           
                             <div class="col-12">
                             <table class="table bordered">
                                 <thead>
@@ -101,6 +121,10 @@
                                         <td><?= indo_curency($p->harga)?></td>
                                     </tr>
                                     <?php endforeach?>
+                                    <tr>
+                                        <td colspan="3">Total Harga Produk : </td>
+                                        <td><?= indo_curency($sum['subtotal']) ?></td>
+                                    </tr>
                                 </tbody>
                             </table>
                             </div>

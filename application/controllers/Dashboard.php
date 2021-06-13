@@ -19,11 +19,11 @@ public function __construct()
 
 	public function dasbor()
 	{
-		$id = $this->session->userdata('customerid');
+		
 		
 		$data['title'] = "Halaman Dashboard Customer";
 		$data['footer'] = "Adiher";
-		$data['pemesanan'] = $this->M_pemesanan->get($id);
+		$data['pemesanan'] = $this->M_pemesanan->get();
 	
 		$this->template->load('dashboard/template', 'dashboard/dashboard',$data);
 	}
@@ -33,8 +33,8 @@ public function __construct()
 		$id = $this->session->userdata('customerid');
 		$data['title'] = "Halaman Dashboard Pemesanan";
 		$data['footer'] = "Adiher";
-		$data['pemesanan'] = $this->M_pemesanan->getPemesanan($id);
-		$data['pesan'] = $this->M_pemesanan->getDetailPemesanan($id)->row_array();
+		$data['pemesanan'] = $this->M_pemesanan->get()->result_array();
+	
 		$this->template->load('dashboard/template', 'dashboard/pemesanan',$data);
 	}
 	
@@ -44,30 +44,14 @@ public function __construct()
 		$data['title'] = "Halaman Detail Pemesanan";
 		$data['footer'] = "Adiher";
 		$data['detail'] = $this->M_pemesanan->getDetailPemesanan($id)->row();
+		$data['sum'] = $this->M_pemesanan->getSubtotal($id)->row_array();
 		$data['produk'] = $this->M_pemesanan->getProduk($id);
 		$this->template->load('dashboard/template', 'dashboard/detailPemesanan',$data);
 	}
 	
 	public function upload_bukti()
     {
-		$id = $this->uri->segment(3);		
-	  
-		$this->form_validation->set_rules('bukti_bayar', 'Bukti Bayar', 'trim|required', 
-		array(	'required' => '%s Harus Diisi'));
-		$this->form_validation->set_error_delimiters('<span class="text-danger">','</span>');
 		
-         
-		if($this->form_validation->run() == FALSE) {
-			$query = $this->M_pemesanan->getUpload($id);
-			
-                $data['row'] = $query->row();
-                $data['title'] = "Halaman upload bukti bayar";
-				
-
-				$this->template->load('dashboard/template', 'dashboard/upload_bukti',$data);
-
-			
-		}else{
 			  // variable dari data gambar
 			$post = $this->input->post(null, TRUE);
 			$id_cust = $this->session->userdata('customerid');
@@ -82,7 +66,7 @@ public function __construct()
 			if($this->upload->do_upload('bukti_bayar')){
 			$post['bukti_bayar'] = $this->upload->data('file_name');
 			$this->M_pemesanan->upload_bukti($post);
-			$this->M_customer->edit($post,$id_cust);
+			$this->M_customer->editRekUpload($post,$id_cust);
 
 			if($this->db->affected_rows() > 0) {
 				$this->session->set_flashdata('sukses','Bukti bayar berhasil diupload');
@@ -93,7 +77,6 @@ public function __construct()
 				$this->session->set_flashdata('error',$error);
 				redirect(base_url('dashboard/pemesanan'),'refresh');
 			}
-		}
       
     }
 

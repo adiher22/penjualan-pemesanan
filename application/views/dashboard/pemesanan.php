@@ -26,14 +26,17 @@
                                   </tr>
                               </thead>
                               <tbody>
-                              <?php foreach($pemesanan->result_array() as $p) : 
+                              <?php
+                                 $id = $this->session->userdata('customerid');
+                                 foreach($pemesanan as $p) : 
+                                 if($p['id_cust'] == $id){
                                  $today = (abs(strtotime(date('Y-m-d'))));
-                                 $batas = (abs(strtotime($p['tgl_batas'])));?>
+                                 $batas = (abs(strtotime($p['tgl_batas']))); ?>
                                   <tr>
                                       <td><?= $p['id_pemesanan'] ?></td>
                                       <?php if(empty($p['bukti_bayar'])) { ?>
                                       <td class="text-danger"><?= $p['status_pemesanan']?></td>
-                                      <?php }else if($batas < $today && empty($p['bukti_bayar'])){?>
+                                      <?php }else if($batas < $today && $p['bukti_bayar'] == null){?>
                                       <td class="text-danger">EXPIRED!</td>
                                       <?php }else{ ?>
                                       <td class="text-info"><?= $p['status_pemesanan'] ?></td>
@@ -43,13 +46,17 @@
                                       <td class="text-center">
                                           <a href="<?= site_url('dashboard/detailPemesanan/' . encrypt_url($p['id_pemesanan'])) ?>" class="btn btn-secondary btn-sm">Detail</a>
                                           <?php if(empty($p['bukti_bayar'])) { ?>
-                                          <a href="<?= site_url('dashboard/upload_bukti/' . encrypt_url($p['id_pemesanan'])) ?>" class="btn btn-primary btn-sm">Upload Bukti</a>
-                                            <?php }else if($batas <= $today && empty($p['bukti_bayar'])) {?>
+
+                                          <a href="" id="upload_bukti" data-toggle="modal" data-target="#modal-upload" data-id_pemesanan="<?= encrypt_url($p['id_pemesanan']) ?>" data-norek="<?= $p['no_rek'] ?>" class="btn btn-primary btn-sm">Upload Bukti</a>
+                                              
+                                            <?php  } else if($batas < $today && $p['bukti_bayar'] == null) {?>
+
                                           <a href="<?= site_url('dashboard/detailPemesanan/' . encrypt_url($p['id_pemesanan'])) ?>" class="btn btn-secondary btn-sm">Detail</a>
+                                          
                                           <?php }?>
                                       </td>
                                   </tr>
-                                  <?php endforeach ?>
+                                  <?php } endforeach ?>
                               </tbody>
                           </table>
                       </div>
@@ -81,7 +88,7 @@
          </div>
          <div class="form-group">
            <label for="norek">Nomor Rekening Anda</label>
-           <input type="text" class="form-control" id="norek" name="norek" readonly value="<?= $pesan['nomor_rekening'] ?>">
+           <input type="text" class="form-control" id="no_rek" name="no_rek" value="">
          </div>      
       </div>
       <div class="modal-footer">
@@ -92,9 +99,58 @@
     </div>
   </div>
 </div>
- 
+     <script>
+        // script untuk memanggil id sesuai dengan data pemesanan
+          $(document).ready(function(){
+              $(document).on('click','#upload_bukti', function() {
+                  var id_pemesanan = $(this).data('id_pemesanan');
+                  var norek = $(this).data('norek');
+
+                  $('#upload_id').val(id_pemesanan);
+                  $('#no_rek').val(norek);
 
 
+
+              });
+
+          });
+      </script>
+
+<script> 
+        function fileValidation() { 
+            var fileInput = document.getElementById('bukti_bayar'); 
+              
+            var filePath = fileInput.value; 
+          
+            // Allowing file type 
+            var allowedExtensions =  
+                    /(\.jpg|\.jpeg|\.png)$/i; 
+              
+            if (!allowedExtensions.exec(filePath)) { 
+               
+                Swal.fire('File tipe tidak sesuai');
+                fileInput.value = ''; 
+                return false; 
+            }  
+            else  
+            { 
+              
+                // Image preview 
+                if (fileInput.files && fileInput.files[0]) { 
+                    var reader = new FileReader(); 
+                    reader.onload = function(e) { 
+                        document.getElementById( 
+                            'imagePreview').innerHTML =  
+                            '<img src="' + e.target.result 
+                            + '" style="width:200px; height:auto;"/>'; 
+                    }; 
+                      
+                    reader.readAsDataURL(fileInput.files[0]); 
+                } 
+            } 
+        } 
+     
+    </script> 
     <!--Modal: Name-->
     <div class="modal fade" id="modal-image" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
       <div class="modal-dialog modal-lg" role="document">

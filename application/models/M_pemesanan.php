@@ -9,7 +9,7 @@ class M_pemesanan extends CI_Model {
 		$this->db->from('pemesanan');
         $this->db->join('customer', 'pemesanan.id_cust = customer.id_cust', 'left');
 		if($id != null){
-			$this->db->where('pemesanan.id_cust',$id);
+			$this->db->where('pemesanan.id_pemesanan',$id);
 		}
 		$query = $this->db->get();
 		return $query;

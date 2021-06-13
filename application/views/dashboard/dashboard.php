@@ -50,7 +50,11 @@
               <div class="row mt-3">
                 <div class="col-12 mt-2">
                   <h5 class="mb-3">Transaksi Terbaru</h5>
-                  <?php foreach($pemesanan->result() as $p) : ?>
+                  <?php
+                  $id = $this->session->userdata('customerid');
+                  foreach($pemesanan->result() as $p) :
+                    if($p->id_cust == $id) {
+                  ?>
                   <a href="<?= site_url('dashboard/detailPemesanan/' . encrypt_url($p->id_pemesanan)) ?>" class="card card-list d-block">
                     <div class="card-body">
                       <div class="row">
@@ -73,7 +77,7 @@
                       </div>
                     </div>
                   </a>
-                    <?php endforeach ?>
+                    <?php } endforeach ?>
                 </div>
               </div>
             </div>

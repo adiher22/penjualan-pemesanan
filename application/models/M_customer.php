@@ -91,7 +91,15 @@ class M_customer extends CI_Model {
 		$this->db->where('id_cust', $id);
 		$this->db->update('customer', $params);
 	}
+	public function editRekUpload($post,$id_cust){
 
+		if(!empty($post['no_rek'])){
+			$params['no_rek'] = $post['no_rek'];
+		}
+	
+		$this->db->where('id_cust', $id_cust);
+		$this->db->update('customer', $params);
+	}
 	public function del($id)
 	{
 		$this->db->where('id_customer', $id);
