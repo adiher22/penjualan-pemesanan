@@ -7,7 +7,7 @@ class M_admin extends CI_Model {
 		$this->db->select('*');
 		$this->db->from('admin');
 		$this->db->where('username', $post['username']);
-		$this->db->where('password', password_verify($post['password'], PASSWORD_DEFAULT));
+		$this->db->where('password', sha1($post['password']));
 		$query = $this->db->get();
 		return $query;
 	}
@@ -48,7 +48,7 @@ class M_admin extends CI_Model {
 		$params['username'] = $post['username'];
 		$params['gambar'] = $post['gambar'];
 		if(!empty($post['password'])){
-		$params['password'] = password_hash($post['password'], PASSWORD_DEFAULT);
+		$params['password'] = sha1($post['password']);
 	     }
 		$this->db->where('id_admin', $post['id_admin']);
 		$this->db->update('admin', $params);

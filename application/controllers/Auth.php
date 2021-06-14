@@ -46,7 +46,7 @@ class Auth extends CI_Controller {
 				
 			}
 			else{
-				$this->session->set_flashdata('warning', 'Email & Password Salah!');
+				$this->session->set_flashdata('warning', 'Email atau Password Salah!');
 					 redirect(site_url('auth'),'refresh');
 			}
 		}

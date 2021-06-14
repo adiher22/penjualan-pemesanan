@@ -46,6 +46,7 @@
                                       <td class="text-center"><?= $p['alamat']?></td>
                                       <td class="text-center">
                                           <a href="<?= site_url('dashboard/detailPemesanan/' . encrypt_url($p['id_pemesanan'])) ?>" class="btn btn-secondary btn-sm">Detail</a>
+                                          <a href="<?= site_url('dashboard/terima_barang/' . encrypt_url($p['id_pemesanan'])) ?>" class="btn btn-success btn-sm">Terima Barang</a>
                                       </td>
                                   </tr>
                                   <?php } endforeach ?>

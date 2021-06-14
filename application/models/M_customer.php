@@ -7,7 +7,7 @@ class M_customer extends CI_Model {
 		$this->db->select('*');
 		$this->db->from('customer');
 		$this->db->where('email', $post['email']);
-		$this->db->where('password', password_verify($post['password'], PASSWORD_DEFAULT));
+		$this->db->where('password', sha1($post['password']));
 		$query = $this->db->get();
 		return $query;
 	}
@@ -57,7 +57,7 @@ class M_customer extends CI_Model {
 		$params['email'] = $post['email'];
 		$params['no_telp'] = $post['no_hp'];
 	
-		$params['password'] = password_hash($post['password'], PASSWORD_DEFAULT);
+		$params['password'] = sha1($post['password']);
 		if(!empty($post['no_rek'])){
 			$params['no_rek'] = $post['no_rek'];
 		}

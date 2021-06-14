@@ -141,6 +141,23 @@ class Transaksi extends CI_Controller {
             }
     }
 
+    public function cetak()
+    {
+         $id = $this->uri->segment(4);
+
+        $query = $this->M_pembayaran->get($id);
+        if($query->num_rows() > 0){
+            $data['title'] = "Cetak Invoice Pengiriman";
+            $data['p'] = $query->row_array();
+            
+            $this->load->view('pembayaran/cetak', $data, FALSE);
+            
+        }else{
+            echo "<script>alert('Data Tidak Ditemukan');</script>";
+			echo "<script>window.location='".site_url('pembayaran/IuranKeamanan')."';</script>";
+        }
+    }
+
 }
 
 /* End of file Pemesanan.php */

@@ -14,6 +14,17 @@ class M_pemesanan extends CI_Model {
 		$query = $this->db->get();
 		return $query;
 	}
+     public function get_track($post){
+        $this->db->select('*');
+		$this->db->from('pemesanan');
+        $this->db->join('customer', 'pemesanan.id_cust = customer.id_cust', 'left');
+        $this->db->join('transaksi_detail', 'pemesanan.id_pemesanan = transaksi_detail.id_pemesanan', 'left');
+        $this->db->join('produk', 'transaksi_detail.id_produk = produk.id_produk', 'left');
+	    $this->db->where('pemesanan.no_resi',$post['no_resi']);
+		
+		$query = $this->db->get();
+		return $query;
+	}
     public function getUpload($id){
         $this->db->select('*');
 		$this->db->from('pemesanan');
@@ -163,7 +174,7 @@ class M_pemesanan extends CI_Model {
         $this->db->update('pemesanan', $params);
         
     }
-    public function addDetail($post,$cart)
+    public function addDetail($post,$cart) // script menambahkan transaksi
     {
         $params = array();
         foreach($cart as $cart) : 

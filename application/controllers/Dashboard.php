@@ -48,9 +48,43 @@ public function __construct()
 	}
 	public function pelacakan()
 	{
+		$post = $this->input->post(null, TRUE);
+		
+
+
+		$valid = $this->form_validation;
+
+
+		$valid->set_rules('no_resi', 'No Resi', 'required|min_length[17]|max_length[17]', 
+				array(	'required'		=> '%s harus diisi',
+							'min_length'	=> '%s harus diisi minimal 17 angka',
+							'max_length' 	=> '%s harus diisi maximal 17 angka'));
+
+				
+		
+			$valid->set_error_delimiters('<span class="text-danger"></span>');
+
+	   if($valid->run()===FALSE) {  //jika  data kosong
+		
 		$data['title'] = "Halaman Dashboard Pelacakan Pengiriman";
 	
 		$this->template->load('dashboard/template', 'dashboard/pelacakan',$data);
+
+		}else{
+			$query = $this->M_pemesanan->get_track($post)->row_array();
+			
+				if($post['no_resi'] != $query['no_resi']) {
+					$this->session->set_flashdata('gagal','No resi anda salah!.. cek kembali no resi anda.');
+					redirect(base_url('dashboard/pengiriman'),'refresh');
+				}else{
+
+					$data['title'] = "Halaman Dashboard Pelacakan Pengiriman";
+					$data['row'] = $this->M_pemesanan->get_track($post)->row_array();
+					$data['prod'] = $this->M_pemesanan->get_track($post)->result_array();
+					$this->template->load('dashboard/template', 'dashboard/pelacakan_data',$data);
+					}
+			}
+			
 	}
 	public function detailPemesanan($id)
 	{
@@ -88,7 +122,7 @@ public function __construct()
 			}
 			}else{
 				$error = $this->upload->display_errors();
-				$this->session->set_flashdata('error',$error);
+				$this->session->set_flashdata('gagal',$error);
 				redirect(base_url('dashboard/pemesanan'),'refresh');
 			}
       
