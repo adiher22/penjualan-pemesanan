@@ -16,7 +16,7 @@ class M_customer extends CI_Model {
 
 		$this->db->from('customer');
 		if($id != null){
-			$this->db->where('id_customer',$id);
+			$this->db->where('id_cust',$id);
 		}
 		$query = $this->db->get();
 		return $query;
@@ -89,6 +89,20 @@ class M_customer extends CI_Model {
 			$params['alamat'] = $post['alamat_cust'];
 		}
 		$this->db->where('id_cust', $id);
+		$this->db->update('customer', $params);
+	}
+	public function editProfile($post,$id_customer){
+
+		$params['nama_cust'] = $post['nama_cust'];
+		$params['email'] = $post['email'];
+		$params['no_rek'] = $post['no_rek'];
+		$params['no_telp'] = $post['no_telp'];
+		$params['alamat'] = $post['alamat'];
+
+		if(!empty($post['password'])) {
+			$params['password'] = $post['password'];
+		}
+		$this->db->where('id_cust', $id_customer);
 		$this->db->update('customer', $params);
 	}
 	public function editRekUpload($post,$id_cust){

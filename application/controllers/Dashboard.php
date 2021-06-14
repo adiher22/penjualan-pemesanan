@@ -37,7 +37,21 @@ public function __construct()
 	
 		$this->template->load('dashboard/template', 'dashboard/pemesanan',$data);
 	}
+	public function pengiriman()
+	{
 	
+		$data['title'] = "Halaman Dashboard Pengiriman";
+		$data['footer'] = "Adiher";
+		$data['pemesanan'] = $this->M_pemesanan->get()->result_array();
+	
+		$this->template->load('dashboard/template', 'dashboard/pengiriman',$data);
+	}
+	public function pelacakan()
+	{
+		$data['title'] = "Halaman Dashboard Pelacakan Pengiriman";
+	
+		$this->template->load('dashboard/template', 'dashboard/pelacakan',$data);
+	}
 	public function detailPemesanan($id)
 	{
 	
@@ -80,48 +94,33 @@ public function __construct()
       
     }
 
-    
-    public function cetak() {
-        $id = $this->uri->segment(4);
 
-        $query = $this->M_pembayaran->get($id);
-        if($query->num_rows() > 0){
-            $data['title'] = "Cetak Bukti Pembayaran Iuran Keamanan";
-            $data['k'] = $query->row_array();
-            
-            $this->load->view('pembayaran/cetak', $data, FALSE);
-            
-        }else{
-            echo "<script>alert('Data Tidak Ditemukan');</script>";
-			echo "<script>window.location='".site_url('pembayaran/IuranKeamanan')."';</script>";
-        }
-        
-    }
-	public function profile(){
+	public function akunSaya(){
 
 	   $customer_id = $this->session->userdata('customerid');
     
 
 	   $valid = $this->form_validation;
 
-	   $valid->set_rules('nama', 'Nama Customer', "required|min_length[5]|max_length[50]|regex_match[/[a-zA-Z]+$/]", 
+	   $valid->set_rules('nama_cust', 'Nama Customer', "required|min_length[5]|max_length[50]|regex_match[/[a-zA-Z]+$/]", 
 			   array(	'required'		=> '%s harus diisi',
 					    'min_length'	=> '%s nama harus lebih dari 5 karakter',
 					    'max_length'	=> '%s nama harus kurang dari 50 karakter',
 					    'regex_match'	=> '%s harus diisi huruf'));
 
-	   $valid->set_rules('no_hp', 'No Handphone', 'required|min_length[11]', 
+	   $valid->set_rules('no_telp', 'No Telepon', 'required|min_length[11]|is_numeric', 
 			   array(	'required'		=> '%s harus diisi',
-					   'min_length'	=> '%s harus diisi minimal 11 angka'));
+					    'min_length'	=> '%s harus diisi minimal 11 angka',
+						'is_numeric' => '%s Harus diisi angka'));
 
-		$valid->set_rules('norek', 'No Rekening', 'required', 
+		$valid->set_rules('no_rek', 'No Rekening', 'required', 
 		array(	'required'		=> '%s tidak boleh kosong'));			   
 	 
-	   
+	    $valid->set_error_delimiters('<span class="text-danger" role="alert"></span>');
 
 	   if($valid->run()===FALSE) {
-		 $data = [   'title' => 'Halaman Profile Customer',
-					 'row'   => $this->M_customer->get($customer_id)->row()
+		 $data = [   'title' => 'Akun Saya',
+					 'cust'   => $this->M_customer->get($customer_id)->row()
 					 
 			   ];
 		   
@@ -129,10 +128,13 @@ public function __construct()
 	   
 	   } else{ 
 		   $post = $this->input->post(null, true);
-		   $this->M_customer->edit($post);
+		   $this->M_customer->editProfile($post,$customer_id);
 		   if($this->db->affected_rows() > 0 ){
-			   $this->session->set_flashdata('sukses_edit', 'Profil berhasil diperbaharui..!');
-			   redirect(base_url('dashboard'),'refresh');
+			   $this->session->set_flashdata('sukses', 'Profil berhasil diperbaharui..!');
+			   redirect(base_url('dashboard/dasbor'),'refresh');
+		   }else{
+			     $this->session->set_flashdata('gagal', 'Profil Tidak diperbaharui..!');
+			   redirect(base_url('dashboard/dasbor'),'refresh');
 		   }
 
 

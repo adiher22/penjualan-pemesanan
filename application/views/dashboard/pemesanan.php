@@ -18,11 +18,11 @@
                           <table class="table table-bordered">
                               <thead>
                                   <tr>
-                                      <td>Id Pemesanan</td>
-                                      <td>Status Pemesanan</td>
-                                      <td>Tanggal Pesan</td>
-                                      <td>Tanggal Batas</td>
-                                      <td class="text-center">Opsi</td>
+                                      <th>Id Pemesanan</th>
+                                      <th>Status Pemesanan</th>
+                                      <th>Tanggal Pesan</th>
+                                      <th>Tanggal Batas</th>
+                                      <th class="text-center">Opsi</th>
                                   </tr>
                               </thead>
                               <tbody>

@@ -1,78 +1,74 @@
-<div class="content-wrapper">
-    <!-- Content Header (Page header) -->
-    <div class="content-header">
-      <div class="container-fluid">
-        <div class="row mb-2">
-          <div class="col-sm-6">
-            <h1 class="m-0">Halaman <?= $title ?></h1>
-          </div><!-- /.col -->
-          <div class="col-sm-6">
-         
-          </div><!-- /.col -->
-        </div><!-- /.row -->
-      </div><!-- /.container-fluid -->
-    </div>
-    <!-- /.content-header -->
-<div class="content d-flex justify-content-center">
-<div class="col-sm-6">
-     <div class="card card-primary">
-    <div class="card-header">
-        <h3 class="card-title"><?= $title ?></h3>
-    </div>
-    <!-- /.card-header -->
-    <!-- form start -->
-            <form action="<?= site_url('dashboard/profile') ?>" method="post">
-            <div class="card-body">
-                <div class="form-group">
-                    <label for="username">Username</label>
-                    <input type="hidden" name="id_warga" value="<?= $row->id_warga ?>">
-                    <input type="text" class="form-control" name="username" id="username" placeholder="Username" value="<?=$this->input->post('username') ?$this->input->post('username') : $row->nama_pengguna?>"
-                    data-validation="length alphanumeric" data-validation-length="5-20" data-validation-error-msg="Username anda miminal 5 karakter">
-                </div>
-                <div class="form-group">
-                    <label for="password">Password</label>
-                    <input type="password" class="form-control" name="password" id="password" placeholder="Password" value="<?=$this->input->post('password')?>">
-                    <p class="text-danger">*Kosongkan password jika tidak ingin diganti</p>
-                </div>
-                <div class="form-group">
-                    <label for="nama">Nama</label>
-                    <input type="text" class="form-control" name="nama" id="nama" placeholder="Nama Pengguna" value="<?= $this->input->post('nama') ? $this->input->post('nama'): $row->nama?>"
-                    data-validation="length" data-validation-length="4-20" data-validation-error-msg="Nama pengguna miminal 4 karakter">
-                </div>
-                <div class="form-group">
-                    <label for="no_hp">No Handphone</label>
-                    <input type="text" class="form-control" name="no_hp" id="no_hp" placeholder="Nomor Handphone" value="<?= $this->input->post('no_hp') ? $this->input->post('no_hp'): $row->no_hp?>"
-                    data-validation="length numeric" data-validation-length="11-12" data-validation-error-msg="Nomor Hanphone miminal 11 karakter">
-                </div>
-                <div class="form-group">
-                    <label for="norek">No Rekeneing</label>
-                    <input type="text" class="form-control" name="norek" id="norek" placeholder="Nomor Rekening" value="<?= $this->input->post('norek') ? $this->input->post('norek'): $row->no_rek?>"
-                    data-validation="length" data-validation-length="10" data-validation-error-msg="Nomor Rekening miminal 10 karakter">
-                </div>
-                <div class="form-group">
-                    <label for="no_ktp">No KTP</label>
-                    <input type="text" class="form-control" name="no_ktp" id="no_ktp" placeholder="Nomor KTP" value="<?= $this->input->post('no_ktp') ? $this->input->post('no_ktp'): $row->nik?>"
-                    data-validation="length" data-validation-length="16" data-validation-error-msg="Nomor KTP harus 16 karakter">
-                </div>
-                <div class="form-group">
-                    <label for="no_kk">No Kartu Keluarga</label>
-                    <input type="text" class="form-control" name="no_kk" id="no_kk" placeholder="Nomor Kartu Keluarga" value="<?= $this->input->post('no_kk') ? $this->input->post('no_kk'): $row->no_kk?>"
-                    data-validation="length" data-validation-length="16" data-validation-error-msg="Nomor Kartu Keluarga harus 16 karakter">
-                </div>
-                <div class="form-group">
-                    <label for="alamat">Alamat</label>
-                    <textarea name="alamat" id="alamat" placeholder="Alamat" class="form-control" ><?= $this->input->post('alamat') ? $this->input->post('alamat'): $row->alamat ?></textarea>
-                </div>
-             
+ <!-- Section Content -->
+        <div class="section-content section-dashboard-home" data-aos="fade-up">
+          <div class="container-fluid">
+            <div class="dashboard-heading">
+              <h2 class="dashboard-title"><?= $title ?></h2>
+              <p class="dashboard-subtitle">
+                Ubah profile anda
+              </p>
             </div>
-            <!-- /.card-body -->
-
-            <div class="card-footer">
-                <button type="submit" class="btn btn-primary">Submit</button>
+            <div class="dashboard-content">
+              <div class="row">
+                <div class="col-12">
+                  <form action="<?= site_url('dashboard/akunSaya') ?>" method="POST">
+                    <div class="card">
+                      <div class="card-body">
+                        <div class="row">
+                          <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="name">Nama Customer</label>
+                                <input type="text" id="nama_cust" name="nama_cust" class="form-control" value="<?= $cust->nama_cust ?>" />
+                                <?= form_error('nama_cust') ?>
+                            </div>
+                           </div>
+                          <div class="col-md-6">
+                              <div class="form-group">
+                                  <label for="email">Email</label>
+                                  <input type="email" id="email" name="email" class="form-control" value="<?= $cust->email ?>" />
+                                  
+                              </div>
+                          </div>
+                          <div class="col-md-6">
+                              <div class="form-group">
+                                  <label for="country">Password</label>
+                                  <input type="password" id="password" name="password" class="form-control" />
+                                    <p class="text-danger">*Kosongkan password jika tidak ingin diganti</p>
+                              </div>
+                            
+                          </div>
+                       
+                          <div class="col-md-6">
+                              <div class="form-group">
+                                  <label for="no_rek">Nomor Rekening Anda</label>
+                                   <input type="number" name="no_rek" class="form-control" value="<?= $cust->no_rek != null ? $cust->no_rek : "Nomor Rekening Kosong"; ?>">
+                                 <?= form_error('no_rek') ?>
+                              </div>
+                          </div>
+                          <div class="col-md-6">
+                              <div class="form-group">
+                                  <label for="city">No Telepon</label>
+                                  <input type="number" name="no_telp" class="form-control" value="<?= $cust->no_telp ?>">
+                                  <?= form_error('no_telp') ?>
+                              </div>
+                          </div>
+                         
+                          <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="addressOne">Alamat</label>
+                                <textarea  id="addressOne" name="alamat" class="form-control"><?= $cust->alamat ?></textarea>
+                            </div>
+                           </div>
+                        </div>
+                        <div class="row">
+                          <div class="col text-right">
+                            <button type="submit" class="btn btn-success px-5">Simpan Data</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
             </div>
-            </form>
-         </div>
-    <!-- /.card -->
-     </div>    
- </div>  
-</div>
+          </div>
+        </div>

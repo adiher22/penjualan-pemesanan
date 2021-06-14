@@ -33,13 +33,13 @@
             <a href="<?= site_url('dashboard/pemesanan') ?>" class="list-group-item list-group-item-action <?= $this->uri->segment(2) == 'pemesanan' || $this->uri->segment(2) == 'detailPemesanan' ? 'active' : ''; ?>">
               Pemesanan
             </a>
-            <a href="dashboard-transaction.html" class="list-group-item list-group-item-action">
+            <a href="<?= site_url('dashboard/pengiriman') ?>" class="list-group-item list-group-item-action <?= $this->uri->segment(2) == 'pengiriman' || $this->uri->segment(2) == 'pelacakan' ? 'active' : ''; ?>">
               Pengiriman
             </a>
-            <a href="dashboard-account.html" class="list-group-item list-group-item-action">
+            <a href="<?= site_url('dashboard/akunSaya') ?>" class="list-group-item list-group-item-action <?= $this->uri->segment(2) == 'akunSaya' ? 'active' : ''; ?>">
               Akun Saya
             </a>
-            <a href="index.html" class="list-group-item list-group-item-action">
+            <a href="<?= site_url('auth/logout') ?>" id="btn-logout" class="list-group-item list-group-item-action">
               Sign Out
             </a>
           </div>
@@ -67,7 +67,7 @@
                 </a>
                 <div class="dropdown-menu">
                   <a href="<?= site_url() ?>" class="dropdown-item">Ke Home</a>
-                  <a href="/dashboard-account.html" class="dropdown-item">Settings</a>
+                  <a href="<?= site_url('dashboard/akunSaya')?>" class="dropdown-item">Settings</a>
                   <div class="dropdown-divider"></div>
                   <a href="<?= site_url('auth/logout') ?>" id="btn-logout" class="dropdown-item">Logout</a>
                 </div>

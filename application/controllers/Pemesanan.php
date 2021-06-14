@@ -30,10 +30,12 @@ class Pemesanan extends CI_Controller {
     public function add()
     {
         $id = $this->session->userdata('customerid'); // ambil id dari user custmer yg sedang login
-        
-
-       
-
+        $post = $this->input->post(null, TRUE);
+        $subtotal = $this->M_produk->getCartTotal($id)->row_array();
+        if($post['down_payment'] >= $subtotal && $post['full_payment'] >= $subtotal){
+                $this->session->set_flashdata('gagal','Down payment / Full Payment lebih dari total!!');
+					redirect(base_url('dashboard/pemesanan'),'refresh');
+        }else{
         $this->form_validation->set_rules('bank', 'Bank', 'trim|required', 
             array(	'required' => '%s Harus Diisi'));
 
@@ -74,7 +76,7 @@ class Pemesanan extends CI_Controller {
 					redirect(base_url('dashboard/pemesanan'),'refresh');
 				}
 			}
-        
+        }
     }
 
 }
