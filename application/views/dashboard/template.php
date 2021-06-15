@@ -67,7 +67,7 @@
                 </a>
                 <div class="dropdown-menu">
                   <a href="<?= site_url() ?>" class="dropdown-item">Ke Home</a>
-                  <a href="<?= site_url('dashboard/akunSaya')?>" class="dropdown-item">Settings</a>
+                  <a href="<?= site_url('dashboard/akunSaya')?>" class="dropdown-item">Akun Saya</a>
                   <div class="dropdown-divider"></div>
                   <a href="<?= site_url('auth/logout') ?>" id="btn-logout" class="dropdown-item">Logout</a>
                 </div>
