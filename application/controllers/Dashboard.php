@@ -102,7 +102,7 @@ public function __construct()
 		
 			  // variable dari data gambar
 			$post = $this->input->post(null, TRUE);
-			$id_cust = $this->session->userdata('customerid');
+		
 
 				$config['upload_path'] = './upload/bukti/';
 				$config['allowed_types'] = 'jpg|png|jpeg';
@@ -114,12 +114,12 @@ public function __construct()
 			if($this->upload->do_upload('bukti_bayar')){
 			$post['bukti_bayar'] = $this->upload->data('file_name');
 			$this->M_pemesanan->upload_bukti($post);
-			$this->M_customer->editRekUpload($post,$id_cust);
-
-			if($this->db->affected_rows() > 0) {
-				$this->session->set_flashdata('sukses','Bukti bayar berhasil diupload');
-				redirect(base_url('dashboard/pemesanan'),'refresh');
-			}
+		
+			
+				if($this->db->affected_rows() > 0) {
+					$this->session->set_flashdata('sukses','Bukti bayar berhasil diupload');
+					redirect(base_url('dashboard/pemesanan'),'refresh');
+				}
 			}else{
 				$error = $this->upload->display_errors();
 				$this->session->set_flashdata('gagal',$error);

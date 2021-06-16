@@ -81,7 +81,7 @@ class Transaksi extends CI_Controller {
             $row[] = indo_curency($item->total);
             // add html for action
            
-            $row[] = '<a href="'.site_url('admin/transaksi/cetak_pengiriman/' . encrypt_url($item->id_pemesanan)) .'"" class="btn btn-primary btn-sm"><i class="fas fa-print"></i> Cetak Invoice</a>';
+            $row[] = '<a target="_blank" href="'.site_url('admin/transaksi/cetak_pengiriman/' . encrypt_url($item->id_pemesanan)) .'"" class="btn btn-primary btn-sm"><i class="fas fa-print"></i> Cetak Invoice</a>';
 
             $data[] = $row;
             }

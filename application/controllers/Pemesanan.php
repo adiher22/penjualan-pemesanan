@@ -31,10 +31,13 @@ class Pemesanan extends CI_Controller {
     {
         $id = $this->session->userdata('customerid'); // ambil id dari user custmer yg sedang login
         $post = $this->input->post(null, TRUE);
-        $subtotal = $this->M_produk->getCartTotal($id)->row_array();
-        if($post['down_payment'] >= $subtotal && $post['full_payment'] >= $subtotal){
-                $this->session->set_flashdata('gagal','Down payment / Full Payment lebih dari total!!');
-					redirect(base_url('dashboard/pemesanan'),'refresh');
+        $subtotal = $this->M_pemesanan->getSubtotal($id)->row_array();
+        $mindp = number_format($subtotal['subtotal'] / 1.10 * 0.10,0,',','');
+  
+        if($post['down_payment'] <= $mindp){
+
+                $this->session->set_flashdata('gagal','Down payment harus lebih 10% dari total harga!!');
+				redirect(base_url('keranjang'),'refresh');
         }else{
         $this->form_validation->set_rules('bank', 'Bank', 'trim|required', 
             array(	'required' => '%s Harus Diisi'));

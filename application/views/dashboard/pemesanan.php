@@ -88,7 +88,7 @@
          </div>
          <div class="form-group">
            <label for="norek">Nomor Rekening Anda</label>
-           <input type="text" class="form-control" id="no_rek" name="no_rek" value="">
+           <input type="text" class="form-control" id="no_rek" name="no_rek" readonly value="">
          </div>      
       </div>
       <div class="modal-footer">
