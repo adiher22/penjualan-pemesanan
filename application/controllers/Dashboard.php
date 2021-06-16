@@ -128,7 +128,20 @@ public function __construct()
       
     }
 
+	public function terima_barang() //terima barang
+	{
+		$id = $this->uri->segment(3);
 
+		$this->M_pemesanan->terima_barang($id);
+		
+		if($this->db->affected_rows() > 0){
+			$this->session->set_flashdata('sukses', 'Barang anda telah berhasil diterima..!');
+			redirect(base_url('dashboard/pengiriman'),'refresh');
+		}else{
+			  $this->session->set_flashdata('gagal', 'Data tidak ditemukan..!');
+			   redirect(base_url('dashboard/pengiriman'),'refresh');
+		}
+	}
 	public function akunSaya(){
 
 	   $customer_id = $this->session->userdata('customerid');

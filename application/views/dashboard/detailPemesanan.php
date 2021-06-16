@@ -54,9 +54,13 @@
                               <div class="product-subtitle"><?= $detail->alamat ?></div>
                             </div>
                            
-                            <div class="col-12 col-md-4">
+                            <div class="col-12 col-md-6">
                               <div class="product-title">Bukti Bayar</div>
                               <div class="product-subtitle"><img src="<?= site_url('upload/bukti/' . $detail->bukti_bayar ) ?>" style="width: 350px;" alt=""></div>
+                            </div>
+                            <div class="col-12 col-md-6">
+                              <div class="product-title">No Resi</div>
+                              <div class="product-subtitle">No Resi : <?= $detail->no_resi != null ? $detail->no_resi : 'No resi kosong'; ?></div>
                             </div>
                           </div>
                           

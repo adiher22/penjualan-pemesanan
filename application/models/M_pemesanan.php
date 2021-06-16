@@ -73,6 +73,15 @@ class M_pemesanan extends CI_Model {
 		$query = $this->db->get();
 		return $query;
     }
+    public function terima_barang($id)
+    {
+        $params['status_pemesanan'] = "BARANG SAMPAI";
+
+        $this->db->where('id_pemesanan', decrypt_url($id));
+        $this->db->update('pemesanan', $params);
+        
+        
+    }
      public function getDetailPemesanan($id){
         $this->db->select('pemesanan.*,
                           bank.*,

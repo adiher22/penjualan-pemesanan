@@ -207,9 +207,15 @@
         
           <li class="nav-header">MANAJEMEN</li>
           <li class="nav-item">
-            <a href="<?= site_url('admin/pengguna') ?>" class="nav-link <?= $this->uri->segment(2) == 'pengguna' ? 'active' : ''; ?>">
+            <a href="<?= site_url('admin/customer') ?>" class="nav-link <?= $this->uri->segment(2) == 'customer' ? 'active' : ''; ?>">
             <i class="fas fa-user"></i>
               <p>Customer </p>
+            </a>
+          </li>
+           <li class="nav-item">
+            <a href="<?= site_url('admin/customer') ?>" class="nav-link <?= $this->uri->segment(2) == 'customer' ? 'active' : ''; ?>">
+            <i class="fas fa-envelope"></i>
+              <p>Kotak Pesan </p>
             </a>
           </li>
            <li class="nav-header">KONFIGURASI</li>

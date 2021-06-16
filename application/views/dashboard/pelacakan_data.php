@@ -29,7 +29,7 @@
                     <div class="track">
                         <div class="step active"> <span class="icon"> <i class="fa fa-check"></i> </span> <span class="text">DIKONFIRMASI</span> </div>
                         <div class="step active"> <span class="icon"> <i class="fa fa-archive"></i> </span> <span class="text">DIKEMAS</span> </div>
-                        <div class="step <?= $row['status_pemesanan'] == "DIKIRIM" ? 'active' : ''; ?>"> <span class="icon"> <i class="fa fa-truck"></i> </span> <span class="text">DIKIRIM</span> </div>
+                        <div class="step <?= $row['status_pemesanan'] == "DIKIRIM" ||  $row['status_pemesanan'] == "BARANG SAMPAI" ? 'active' : ''; ?>"> <span class="icon"> <i class="fa fa-truck"></i> </span> <span class="text">DIKIRIM</span> </div>
                         <div class="step <?= $row['status_pemesanan'] == "BARANG SAMPAI" ? 'active' :'';?>"> <span class="icon"> <i class="fa fa-box"></i> </span> <span class="text">BARANG SAMPAI</span> </div>
                     </div>
                     <hr>
