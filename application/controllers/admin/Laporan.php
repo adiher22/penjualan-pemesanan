@@ -42,10 +42,10 @@ class Laporan extends CI_Controller {
         $dari = $this->input->post('dari', TRUE);
         $sampai = $this->input->post('sampai', TRUE);
 
-            $data['title'] = "Laporan Data Pembayaran Berdasarkan Tanggal";
+            $data['title'] = "Laporan Data Pemesanan Berdasarkan Tanggal";
             $where = ['tgl_pesan >=' => $dari, 'tgl_pesan <=' => $sampai];
             $data['report'] = $this->M_pemesanan->report($where)->result();
-            $data['reportDetail'] = $this->M_pemesanan->report_detail($where)->result_array();
+            $data['reportDetail'] = $this->M_pemesanan->report($where)->result_array();
             
             $this->template->load('admin/template', 'admin/laporan/laporanDataPemesanan',$data);
                     
@@ -58,11 +58,11 @@ class Laporan extends CI_Controller {
             if($dari != "" || $sampai != "") {
                 $where = ['tgl_pesan >=' => $dari, 'tgl_pesan <=' => $sampai];
                 $data['report'] = $this->M_pemesanan->report($where)->result();
-                $data['reportDetail'] = $this->M_pemesanan->report_detail($where)->result_array();
+                $data['reportDetail'] = $this->M_pemesanan->report($where)->result_array();
                 $data['title'] = "Cetak Laporan Data Pemesanan";
                 // var_dump($data);
                 // die;
-                $this->load->view('admin/laporan/cetak',$data);
+                $this->load->view('admin/laporan/cetakPemesanan',$data);
             }else{
                 
                 redirect(base_url('admin/laporan/LaporanDataPemesanan'),'refresh');

@@ -58,6 +58,18 @@ class M_pemesanan extends CI_Model {
 		$query = $this->db->get();
 		return $query;
 	}
+    public function report($where) 
+    {
+        $this->db->select('pemesanan.*,
+                            customer.*');
+        $this->db->from('pemesanan');
+        $this->db->join('customer', 'pemesanan.id_cust = customer.id_cust', 'left');
+        $this->db->where($where);
+        
+        $query = $this->db->get();
+        return $query;
+        
+    }
     public function getProduk($id)
     {
         $this->db->select('produk.*,

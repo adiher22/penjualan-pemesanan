@@ -36,7 +36,7 @@
             </div>
             <!-- /.card-header -->
             <!-- form start -->
-                    <form action="<?= site_url('admin/laporan/LaporanData') ?>" method="post">
+                    <form action="<?= site_url('admin/laporan/LaporanDataPemesanan') ?>" method="post">
                     <div class="card-body">
                 
                         <div class="form-group">

@@ -30,7 +30,7 @@
     <!-- /.content-header -->
     <div class="content d-flex justify-content-center">
         <div class="col-sm-6">
-            <div class="card card-primary">
+            <div class="card card-danger">
             <div class="card-header">
                 <h3 class="card-title"><?= $title ?></h3>
             </div>
@@ -53,7 +53,7 @@
                     <!-- /.card-body -->
 
                     <div class="card-footer">
-                        <button type="submit" name="submit"class="btn btn-primary">Submit</button>
+                        <button type="submit" name="submit"class="btn btn-danger">Submit</button>
                     </div>
                     </form>
                 </div>
@@ -70,9 +70,9 @@
           <div class="col-12">
             <div class="card">
               <div class="card-header">
-                <h3 class="card-title">Data Pembayaran Dari Tanggal : <?= indo_date($this->input->post('dari')) ?>, Sampai Tanggal: <?= indo_date($this->input->post('sampai')) ?></h3>
+                <h3 class="card-title">Data Pemesanan Dari Tanggal : <?= indo_date($this->input->post('dari')) ?>, Sampai Tanggal: <?= indo_date($this->input->post('sampai')) ?></h3>
                <div class="col-6 ml-auto mr-0">
-               <a href="<?= site_url('admin/laporan/cetak'.'?dari='.set_value('dari').'&sampai='.set_value('sampai')) ?>" target="_blank" class="btn btn-primary float-right"><i class="fa fa-print"></i> Print</a>
+               <a href="<?= site_url('admin/laporan/cetakPemesanan'.'?dari='.set_value('dari').'&sampai='.set_value('sampai')) ?>" target="_blank" class="btn btn-success float-right"><i class="fa fa-print"></i> Print</a>
                </div> 
               </div>
               
@@ -82,12 +82,12 @@
                   <thead>
                   <tr>
                     <th class="text-center">No</th>
-                    <th class="text-center">Tanggal Bayar </th>
-                    <th class="text-center">Nama Warga</th>
-                    <th class="text-center">NIK</th>
-                    <th class="text-center">Bulan</th>
-                    <th class="text-center">Nominal</th>
-                    <th class="text-center">Total Biaya</th>
+                    <th class="text-center">Tanggal Pesan </th>
+                    <th class="text-center">Nama Customer</th>
+                    <th class="text-center">Id Pemesanan</th>
+
+                    <th class="text-center">Status Pemesanan</th>
+                    <th class="text-center">Total</th>
                     
                   </tr>
                   </thead>
@@ -97,22 +97,11 @@
                      if($r->bukti_bayar!=null) { ?>
                   <tr>
                     <td class="text-center"><?= $no++?></td>
-                    <td class="text-center"><?= indo_date($r->tgl_bayar)?></td>
-                    <td class="text-center"><?= $r->nama ?></td>   
-                    <td class="text-center"><?= $r->nik?></td> 
-                    <td class="text-center">
-                        <?php foreach($reportDetail as $rd) {
-                            if($r->id_pembayaran==$rd['id_pembayaran']){
-                              echo $rd['bulan']."<br>";
-                            }else{
-                              "Not Found";
-                            }
-                           
-                        }?>
-                            
-                    </td>
-                    <td class="text-center"><?= indo_curency($r->nominal) ?></td>
-                    <td class="text-center"><?= indo_curency($r->total_biaya) ?></td>   
+                    <td class="text-center"><?= indo_date($r->tgl_pesan)?></td>
+                    <td class="text-center"><?= $r->nama_cust ?></td>   
+                    <td class="text-center"><?= $r->id_pemesanan?></td> 
+                    <td class="text-center"><?= $r->status_pemesanan?></td>
+                    <td class="text-center"><?= indo_curency($r->total) ?></td>   
                
                   </tr>
                     <?php } }?>
