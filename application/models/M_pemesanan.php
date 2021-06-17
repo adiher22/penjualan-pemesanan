@@ -14,6 +14,15 @@ class M_pemesanan extends CI_Model {
 		$query = $this->db->get();
 		return $query;
 	}
+    public function getDasbor($limit){
+        $this->db->select('*');
+		$this->db->from('pemesanan');
+        $this->db->join('customer', 'pemesanan.id_cust = customer.id_cust', 'left');
+        $this->db->limit($limit);
+        
+		$query = $this->db->get();
+		return $query;
+	}
      public function get_track($post){
         $this->db->select('*');
 		$this->db->from('pemesanan');
@@ -246,6 +255,14 @@ class M_pemesanan extends CI_Model {
         return $this->db->count_all_results();
     }
     // end datatables
+
+    //delete pemesanan 
+    public function deletePemesanan($id)
+    {
+        $this->db->where('id_pemesanan', decrypt_url($id));
+        $this->db->delete('pemesanan');
+        
+    }
     
 }
 

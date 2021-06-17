@@ -46,7 +46,7 @@ class Transaksi extends CI_Controller {
             // add html for action
             // jika batas bayar sudah lewat hari ini dan bukti bayar kosong
             if($batas <= $today && empty($item->bukti_bayar)){
-                 $row[] = '<a href="" id="btn-hapus" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i> Hapus</a>
+                 $row[] = '<a href="'.site_url('admin/transaksi/hapusPemesanan/'). encrypt_url($item->id_pemesanan) .'" id="btn-hapus" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i> Hapus</a>
                           <a href="'.site_url('admin/transaksi/detailPemesanan/' . encrypt_url($item->id_pemesanan)) .'" class="btn btn-secondary btn-sm"><i class="fas fa-eye"></i> Detail</a>';
             }else{
                 $row[] = '<a href="'.site_url('admin/transaksi/detailPemesanan/' . encrypt_url($item->id_pemesanan)) .'"" class="btn btn-secondary btn-sm"><i class="fas fa-eye"></i> Detail</a>';
@@ -158,6 +158,17 @@ class Transaksi extends CI_Controller {
         }else{
              $this->session->set_flashdata('error','Data tidak ditemukan!');
                         redirect(base_url('admin/transaksi/pengiriman'),'refresh');
+        }
+    }
+    public function hapusPemesanan()
+    {
+        $id = $this->uri->segment(4);
+
+        $this->M_pemesanan->deletePemesanan($id);
+        
+        if($this->db->affected_rows() > 0) {
+             $this->session->set_flashdata('sukses','Data berhasil dihapus');
+                        redirect(base_url('admin/transaksi/pemesanan'),'refresh');
         }
     }
 

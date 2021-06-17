@@ -183,24 +183,19 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="<?= site_url('admin/laporan') ?>" class="nav-link <?= $this->uri->segment(2) == 'laporan' || $this->uri->segment(3) == 'LaporanData' ? 'active' : ''; ?>">
+                <a href="<?= site_url('admin/laporan/laporanPemesanan') ?>" class="nav-link <?= $this->uri->segment(3) == 'laporanPemesanan' || $this->uri->segment(3) == 'LaporanDataPemesanan' ? 'active' : ''; ?>">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Laporan Pemesanan</p>
                 </a>
               </li>
                <li class="nav-item">
-                <a href="<?= site_url('admin/laporan') ?>" class="nav-link <?= $this->uri->segment(2) == 'laporan' || $this->uri->segment(3) == 'LaporanData' ? 'active' : ''; ?>">
+                <a href="<?= site_url('admin/laporan/laporanPengiriman') ?>" class="nav-link <?= $this->uri->segment(3) == 'laporanPengiriman' || $this->uri->segment(3) == 'LaporanDataPengiriman' ? 'active' : ''; ?>">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Laporan Pengiriman</p>
                 </a>
               </li>
                </li>
-               <li class="nav-item">
-                <a href="<?= site_url('admin/laporan') ?>" class="nav-link <?= $this->uri->segment(2) == 'laporan' || $this->uri->segment(3) == 'LaporanData' ? 'active' : ''; ?>">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Laporan Keuangan</p>
-                </a>
-              </li>
+              
             </ul>
           </li>
          

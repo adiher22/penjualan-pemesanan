@@ -30,9 +30,9 @@
     <!-- /.content-header -->
     <div class="content d-flex justify-content-center">
         <div class="col-sm-6">
-            <div class="card card-primary">
+            <div class="card card-danger">
             <div class="card-header">
-                <h3 class="card-title">Laporan Pembayaran Berdasarkan Tanggal</h3>
+                <h3 class="card-title">Laporan Pemesanan Berdasarkan Tanggal</h3>
             </div>
             <!-- /.card-header -->
             <!-- form start -->
@@ -43,17 +43,20 @@
                             <label for="nama">Dari Tanggal</label>
                             <input type="date" class="form-control" name="dari" id="dari" placeholder="Dari Tanggal"
                             data-validation="required" data-validation-error-msg="Dari tanggal harus diisi">
+                            <?= form_error('dari') ?>
                         </div>
                         <div class="form-group">
                             <label for="sampai">Sampai Tanggal</label>
                             <input type="date" class="form-control" name="sampai" id="sampai" placeholder="Sampai Tanggal"
                             data-validation="required" data-validation-error-msg="Sampai tanggal harus diisi">
+                             <?= form_error('sampai') ?>
                         </div>
                     </div>
                     <!-- /.card-body -->
 
                     <div class="card-footer">
-                        <button type="submit" name="submit"class="btn btn-primary">Submit</button>
+                        <button type="submit" name="submit"class="btn btn-danger">Submit</button>
+                        <button type="reset" class="btn btn-info">Reset</button>
                     </div>
                     </form>
                 </div>

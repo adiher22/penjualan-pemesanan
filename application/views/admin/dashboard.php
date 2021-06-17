@@ -98,35 +98,34 @@
         <!-- /.row -->
          <!-- /.card-header -->
          <div class="card-body p-0">
+                  <h3 class="mb-3"> Transaksi Pemesanan Terbaru </h3>
                 <div class="table-responsive">
                   <table class="table m-0">
                     <thead>
                     <tr>
                       <th>Id Pemesanan</th>
-                      <th>Nama</th>
-                      <th>Nama Produk</th>
+                      <th>Nama Customer</th>
                       <th>Down Payment</th>
                       <th>Full Payment</th>
                       <th>Status Pemesanan</th>
+                      <th>Total Biaya</th>
                     </tr>
                     </thead>
                     <tbody>
-                     
+                      <?php foreach($pemesanan->result_array() as $p) :?>
                     <tr>
-                      <td></td>
-                      <td></td>
+                      <td><?= $p['id_pemesanan'] ?></td>
+                      <td><?= $p['nama_cust']?></td>
                       <td>
-                       
+                        <?= $p['down_payment'] != null ? indo_curency($p['down_payment']) : '<p class="text-danger">Kosong</p>' ?>
                       </td>
                       <td>
-                         
+                        <?= $p['full_payment'] != null ? indo_curency($p['full_payment']) : '<p class="text-danger">Kosong</p>' ?>
                       </td>
-                      <td></td>
-                      <td> 
-                        <div class="sparkbar" data-color="#00a65a" data-height="20"></div>
-                      </td>
+                      <td><?= $p['status_pemesanan'] == "BELUM TRANSFER" ? '<span class="text-danger">'.$p['status_pemesanan'].'</span>' : $p['status_pemesanan']   ?></td>
+                      <td> <?= indo_curency($p['total']) ?> </td>
                     </tr>
-                    
+                        <?php endforeach?>
                     </tbody>
                   
                   </table>
