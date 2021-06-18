@@ -208,7 +208,7 @@
             </a>
           </li>
            <li class="nav-item">
-            <a href="<?= site_url('admin/customer') ?>" class="nav-link <?= $this->uri->segment(2) == 'customer' ? 'active' : ''; ?>">
+            <a href="<?= site_url('admin/dashboard/kotak_pesan') ?>" class="nav-link <?= $this->uri->segment(3) == 'kotak_pesan' ? 'active' : ''; ?>">
             <i class="fas fa-envelope"></i>
               <p>Kotak Pesan </p>
             </a>

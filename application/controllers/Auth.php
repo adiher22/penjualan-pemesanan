@@ -78,7 +78,7 @@ class Auth extends CI_Controller {
 		$this->form_validation->set_rules('alamat', 'Alamat', 'trim|required', 
 		array(	'required' => '%s Harus Diisi'));
 
-		$this->form_validation->set_error_delimiters(' <span class="invalid-feedback" role="alert"></span>');
+		$this->form_validation->set_error_delimiters('<span class="text-danger">','</span>');
 
 		if($this->form_validation->run() == FALSE) {
 		

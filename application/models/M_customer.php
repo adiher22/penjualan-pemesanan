@@ -51,6 +51,22 @@ class M_customer extends CI_Model {
 		$query = $this->db->get();
 		return $query;
 	}
+	public function addKontak($post){
+		$params['nama'] = $post['nama_anda'];
+		$params['email'] = $post['email_anda'];
+		$params['pesan'] = $post['pesan'];
+		
+		
+		$this->db->insert('kontak', $params);
+		
+	}
+	public function getKontak(){
+
+		$this->db->from('kontak');
+	
+		$query = $this->db->get();
+		return $query;
+	}
 	public function add($post){
 		$params['id_cust'] = decrypt_url($post['kd']);
 		$params['nama_cust'] = $post['nama_cust'];

@@ -15,12 +15,12 @@ class Pengguna extends CI_Controller {
     }
     
 
-    public function index()
-    {
-        $data['title'] = "Manajemen Pengguna";
-        $data['pengguna'] = $this->M_admin->get()->result();
-        $this->template->load('admin/template', 'admin/user/user_data', $data);
-    }
+    // public function index()
+    // {
+    //     $data['title'] = "Manajemen Pengguna";
+    //     $data['pengguna'] = $this->M_admin->get()->result();
+    //     $this->template->load('admin/template', 'admin/user/user_data', $data);
+    // }
 
     public function tambahPengguna()
     {

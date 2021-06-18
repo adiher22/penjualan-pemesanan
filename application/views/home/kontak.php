@@ -27,19 +27,22 @@
        
         <div class="col-12" data-aos-delay="200" data-aos="fade-down">
                 <div class="row">
-                    <form action="">
+                    <form action="<?= site_url('kontak/add_pesan') ?>" method="POST">
                     <div class="col-md-10" >
                         <div class="form-group">
                                 <label for="nama">Nama Anda</label>
                                 <input type="text" name="nama_anda" class="form-control">
+                                <?= form_error('nama_anda') ?>
                         </div>
                         <div class="form-group">
                                 <label for="email">Email</label>
                                 <input type="email" name="email_anda" class="form-control">
+                                <?= form_error('email_anda') ?>
                         </div>
                         <div class="form-group">
                                 <label for="message">Pesan</label>
-                                <textarea type="text" name="message" class="form-control"></textarea>
+                                <textarea type="text" name="pesan" class="form-control"></textarea>
+                                <?= form_error('pesan') ?>
                         </div>
                         <div class="form-group mt-4">
                             <button type="submit" class="btn btn-primary btn-lg">Kirim</button>

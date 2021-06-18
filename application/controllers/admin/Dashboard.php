@@ -26,6 +26,21 @@ class Dashboard extends CI_Controller {
 		$this->template->load('admin/template', 'admin/dashboard',$data);
 	}
 
+	public function kotak_pesan()
+	{
+		$data['title'] = "Halaman Kotak Pesan Pengunjung";
+		$data['kontak'] = $this->M_customer->getKontak()->result_array();
+
+		$this->template->load('admin/template', 'admin/customer/kontak_pesan', $data);
+	}
+	public function konfigurasi_web()
+	{
+		$data['title'] = "Halaman Kotak Pesan Pengunjung";
+		$data['kontak'] = $this->M_customer->getKontak()->result_array();
+
+		$this->template->load('admin/template', 'admin/customer/kontak_pesan', $data);
+	}
+
 }
 
 /* End of file Dashboard.php */

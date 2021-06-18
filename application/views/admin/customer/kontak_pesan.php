@@ -38,46 +38,34 @@
           <div class="col-12">
             <div class="card">
               <div class="card-header">
-                <h3 class="card-title">Data Kepala Keluarga</h3>
+                <h3 class="card-title">Data Customer</h3>
                <div class="col-6 ml-auto mr-0">
-               <a href="<?= site_url('admin/master/tambahWarga') ?>" class="btn btn-primary float-right"><i class="fa fa-user-plus"></i> Tambah Warga</a>
+             
                </div> 
               </div>
               
               <!-- /.card-header -->
               <div class="card-body">
-                <table id="dataTables" class="table table-bordered table-striped table-responsive">
+                <table id="dataTables" class="table table-bordered table-striped">
                   <thead>
                   <tr>
                     <th class="text-center">No</th>
-                    <th class="text-center">Nama </th>
-                    <th class="text-center">NIK</th>
-                    <th class="text-center">No HP</th>
-                    <th class="text-center">No KK</th>
-                    <th class="text-center">Username</th>
-                    <th class="text-center">No Rekening</th>
-                    <th class="text-center">Alamat</th>
-                    <th class="text-center">Tanggal Daftar</th>
-                    <th class="text-center">Opsi</th>
+                    <th class="text-center">Nama Pengunjung</th>
+                    <th class="text-center">Email Pengunjung</th>
+                    <th class="text-center">Pesan </th>
+               
+                 
                   </tr>
                   </thead>
                   <tbody>
                   <?php $no = 1;
-                    foreach($warga as $w) {?>
+                    foreach($kontak as $k) {?>
                   <tr>
                     <td class="text-center"><?= $no++?></td>
-                    <td class="text-center"><?= $w->nama?></td>
-                    <td class="text-center"><?= $w->nik?></td>
-                    <td class="text-center"><?= $w->no_hp?></td>
-                    <td class="text-center"><?= $w->no_kk?></td>
-                    <td class="text-center"><?= $w->nama_pengguna?></td>
-                    <td class="text-center"><?= $w->no_rek?></td>
-                    <td class="text-center"><?= $w->alamat?></td>
-                    <td class="text-center"><?= indo_date($w->tgl_daftar)?></td>
-                    <td class="text-center">
-                      <a href="<?= site_url('admin/master/editWarga/'. sha1($w->id_warga)) ?>" id="btn-edit" class="btn btn-warning btn-sm"><i class="fas fa-edit"></i> Edit</a>
-                      <a href="<?= site_url('admin/master/hapusWarga/'.$w->id_warga)?>" id="btn-hapus" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i> Hapus</a>
-                    </td>
+                    <td class="text-center"><?= $k['nama']?></td>
+                    <td class="text-center"><?= $k['email']?></td>
+                    <td class="text-center"><?= $k['pesan']?></td>    
+                   
                   
                   </tr>
                     <?php }?>
