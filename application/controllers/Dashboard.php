@@ -24,6 +24,9 @@ public function __construct()
 		$data['title'] = "Halaman Dashboard Customer";
 		$data['footer'] = "Adiher";
 		$data['pemesanan'] = $this->M_pemesanan->get();
+		$data['customer'] = $this->M_admin->count('customer');
+		$data['produk'] = $this->M_admin->count('produk');
+		$data['order'] = $this->M_admin->count('pemesanan');
 	
 		$this->template->load('dashboard/template', 'dashboard/dashboard',$data);
 	}

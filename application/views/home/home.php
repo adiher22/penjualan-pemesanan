@@ -6,7 +6,7 @@
             <div class="col-lg-12" data-aos="zoom-in">
               <div class="jumbotron jumbotron-fluid">
                 <div class="container-fluid text-center">
-                  <h1 class="display-4">Halo, Selamat Datang!!</h1>
+                  <h1 class="display-4">Selamat Datang!!</h1>
                   <p class="lead" id="jumbotron"></p>
                   <a class="btn btn-primary btn-lg" href="<?= site_url('produk') ?>" role="button">Lihat Produk</a>
                 </div>
@@ -24,11 +24,10 @@
             <img class="card-img mt-4" src="<?= site_url('assets/front-end/images/deliv2.jpg') ?>" alt="Design">
             <div class="card-body">
                <h4 class="card-title">Pengiriman</h4>
-               <p class="card-text">Deliver the best user experience 
-               with our carefully designed responsive websites and applications!</p>
+               <p class="card-text">Pengiriman lebih efisien, pelacakan pengiriman dilakukan oleh customer!</p>
             </div>
             <div class="card-footer py-4">
-               <a href="#" class="btn btn-secondary">See portfolio &raquo;</a>
+               <a href="#pemesanan" class="btn btn-secondary">Lihat &raquo;</a>
             </div>
          </div>
       </div>
@@ -38,11 +37,10 @@
             <img class="card-img-top h-200 " src="<?= site_url('assets/front-end/images/jumbotron.jpg') ?>" alt="Development">
             <div class="card-body">
                <h4 class="card-title">Pemesanan</h4>
-                  <p class="card-text">You need software that works on every device. 
-                  Leverage the latest technologies and the most powerful tools!</p>
+                  <p class="card-text">Pesan produk yang tersedia untuk melakukan pemesanan!</p>
             </div>
             <div class="card-footer py-4">
-               <a href="#pemesanan" class="btn btn-secondary">See projects &raquo;</a>
+               <a href="#pemesanan" class="btn btn-secondary">Lihat Produk &raquo;</a>
             </div>
          </div>
       </div>
@@ -52,11 +50,10 @@
             <img class="card-img-top h-200" src="<?= site_url('assets/front-end/images/asw.png')?>" alt="Analytics">
             <div class="card-body">
                <h4 class="card-title">Produk</h4>
-               <p class="card-text">Consult our experts to set up proper goals and 
-               find the best stack for your next application!</p>
+               <p class="card-text">Lihat produk yang anda cari, berdasarkan dengan kategori!</p>
             </div>
             <div class="card-footer py-4">
-               <a href="#" class="btn btn-secondary">See testimonials &raquo;</a>
+               <a href="<?= site_url('produk') ?>" class="btn btn-secondary">Lihat Produk &raquo;</a>
             </div>
          </div>
       </div>

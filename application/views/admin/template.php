@@ -213,13 +213,6 @@
               <p>Kotak Pesan </p>
             </a>
           </li>
-           <li class="nav-header">KONFIGURASI</li>
-          <li class="nav-item">
-            <a href="<?= site_url('admin/konfigurasi') ?>" class="nav-link <?= $this->uri->segment(2) == 'konfigurasi' ? 'active' : ''; ?>">
-            <i class="fa fa-cogs"></i>
-              <p>Konfigurasi Website </p>
-            </a>
-          </li>
         </ul>
       </nav>
       <!-- /.sidebar-menu -->
