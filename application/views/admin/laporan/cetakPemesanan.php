@@ -52,7 +52,10 @@
 	<?php 
 	
 	$i=1;
+	$null = 0;
     foreach($report as $r){
+		 $totalall = $null += $r->total;
+		 if($r->bukti_bayar!=null) { 
 	 ?>
 	<tr>
 		<td align="center"><?= $i ?></td>
@@ -66,8 +69,11 @@
 		
 		<td align="center"><?= indo_curency($r->total)?></td>
 	</tr>
-	<?php $i++; } ?>
-	
+	<?php $i++; } } ?>
+	<tr>
+        <td colspan="5" align="center"><b>Total Keseluruhan</b></td>
+        <td align="center"><b><?= indo_curency($totalall) ?></b></td>   
+    </tr>
 
 
 

@@ -36,7 +36,7 @@
             </div>
             <!-- /.card-header -->
             <!-- form start -->
-                    <form action="<?= site_url('admin/laporan/LaporanData') ?>" method="post">
+                    <form action="<?= site_url('admin/laporan/LaporanDataPemesanan') ?>" method="post">
                     <div class="card-body">
                 
                         <div class="form-group">
@@ -93,8 +93,13 @@
                   </thead>
                   <tbody>
                   <?php $no = 1;
+                      $null = 0; 
                     foreach($report as $r) {
-                     if($r->bukti_bayar!=null) { ?>
+                    
+                      $totalall = $null += $r->total;
+                     if($r->bukti_bayar!=null) { 
+                    
+                      ?>
                   <tr>
                     <td class="text-center"><?= $no++?></td>
                     <td class="text-center"><?= indo_date($r->tgl_pesan)?></td>
@@ -105,7 +110,10 @@
                
                   </tr>
                     <?php } }?>
-         
+                  <tr>
+                      <td colspan="5" class="text-center"><b>Total Keseluruhan</b></td>
+                      <td class="text-center"><b><?= indo_curency($totalall)  ?></b></td>
+                  </tr>
                   </tbody>
                 </table>
               </div>
