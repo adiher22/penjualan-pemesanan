@@ -63,8 +63,8 @@
                     <td class="text-center"><?= $k->kategori?></td>
                     <td class="text-center"><?= $k->slug?></td>
                     <td class="text-center">
-                      <a href="<?= site_url('admin/master/editKategori/'. sha1($k->id_kategori)) ?>" class="btn btn-info btn-sm"><i class="fas fa-edit"></i> Edit</a>
-                      <a href="<?= site_url('admin/master/hapusKategori/'.$k->id_kategori)?>" id="btn-hapus" class="btn btn-warning btn-sm"><i class="fas fa-trash"></i> Hapus</a>
+                      <a href="<?= site_url('admin/master/editKategori/'. encrypt_url($k->id_kategori)) ?>" class="btn btn-info btn-sm"><i class="fas fa-edit"></i> Edit</a>
+                      <a href="<?= site_url('admin/master/hapusKategori/'. encrypt_url($k->id_kategori))?>" id="btn-hapus" class="btn btn-warning btn-sm"><i class="fas fa-trash"></i> Hapus</a>
                     </td>
                     </form>
                   </tr>

@@ -25,7 +25,7 @@
             <div class="card-body">
                 <div class="form-group">
                     <label for="nama_kategori">Kategori</label>
-                    <input type="hidden" name="id_kategori" value="<?= sha1($row->id_kategori) ?>">
+                    <input type="hidden" name="id_kategori" value="<?= encrypt_url($row->id_kategori) ?>">
                     <input type="text" class="form-control" name="nama_kategori" id="nama_kategori" placeholder="Nama Pemilik Kategori" value="<?=$this->input->post('nama_kategori') ?$this->input->post('nama_kategori') : $row->kategori?>"
                     data-validation="length" data-validation-length="3-20" data-validation-error-msg="Nama pemilik kategori miminal 3 karakter">
                 </div>

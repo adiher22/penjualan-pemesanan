@@ -19,13 +19,13 @@ class M_kategori extends CI_Model {
 
 		$this->db->from('kategori');
 		if($id != null){
-			$this->db->where("sha1(id_kategori)", $id);
+			$this->db->where("id_kategori", decrypt_url($id));
 		}
 		$query = $this->db->get();
 		return $query;
 	}
 	public function add($post){
-		$params['id_kategori'] = $post['id_kategori'];
+		$params['id_kategori'] = decrypt_url($post['id_kategori']);
 		$params['kategori'] = $post['nama_kategori'];
 		$params['slug'] = url_title($post['nama_kategori'], 'dash', TRUE);
 
@@ -38,13 +38,13 @@ class M_kategori extends CI_Model {
 		$params['kategori'] = $post['nama_kategori'];
 		$params['slug'] = url_title($post['nama_kategori'], 'dash', TRUE);
 
-		$this->db->where('sha1(id_kategori)', $post['id_kategori']);
+		$this->db->where('id_kategori', decrypt_url($post['id_kategori']));
 		$this->db->update('kategori', $params);
 	}
 
 	public function del($id)
 	{
-		$this->db->where('id_kategori', $id);
+		$this->db->where('id_kategori', decrypt_url($id));
 		$this->db->delete('kategori');
 	}
 	function id_kategori(){

@@ -40,7 +40,7 @@
             <div class="card-body">
                 <div class="form-group">
                     <label for="exampleInputEmail1">Nama Kategori</label>
-                    <input type="hidden" name="id_kategori" value="<?= sha1($kd) ?>">
+                    <input type="hidden" name="id_kategori" value="<?= encrypt_url($kd) ?>">
                     <input type="text" class="form-control" name="nama_kategori" id="nama_kategori" placeholder="Nama Kategori"
                     data-validation="length " data-validation-length="3-20" data-validation-error-msg="Minimal 3 karakter">
                     <?= form_error('nama_kategori')?>
