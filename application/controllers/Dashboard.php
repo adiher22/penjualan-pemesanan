@@ -20,13 +20,13 @@ public function __construct()
 	public function dasbor()
 	{
 		
-		
+		$id_cust = $this->session->userdata('customerid');
 		$data['title'] = "Halaman Dashboard Customer";
 		$data['footer'] = "Adiher";
 		$data['pemesanan'] = $this->M_pemesanan->get();
-		$data['customer'] = $this->M_admin->count('customer');
-		$data['produk'] = $this->M_admin->count('produk');
-		$data['order'] = $this->M_admin->count('pemesanan');
+		$data['deliver'] = $this->M_pemesanan->get()->row();
+	
+		$data['getSum'] = $this->M_pemesanan->getSum($id_cust)->row_array();
 	
 		$this->template->load('dashboard/template', 'dashboard/dashboard',$data);
 	}

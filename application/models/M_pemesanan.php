@@ -23,6 +23,16 @@ class M_pemesanan extends CI_Model {
 		$query = $this->db->get();
 		return $query;
 	}
+    public function getSum($id_cust)
+    {
+        $this->db->select_sum('total');
+        $this->db->from('pemesanan');
+    
+        $this->db->where('pemesanan.id_cust', $id_cust);
+        
+        $query = $this->db->get();
+        return $query;
+    }
      public function get_track($post){
         $this->db->select('*');
 		$this->db->from('pemesanan');

@@ -1,4 +1,7 @@
-
+<?php 
+  $id_customer = $this->session->userdata('customerid');
+                $order = $this->db->where(['id_cust'=>$id_customer])->from("pemesanan")->count_all_results();
+                $deliv = $this->db->where(['id_cust'=>$id_customer,'status_pemesanan' => $deliver->status_pemesanan == "DIKIRIM"])->from("pemesanan")->count_all_results(); ?>
        <!-- Section Content -->
         <div class="section-content section-dashboard-home" data-aos="fade-up">
           <div class="container-fluid">
@@ -11,13 +14,13 @@
             <div class="dashboard-content">
               <div class="row">
                 <div class="col-md-4">
-                  <div class="card mb-2">
+                  <div class="card mb-2">, 
                     <div class="card-body">
                       <div class="dashboard-card-title">
-                        Customer
+                        Pemesanan
                       </div>
                       <div class="dashboard-card-subtitle">
-                        15.902
+                        <?= $order ?>
                       </div>
                     </div>
                   </div>
@@ -26,10 +29,10 @@
                   <div class="card mb-2">
                     <div class="card-body">
                       <div class="dashboard-card-title">
-                        Revenue
+                        Pengeluaran
                       </div>
                       <div class="dashboard-card-subtitle">
-                        $39,900
+                      <?= indo_curency($getSum['total']) ?>
                       </div>
                     </div>
                   </div>
@@ -38,10 +41,10 @@
                   <div class="card mb-2">
                     <div class="card-body">
                       <div class="dashboard-card-title">
-                        Transaction
+                        Pengiriman
                       </div>
                       <div class="dashboard-card-subtitle">
-                        22,333,545
+                       <?= $deliv ?>
                       </div>
                     </div>
                   </div>

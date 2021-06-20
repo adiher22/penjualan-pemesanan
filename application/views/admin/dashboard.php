@@ -38,14 +38,14 @@
             <!-- small box -->
             <div class="small-box bg-info">
               <div class="inner">
-                <h3>15</h3>
+                <h3><?= $cust ?></h3>
 
                 <p>Data Customer</p>
               </div>
               <div class="icon">
               <i class="fas fa-chalkboard-teacher"></i>
               </div>
-              <a href="#" class="small-box-footer">Lihat Data <i class="fas fa-arrow-circle-right"></i></a>
+              <a href="<?=  site_url('admin/customer') ?>" class="small-box-footer">Lihat Data <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
           <!-- ./col -->
@@ -53,14 +53,14 @@
             <!-- small box -->
             <div class="small-box bg-success">
               <div class="inner">
-                <h3>100</h3>
+                <h3><?= $prod ?></h3>
 
                 <p>Data Produk</p>
               </div>
               <div class="icon">
               <i class="fas fa-user-friends"></i>
               </div>
-              <a href="#" class="small-box-footer">Lihat Data <i class="fas fa-arrow-circle-right"></i></a>
+              <a href="<?= site_url('admin/master/produk') ?>" class="small-box-footer">Lihat Data <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
           <!-- ./col -->
@@ -68,16 +68,17 @@
             <!-- small box -->
             <div class="small-box bg-warning">
               <div class="inner">
-                <h3>123</h3>
+                <h3><?= $pmsn ?></h3>
 
-                <p>Transaksi</p>
+                <p>Pemesanan</p>
               </div>
               <div class="icon">
-                <i class="fas fa-cash-register"></i>
+                <i class="fas fa-address-card"></i>
               </div>
-              <a href="#" class="small-box-footer">Lihat Data <i class="fas fa-arrow-circle-right"></i></a>
+              <a href="<?= site_url('admin/transaksi/pemesanan') ?>" class="small-box-footer">Lihat Data <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
+       
           <!-- ./col -->
           <div class="col-lg-3 col-6">
             <!-- small box -->
@@ -88,9 +89,9 @@
                 <p>Data Pengiriman</p>
               </div>
               <div class="icon">
-              <i class="fas fa-money-check-alt"></i>
+              <i class="fas fa-truck"></i>
               </div>
-              <a href="#" class="small-box-footer">Lihat Data <i class="fas fa-arrow-circle-right"></i></a>
+              <a href="<?= site_url('admin/transaksi/pengiriman') ?>" class="small-box-footer">Lihat Data <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
           <!-- ./col -->
