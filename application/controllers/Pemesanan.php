@@ -31,14 +31,17 @@ class Pemesanan extends CI_Controller {
     {
         $id = $this->session->userdata('customerid'); // ambil id dari user custmer yg sedang login
         $post = $this->input->post(null, TRUE);
-        $subtotal = $this->M_pemesanan->getSubtotal($id)->row_array();
-        $mindp = number_format($subtotal['subtotal'] / 1.10 * 0.10,0,',','');
+      
+       
   
-        if($post['down_payment'] <= $mindp){
+        // if(!empty($post['down_payment']) <= $post['mindp'] && empty($post['full_payment'])){
 
-                $this->session->set_flashdata('gagal','Down payment harus lebih 10% dari total harga!!');
-				redirect(base_url('keranjang'),'refresh');
-        }else{
+        //         $this->session->set_flashdata('gagal','Down payment harus lebih 50% dari total harga!!');
+		// 		redirect(base_url('keranjang'),'refresh');
+        // }else if(!empty($post['full_payment']) <= $post['total'] && empty($post['down_payment'])){
+        //         $this->session->set_flashdata('gagal','Full payment harus lebih dari total keseluruhan!!');
+        //         redirect(base_url('keranjang'),'refresh');
+        // }else{
         $this->form_validation->set_rules('bank', 'Bank', 'trim|required', 
             array(	'required' => '%s Harus Diisi'));
 
@@ -47,7 +50,7 @@ class Pemesanan extends CI_Controller {
                     'is_numeric' => '%s Harus diisi angka',
                     'min_length' => '%s Minimal 11 angka'));
 
-        $this->form_validation->set_error_delimiters('<span class="invalid-feedback" role="alert"></span>');
+        $this->form_validation->set_error_delimiters('<span class="text-danger"></span>');
         
 		if($this->form_validation->run() == FALSE) {
             
@@ -79,7 +82,7 @@ class Pemesanan extends CI_Controller {
 					redirect(base_url('dashboard/pemesanan'),'refresh');
 				}
 			}
-        }
+        
     }
 
 }

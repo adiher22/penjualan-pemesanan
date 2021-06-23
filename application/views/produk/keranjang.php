@@ -100,15 +100,18 @@
                 <div class="col-md-4" v-if="is_dp">
                     <div class="form-group">
                         <label for="postalCode">Down Payment</label>
-                        <input type="number" id="down_payment" name="down_payment" class="form-control" value="" />
+                        <input type="number" id="down_payment" name="down_payment" v-model="down_payment" @change="DpFunction()" class="form-control" value="" />
+                        
                     </div>
-                  
                 </div>
+              
                 <div class="col-md-4" v-else="is_dp">
                     <div class="form-group">
                         <label for="postalCode">Full Payment</label>
-                        <input type="number" id="full_payment" name="full_payment" class="form-control" value="" />
+                        <input type="number" id="full_payment" name="full_payment" v-model="full_payment" @change="FpFunction()" class="form-control" value="" />
+                        
                     </div>
+                    
                 </div>    
                 <div class="col-md-4">
                     <div class="form-group">
@@ -182,15 +185,17 @@
                 <div class="col-4 col-md-2">
                     <div class="product-title text-primary"><?= indo_curency($total) ?>
                     <input type="hidden" name="pajak" value="<?= $ppn ?>">
+                    <input type="hidden" name="subtotal" v-model="subtotal" id="subtotal" value="">
                     <input type="hidden" name="produk_asuransi" value="<?= $asuransi ?>">
                     <input type="hidden" name="biaya_pengiriman" value="<?= $kirim ?>">
-                    <input type="hidden" name="total" value="<?= $total ?>">
+                    <input type="hidden" name="mindp" id="mindp" value="">
+                    <input type="hidden" id="total" v-model="total" name="total" value="<?= $total ?>">
                     
                     </div>
                     <div class="product-subtitle">Total Keseluruhan</div>
                 </div>
                 <div class="col-8 col-md-3">
-                    <button type="submit" class="btn btn-primary mt-4 px-4 btn-block">Pesan Sekarang</button>
+                    <button type="submit" id="submit" :disabled="this.buttonDisabled" class="btn btn-primary mt-4 px-4 btn-block">Pesan Sekarang</button>
                 </div>
             </div>
             </form>
@@ -203,9 +208,15 @@
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
   <script src="<?= site_url('assets/front-end/vendor/vue/vue.js') ?>"></script>
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <!-- Toastr -->
+   <script src="https://unpkg.com/vue-toasted"></script>
+ 
   <script>
-  
-       var pemesanan_detail = new Vue({
+    
+
+        Vue.use(Toasted);
+        
+        var pemesanan_detail = new Vue({
         el: '#pemesanan_detail',
         mounted() {
           AOS.init();
@@ -217,7 +228,11 @@
             nama_pemilik : "",
             nomor_rekening : "",
             id_bank : "",
-          
+            down_payment : "",
+            full_payment : "",
+            subtotal : "<?= $sum['harga'] ?>",
+            total : "<?= $total ?>",
+            buttonDisabled : false
       },
        methods: {
                 getBank(){
@@ -227,7 +242,51 @@
                     self.nama_pemilik = response.data.nama_pemilik,
                     self.nomor_rekening = response.data.nomor_rekening
                 })
-            },    
+            },   
+             DpFunction: function(){
+                 // Persentase
+               var mindp = this.$data.subtotal - (Math.round((50 / 100) * this.$data.subtotal))
+               
+                        // validate
+                        if(parseInt(this.down_payment) < parseInt(mindp))
+                            {
+                                this.$toasted.error(
+                                "Down Payment minimal 50% dari total harga.",
+                                {
+                                    position: "top-center",
+                                    className: "rounded",
+                                    duration: 5000,
+                                }
+                                );
+                                this.buttonDisabled = true
+                            }
+                            else{
+                            
+                               this.buttonDisabled = false  
+                            }
+             },
+              FpFunction: function(){
+                 // Persentase
+                 var totalk = this.$data.total - (Math.round((50 / 100) * this.$data.total))
+               
+                        // validate
+                        if(parseInt(this.full_payment) < parseInt(totalk))
+                            {
+                                this.$toasted.error(
+                                "Full Payment anda kurang dari total keseluruhan.",
+                                {
+                                    position: "top-center",
+                                    className: "rounded",
+                                    duration: 5000,
+                                }
+                                );
+                                this.buttonDisabled = true
+                            }
+                            else{
+                            
+                               this.buttonDisabled = false  
+                            }      
+             }
             }
-  });
+        });
   </script>
