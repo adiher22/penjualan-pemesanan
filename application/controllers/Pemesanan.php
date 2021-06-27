@@ -31,17 +31,7 @@ class Pemesanan extends CI_Controller {
     {
         $id = $this->session->userdata('customerid'); // ambil id dari user custmer yg sedang login
         $post = $this->input->post(null, TRUE);
-      
-       
-  
-        // if(!empty($post['down_payment']) <= $post['mindp'] && empty($post['full_payment'])){
-
-        //         $this->session->set_flashdata('gagal','Down payment harus lebih 50% dari total harga!!');
-		// 		redirect(base_url('keranjang'),'refresh');
-        // }else if(!empty($post['full_payment']) <= $post['total'] && empty($post['down_payment'])){
-        //         $this->session->set_flashdata('gagal','Full payment harus lebih dari total keseluruhan!!');
-        //         redirect(base_url('keranjang'),'refresh');
-        // }else{
+        
         $this->form_validation->set_rules('bank', 'Bank', 'trim|required', 
             array(	'required' => '%s Harus Diisi'));
 
@@ -62,6 +52,7 @@ class Pemesanan extends CI_Controller {
             $data['produk'] = $this->M_produk->getCartProduk($id_cust);
             $data['cust'] = $this->M_customer->getCust($id_cust)->row();
             $data['id_pemesanan'] = $this->M_pemesanan->id_pemesanan();
+            $data['id_transaksi'] = $this->M_pemesanan->id_transaksi();
             $data['bank'] = $this->M_bank->get()->result();
          
             $data['sum'] = $this->M_produk->getCartTotal($id_cust)->row_array();

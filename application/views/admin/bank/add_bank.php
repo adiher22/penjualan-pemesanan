@@ -40,7 +40,7 @@
             <div class="card-body">
                 <div class="form-group">
                     <label for="nama_bank">Nama Bank</label>
-                
+                    <input type="hidden" name="id_bank" value="<?= encrypt_url($id_bank) ?>">
                     <input type="text" class="form-control" name="nama_bank" id="nama_bank" placeholder="Nama Bank"
                     data-validation="length " data-validation-length="3-20" data-validation-error-msg="Minimal 3 karakter">
                     <?= form_error('nama_bank')?>

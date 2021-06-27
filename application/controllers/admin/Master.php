@@ -300,7 +300,7 @@ class Master extends CI_Controller {
 		if($this->form_validation->run() == FALSE) {
             
             $data['title'] = "Tambah Data Rekening";
-		
+			$data['id_bank'] = $this->M_bank->id_bank();
             
             $this->template->load('admin/template', 'admin/bank/add_bank', $data);
 		}else {

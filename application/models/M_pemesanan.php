@@ -158,11 +158,28 @@ class M_pemesanan extends CI_Model {
         date_default_timezone_set('Asia/Jakarta');
         return $no.time().$kd;
     }
+    function id_transaksi(){
+      
+        $q = $this->db->query("SELECT MAX(RIGHT(id_transaksi,4)) AS kd_max FROM transaksi_detail WHERE DATE(tgl_update)=CURDATE()");
+        $kd = "";
+        $no = "TRX-";
+        $time = time();
+        if($q->num_rows()>0){
+            foreach($q->result() as $k){
+                $tmp = ((int)$k->kd_max)+1;
+                $kd = sprintf("%04s", $tmp);
+            }
+        }else{
+            $kd = "0001";
+        }
+        date_default_timezone_set('Asia/Jakarta');
+        return $no.date('ymd').$time.$kd;
+    }
     public function add($post){
 		$params['id_pemesanan'] = decrypt_url($post['id_pemesanan']);
 		$params['id_cust'] = $this->session->userdata('customerid');
 		$params['id_bank'] = decrypt_url($post['bank']);
-        if($post['down_payment'] != null) {
+        if(!empty($post['down_payment'])) {
             $params['down_payment'] = $post['down_payment'];
 
         }
@@ -219,6 +236,7 @@ class M_pemesanan extends CI_Model {
         $params = array();
         foreach($cart as $cart) : 
             $params[] = [
+             
                 'id_produk' => $cart['id_produk'],
                 'id_pemesanan' => decrypt_url($post['id_pemesanan'])
             ];

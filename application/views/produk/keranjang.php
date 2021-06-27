@@ -80,6 +80,7 @@
                         <label for="addressOne">Alamat Perusahaan</label>
                         <input type="text"  class="form-control" value="Perum The Citaville Blok B1 No.10 RT 005 RW 005, Jl. Citarik Raya Jati Baru Cikarang Timur, Bekasi" />
                         <input type="hidden" id="id_pemesanan" name="id_pemesanan" value="<?= encrypt_url($id_pemesanan) ?>">
+                        <input type="hidden" name="id_transaksi" value="<?= $id_transaksi ?>">
                     </div>
                 </div>
                 <div class="col-md-6">
@@ -172,7 +173,7 @@
             <div class="row" data-aos="fade-up" data-aos-delay="200">
                 <div class="col-4 col-md-2">
                     <div class="product-title"><?= indo_curency($ppn) ?></div>
-                    <div class="product-subtitle">Pajak Negara</div>
+                    <div class="product-subtitle">PPN (10%)</div>
                 </div>
                 <div class="col-4 col-md-3">
                     <div class="product-title"><?= indo_curency($asuransi) ?></div>
@@ -188,7 +189,7 @@
                     <input type="hidden" name="subtotal" v-model="subtotal" id="subtotal" value="">
                     <input type="hidden" name="produk_asuransi" value="<?= $asuransi ?>">
                     <input type="hidden" name="biaya_pengiriman" value="<?= $kirim ?>">
-                    <input type="hidden" name="mindp" id="mindp" value="">
+               
                     <input type="hidden" id="total" v-model="total" name="total" value="<?= $total ?>">
                     
                     </div>
@@ -246,9 +247,9 @@
              DpFunction: function(){
                  // Persentase
                var mindp = this.$data.subtotal - (Math.round((50 / 100) * this.$data.subtotal))
-               
+               console.log(mindp);
                         // validate
-                        if(parseInt(this.down_payment) < parseInt(mindp))
+                        if(parseInt(this.down_payment) <= parseInt(mindp))
                             {
                                 this.$toasted.error(
                                 "Down Payment minimal 50% dari total harga.",
@@ -270,7 +271,7 @@
                  var totalk = this.$data.total - (Math.round((50 / 100) * this.$data.total))
                
                         // validate
-                        if(parseInt(this.full_payment) < parseInt(totalk))
+                        if(parseInt(this.full_payment) <= parseInt(totalk))
                             {
                                 this.$toasted.error(
                                 "Full Payment anda kurang dari total keseluruhan.",

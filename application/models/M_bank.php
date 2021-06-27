@@ -33,6 +33,7 @@ class M_bank extends CI_Model {
 	}
 	public function add($post){
 		
+		$params['id_bank'] = decrypt_url($post['id_bank']);
 		$params['nama_bank'] = $post['nama_bank'];
         $params['nomor_rekening'] = $post['nomor_rekening'];
         $params['nama_pemilik'] = $post['nama_pemilik'];
@@ -56,7 +57,22 @@ class M_bank extends CI_Model {
 		$this->db->where('id_bank', decrypt_url($id));
 		$this->db->delete('bank');
 	}
-	
+	function id_bank(){
+      
+        $q = $this->db->query("SELECT MAX(RIGHT(id_bank,4)) AS kd_max FROM bank WHERE DATE(tgl_update)=CURDATE()");
+        $kd = "";
+        $no = "BANK-";
+        if($q->num_rows()>0){
+            foreach($q->result() as $k){
+                $tmp = ((int)$k->kd_max)+1;
+                $kd = sprintf("%04s", $tmp);
+            }
+        }else{
+            $kd = "0001";
+        }
+        date_default_timezone_set('Asia/Jakarta');
+        return $no.date('ymd-').$kd;
+    }
     
 }
 
