@@ -158,9 +158,9 @@ class M_pemesanan extends CI_Model {
         date_default_timezone_set('Asia/Jakarta');
         return $no.time().$kd;
     }
-    function id_transaksi(){
+    function kd_transaksi(){
       
-        $q = $this->db->query("SELECT MAX(RIGHT(id_transaksi,4)) AS kd_max FROM transaksi_detail WHERE DATE(tgl_update)=CURDATE()");
+        $q = $this->db->query("SELECT MAX(RIGHT(kd_transaksi,4)) AS kd_max FROM transaksi_detail WHERE DATE(tgl_update)=CURDATE()");
         $kd = "";
         $no = "TRX-";
         $time = time();
@@ -236,7 +236,7 @@ class M_pemesanan extends CI_Model {
         $params = array();
         foreach($cart as $cart) : 
             $params[] = [
-             
+                'kd_transaksi' => $post['kd_trx'],
                 'id_produk' => $cart['id_produk'],
                 'id_pemesanan' => decrypt_url($post['id_pemesanan'])
             ];

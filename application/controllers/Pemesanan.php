@@ -54,7 +54,7 @@ class Pemesanan extends CI_Controller {
             $data['id_pemesanan'] = $this->M_pemesanan->id_pemesanan();
             $data['id_transaksi'] = $this->M_pemesanan->id_transaksi();
             $data['bank'] = $this->M_bank->get()->result();
-         
+            $data['kd_trx'] = $this->M_pemesanan->kd_transaksi();
             $data['sum'] = $this->M_produk->getCartTotal($id_cust)->row_array();
 
             

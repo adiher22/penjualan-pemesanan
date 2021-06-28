@@ -80,7 +80,7 @@
                         <label for="addressOne">Alamat Perusahaan</label>
                         <input type="text"  class="form-control" value="Perum The Citaville Blok B1 No.10 RT 005 RW 005, Jl. Citarik Raya Jati Baru Cikarang Timur, Bekasi" />
                         <input type="hidden" id="id_pemesanan" name="id_pemesanan" value="<?= encrypt_url($id_pemesanan) ?>">
-                        <input type="hidden" name="id_transaksi" value="<?= $id_transaksi ?>">
+                        <input type="hidden" name="kd_trx" value="<?= encrypt_url($kd_trx) ?>">
                     </div>
                 </div>
                 <div class="col-md-6">
