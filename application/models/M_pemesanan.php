@@ -236,7 +236,7 @@ class M_pemesanan extends CI_Model {
         $params = array();
         foreach($cart as $cart) : 
             $params[] = [
-                'kd_transaksi' => $post['kd_trx'],
+                'kd_transaksi' => decrypt_url($post['kd_trx']),
                 'id_produk' => $cart['id_produk'],
                 'id_pemesanan' => decrypt_url($post['id_pemesanan'])
             ];
