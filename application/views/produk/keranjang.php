@@ -127,7 +127,7 @@
                             <option value="<?= encrypt_url($b->id_bank) ?>"><?= $b->nama_bank ?></option>
                         <?php endforeach ?>
                         </select>
-                        <strong><?= form_error('bank') ?></strong>
+                       <?= form_error('bank') ?>
                     </div>
                     
                 </div>  
@@ -135,8 +135,9 @@
                     <div class="form-group">
                         <label for="rekening">No Rekening Anda</label>
                         <input type="text" id="no_rek" name="no_rek" class="form-control" value="<?php if($cust->no_rek != null) { echo $cust->no_rek;} else{ echo "Rekening Anda Kosong"; } ?>" />  
+                         <?= form_error('no_rek') ?> 
                     </div>
-                    <?= form_error('no_rek') ?> 
+                   
                 </div>  
                 <div class="col-md-4">
                     <div class="form-group">

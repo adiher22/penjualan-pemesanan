@@ -53,57 +53,73 @@
              <h2>
                Memulai untuk transaksi <br> dengan cara terbaru
              </h2>
-             <form class="mt-3" action="<?= site_url('auth/register') ?>" method="POST">
+             <validation-observer v-slot="{ invalid, handleSubmit }">
+             <form class="mt-3" action="<?= site_url('auth/register') ?>" method="POST" @submit.prevent="handleSubmit(onSubmit)">
+
               <div class="form-group">
-                <label>Nama Customer</label>
-                <input type="text" name="nama_cust" class="form-control is-valid" v-model="name" required>
-                <input type="hidden" name="kd" value="<?= encrypt_url($kd) ?>">
-                  <strong><?= form_error('nama_cust') ?></strong>
+              <validation-provider rules="required" v-slot="{ dirty, valid, invalid, errors }">
+               <label>Nama Customer</label>
+                
+                  <input type="text" name="nama_cust" class="form-control is-valid" v-model="nama_cust">
+                    <input type="hidden" name="kd" value="<?= encrypt_url($kd) ?>">
+                     <?= form_error('nama_cust') ?>
+                  <div class="invalid-feedback d-inline-block" v-show="errors">{{ errors[0] }}</div>
+                </validation-provider>
               </div>
+
               <div class="form-group">
+                <validation-provider rules="required|email" v-slot="{ dirty, valid, invalid, errors }">
                <label>Email Address</label>
              
-               <input id="email" type="email"  v-model="email" @change="EmailAvailability()" class="form-control" 
-               :class="{ 'is_invalid' : this.email_unavailable }"
-               name="email" required="email">
-                  <strong><?= form_error('email') ?></strong>
-                
-           
+                   <input id="email" type="email"  v-model="email" @change="EmailAvailability()" class="form-control" 
+                      :class="{ 'is_invalid' : this.email_unavailable }" name="email" required="email">
+                        <?= form_error('email') ?>
+                  <div class="invalid-feedback d-inline-block" v-show="errors">{{ errors[0] }}</div>
+               </validation-provider>
               </div>
               <div class="form-group">
+               <validation-provider rules="required|min:4|max:20" v-slot="{ dirty, valid, invalid, errors }">
                 <label>Password</label>
-                <input type="password" name="password" class="form-control" required>
-                  <strong><?= form_error('password') ?></strong>
+                   <input type="password" name="password"  v-model="password" class="form-control" required>
+                      <?= form_error('password') ?>
+                      <div class="invalid-feedback d-inline-block" v-show="errors">{{ errors[0] }}</div>
+               </validation-provider>
               </div>
+
               <div class="form-group">
                 <label>Rekening </label>
-                <p class="text-muted">Apakah anda ingin memasukan nomor rekening sekarang ?</p>
-                <div class="custom-control custom-radio custom-control-inline">
-                  <input type="radio" class="custom-control-input" name="is_rekening" id="OpenStoreTrue" v-model="is_rekening" :value="true">
-                  <label for="OpenStoreTrue" class="custom-control-label">Iya, sekarang</label>
-                </div>
-                <div class="custom-control custom-radio custom-control-inline">
-                  <input type="radio" class="custom-control-input" name="is_rekening" id="OpenStoreFalse" v-model="is_rekening" :value="false">
-                  <label for="OpenStoreFalse" class="custom-control-label">Enggak, nanti saja</label>
-                </div>
+                  <p class="text-muted">Apakah anda ingin memasukan nomor rekening sekarang ?</p>
+                  <div class="custom-control custom-radio custom-control-inline">
+                      <input type="radio" class="custom-control-input" name="is_rekening" id="OpenStoreTrue" v-model="is_rekening" :value="true">
+                      <label for="OpenStoreTrue" class="custom-control-label">Iya, sekarang</label>
+                  </div>
+                  <div class="custom-control custom-radio custom-control-inline">
+                      <input type="radio" class="custom-control-input" name="is_rekening" id="OpenStoreFalse" v-model="is_rekening" :value="false">
+                      <label for="OpenStoreFalse" class="custom-control-label">Enggak, nanti saja</label>
+                  </div>
               </div>
+
               <div class="form-group" v-if="is_rekening">
                 <label>Nomor Rekening</label>
                 <input type="number" name="no_rek" class="form-control">
               </div>
               <div class="form-group">
+                <validation-provider rules="required|min:11|max:12" v-slot="{ dirty, valid, invalid, errors }">
                 <label>No Hanphone</label>
-                  <input type="number" name="no_hp" class="form-control" required="number">
-                    <strong><?= form_error('no_hp') ?></strong>
+                  <input type="number" name="no_hp" v-model="no_hp" class="form-control">
+                    <?= form_error('no_hp') ?>
+                    <div class="invalid-feedback d-inline-block" v-show="errors">{{ errors[0] }}</div>
+                </validation-provider>
               </div>
               <div class="form-group">
                 <label>Alamat</label>
                   <textarea type="number" name="alamat" class="form-control" required></textarea>
-                    <strong><?= form_error('alamat') ?></strong>
+                    <?= form_error('alamat') ?>
               </div>
-              <button type="submit" name="registrasi" :disabled="this.email_unavailable" class="btn btn-primary btn-block  mt-4">Registrasi Sekarang</button>
+              <button type="submit" name="registrasi" :disabled="this.email_unavailable" v-bind:disabled="invalid" class="btn btn-primary btn-block  mt-4">Registrasi Sekarang</button>
               <a href="<?= site_url('auth') ?>" class="btn btn-signup btn-block mt-2">Kembali ke halaman masuk</a>
              </form>
+              <validation-observer v-slot="{ invalid, handleSubmit }">
            </div>
          </div>
        </div>
@@ -119,6 +135,23 @@
     <script src="<?= site_url('assets/front-end/vendor/vue/vue.js') ?>"></script>
     <script src="https://unpkg.com/vue-toasted"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <!-- include the VeeValidate library -->
+    <script src="https://cdn.jsdelivr.net/npm/vee-validate@3.3.8/dist/vee-validate.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vee-validate@3.3.8/dist/rules.umd.js"></script>
+    <!-- Toastr -->
+    <script src="https://unpkg.com/vue-toasted"></script>
+    
+    <!-- Validate vee component -->
+      <script>
+          Vue.component('validation-observer', VeeValidate.ValidationObserver);
+
+          Vue.component('validation-provider', VeeValidate.ValidationProvider);
+      </script>
+      <script>
+          Object.keys(VeeValidateRules).forEach(rule => {
+          VeeValidate.extend(rule, VeeValidateRules[rule]);
+          });
+      </script>
     <script>
       Vue.use(Toasted);
 
@@ -166,13 +199,18 @@
               console.log(error);
             });
         
+      },
+       onSubmit: function() {
+        console.log('Form has been submitted!');
       }
     },
       data() {
           return {
-            name: "",
+            nama_cust: "",
             email: "",
             is_rekening: true,
+            password:"",
+            no_hp:"",
             store_name: "",
             email_unavailable: false
           }

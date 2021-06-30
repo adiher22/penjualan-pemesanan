@@ -40,7 +40,7 @@ class Pemesanan extends CI_Controller {
                     'is_numeric' => '%s Harus diisi angka',
                     'min_length' => '%s Minimal 11 angka'));
 
-        $this->form_validation->set_error_delimiters('<span class="text-danger"></span>');
+        $this->form_validation->set_error_delimiters('<span class="text-danger">','</span>');
         
 		if($this->form_validation->run() == FALSE) {
             
