@@ -73,7 +73,8 @@
                     <h2 class="mb-4">Pemesanan Detail</h2>
                 </div>
             </div>
-            <form action="<?= site_url('pemesanan/add') ?>" method="POST" enctype="multipart/form-data">
+            <validation-observer v-slot="{ invalid, handleSubmit }">
+            <form action="<?= site_url('pemesanan/add') ?>" method="POST" enctype="multipart/form-data" submit.prevent="handleSubmit(onSubmit)">
             <div  class="row mb-2" data-aos="fade-up" data-aos-delay="200">
                 <div class="col-md-6">
                     <div class="form-group">
@@ -100,17 +101,21 @@
                 </div>
                 <div class="col-md-4" v-if="is_dp">
                     <div class="form-group">
+                          <validation-provider rules="required" v-slot="{ dirty, valid, invalid, errors }">
                         <label for="postalCode">Down Payment</label>
                         <input type="number" id="down_payment" name="down_payment" v-model="down_payment" @change="DpFunction()" class="form-control" value="" />
-                        
+                             <div class="invalid-feedback d-inline-block" v-show="errors">{{ errors[0] }}</div>
+                          <validation-provider>
                     </div>
                 </div>
               
                 <div class="col-md-4" v-else="is_dp">
                     <div class="form-group">
+                            <validation-provider rules="required" v-slot="{ dirty, valid, invalid, errors }">
                         <label for="postalCode">Full Payment</label>
                         <input type="number" id="full_payment" name="full_payment" v-model="full_payment" @change="FpFunction()" class="form-control" value="" />
-                        
+                             <div class="invalid-feedback d-inline-block" v-show="errors">{{ errors[0] }}</div>
+                            <validation-provider>
                     </div>
                     
                 </div>    
@@ -196,10 +201,12 @@
                     <div class="product-subtitle">Total Keseluruhan</div>
                 </div>
                 <div class="col-8 col-md-3">
-                    <button type="submit" id="submit" :disabled="this.buttonDisabled" class="btn btn-primary mt-4 px-4 btn-block">Pesan Sekarang</button>
+                    <button type="submit" id="submit" :disabled="this.buttonDisabled" v-bind:disabled="invalid" class="btn btn-primary mt-4 px-4 btn-block">Pesan Sekarang</button>
                 </div>
             </div>
             </form>
+            <validation-observer v-slot="{ invalid, handleSubmit }">
+
         </div>
     </section>
   </div>
@@ -209,9 +216,23 @@
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
   <script src="<?= site_url('assets/front-end/vendor/vue/vue.js') ?>"></script>
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <!-- include the VeeValidate library -->
+  <script src="https://cdn.jsdelivr.net/npm/vee-validate@3.3.8/dist/vee-validate.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vee-validate@3.3.8/dist/rules.umd.js"></script>
   <!-- Toastr -->
-   <script src="https://unpkg.com/vue-toasted"></script>
- 
+  <script src="https://unpkg.com/vue-toasted"></script>
+  
+  <!-- Validate vee component -->
+    <script>
+        Vue.component('validation-observer', VeeValidate.ValidationObserver);
+
+        Vue.component('validation-provider', VeeValidate.ValidationProvider);
+    </script>
+    <script>
+        Object.keys(VeeValidateRules).forEach(rule => {
+        VeeValidate.extend(rule, VeeValidateRules[rule]);
+        });
+    </script>
   <script>
     
 
@@ -236,6 +257,7 @@
             buttonDisabled : false
       },
        methods: {
+      
                 getBank(){
                 var self = this
                 axios.get('<?= site_url('keranjang/getBank/') ?>' + self.id_bank)
@@ -287,7 +309,11 @@
                             
                                this.buttonDisabled = false  
                             }      
-             }
+             },
+              onSubmit: function() {
+            
+                console.log('Form has been submitted!');
+            }
             }
         });
   </script>
