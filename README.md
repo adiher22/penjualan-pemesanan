@@ -16,7 +16,7 @@ $ cd penjualan-pemesanan
 $ git remote remove origin
 ```
 - Buat database baru, dan import file Sql ke database yang kamu buat. 
-  Silahkan hubungi atau kunjungi web, **[click here](https://adiher.com/)**, untuk mendapatkan file Sql nya. Nanti akan diemail. 
+  Silahkan hubungi atau kunjungi web, **[adiher.com](https://adiher.com/)**, untuk mendapatkan file Sql nya. Nanti akan diemail. 
 - Buka file databases di folder application/config/databases.php
 ```bash
 'username' => 'username anda',
