@@ -19,9 +19,9 @@ $ git remote remove origin
   Silahkan Email atau kunjungi web adiher.com, untuk file Sql nya. Nanti akan diemail. 
 - Buka file databases di folder application/config/databases.php
 ```bash
-  'username' => 'username anda',
-	'password' => 'password anda',
-	'database' => 'nama database anda',
+'username' => 'username anda',
+'password' => 'password anda',
+'database' => 'nama database anda',
 ```
 - Tes jalankan pada browser.
 
