@@ -5,15 +5,26 @@ Aplikasi Penjualan Pemesanan PT KTI berbasis web dibuat dengan Codeigniter 3.11.
 
 
 Instalasi :
-- Cukup download atau clone file-file di repo ini, dan copy kan pada web direktori kamu.
+```bash
+# Clone repository
+$ git clone https://github.com/adiher22/penjualan-pemesanan.git
+
+# Buka repository
+$ cd penjualan-pemesanan
+
+# Hapus origin repository
+$ git remote remove origin
+```
 - Buat database baru, dan import file Sql ke database yang kamu buat. 
   Silahkan Email atau kunjungi web adiher.com, untuk file Sql nya. Nanti akan diemail. 
-- Buka file 'configdb.php' pada baris ke 6, sesuaikan dengan setting database kamu.
-  contoh $mysqli = new mysqli('localhost','user-kamu','password-kamu','nama-database-kamu');
+- Buka file databases di folder application/config/databases.php
+```bash
+  'username' => 'username anda',
+	'password' => 'password anda',
+	'database' => 'nama database anda',
+```
 - Tes jalankan pada browser.
 
-Preview :
-- 
 
 Minimum requirements :
 - PHP 7
