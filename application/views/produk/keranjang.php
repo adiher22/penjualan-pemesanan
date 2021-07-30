@@ -92,8 +92,8 @@
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
-                        <label for="province">Pilih Metode Pembayaran</label>
-                        <select id="province" id="metode" name="metode" v-model="is_dp" class="form-control">
+                        <label for="metode">Pilih Metode Pembayaran</label>
+                        <select id="metode" name="metode" v-model="is_dp" class="form-control">
                             <option  :value="true">Down Payment</option>
                             <option  :value="false">Full Payment</option>
                         </select>
