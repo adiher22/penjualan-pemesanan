@@ -56,22 +56,17 @@
            </div>
            <div class="col-lg-5">
              <h2>
-               Transaksi lebih mudah, <br> pemesanan lebih nyaman
+               Anda lupa password ?,<br>
+               Masukan email anda untuk reset password.
              </h2><br>
-             <form action="<?= site_url('auth/proses') ?>" method="POST" class="mt-3">
+             <form action="<?= site_url('resetPass') ?>" method="POST" class="mt-3">
               <div class="form-group">
                 <label>Email Address</label>
                 <input type="email" name="email" class="form-control w-75" required>
               </div>
-              <div class="form-group">
-                <label>Password</label>
-                <input type="password" name="password" class="form-control w-75" required>
-              </div>
-              <div class="form-group">
-                <a href="<?= site_url('ResetPassword') ?>">Lupa Password ?</a>
-              </div>
-              <button type="submit" name="login" class="btn btn-primary btn-block w-75 mt-4">Masuk Untuk Akun Anda</button>
-              <a href="<?= site_url('auth/register') ?>" class="btn btn-signup btn-block w-75 mt-2">Registrasi Akun</a>
+           
+              <button type="submit" name="submit" class="btn btn-primary btn-block w-75 mt-4">Masukan Email Anda</button>
+              <a href="<?= site_url('auth') ?>" class="btn btn-success btn-block w-75 mt-2">Kembali ke Login</a>
              </form>
            </div>
          </div>
@@ -94,7 +89,14 @@
     <script src="<?= site_url('assets/front-end/vendor/jquery/jquery.slim.min.js') ?>"></script>
     <script src="<?= site_url('assets/front-end/vendor/bootstrap/js/bootstrap.bundle.min.js')?>"></script>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-		
+	 <script>
+      AOS.init();
+    </script>
+    <script src="<?= site_url('assets/front-end/vendor/vue/vue.js') ?>"></script>
+    <script src="https://unpkg.com/vue-toasted"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <!-- Toastr -->
+    <script src="https://unpkg.com/vue-toasted"></script>
 	<!-- SweetAlert2 -->
 	<script src="<?= base_url('assets/login/vendor/sweetalert2/dist/sweetalert2.min.js')?>"></script>
 

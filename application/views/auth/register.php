@@ -54,7 +54,7 @@
                Memulai untuk transaksi <br> dengan cara terbaru
              </h2>
              <validation-observer v-slot="{ invalid, handleSubmit }">
-             <form class="mt-3" action="<?= site_url('auth/register') ?>" method="POST" @submit.prevent="handleSubmit(onSubmit)">
+             <form class="mt-3" action="<?= site_url('auth/register') ?>" method="POST">
 
               <div class="form-group">
               <validation-provider rules="required" v-slot="{ dirty, valid, invalid, errors }">
