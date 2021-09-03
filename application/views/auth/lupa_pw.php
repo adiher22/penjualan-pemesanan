@@ -47,7 +47,7 @@
       </div>
     </div>
   </nav>
-   <div class="page-content page-auth">
+   <div class="page-content page-auth" id="lupapw">
      <div class="section-store-auth" data-aos="fade-up">
        <div class="container">
          <div class="row align-items-center row-login">
@@ -62,10 +62,11 @@
              <form action="<?= site_url('resetPass') ?>" method="POST" class="mt-3">
               <div class="form-group">
                 <label>Email Address</label>
-                <input type="email" name="email" class="form-control w-75" required>
+                <input type="email" name="email" id="email" v-model="email" @change="EmailAvailability()"
+                      :class="{ 'is_invalid' : this.email_unavailable }" class="form-control w-75" required="email">
               </div>
            
-              <button type="submit" name="submit" class="btn btn-primary btn-block w-75 mt-4">Masukan Email Anda</button>
+              <button type="submit" name="submit" :disabled="this.email_unavailable" class="btn btn-primary btn-block w-75 mt-4">Masukan Email Anda</button>
               <a href="<?= site_url('auth') ?>" class="btn btn-success btn-block w-75 mt-2">Kembali ke Login</a>
              </form>
            </div>
@@ -97,32 +98,93 @@
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <!-- Toastr -->
     <script src="https://unpkg.com/vue-toasted"></script>
-	<!-- SweetAlert2 -->
-	<script src="<?= base_url('assets/login/vendor/sweetalert2/dist/sweetalert2.min.js')?>"></script>
+  <!-- SweetAlert2 -->
+  <script src="<?= base_url('assets/login/vendor/sweetalert2/dist/sweetalert2.min.js')?>"></script>
 
     <script>
       AOS.init();
     </script>
     <script src="<?= site_url('assets/front-end/script/navbar-scroll.js') ?>"></script>
-	 <?php if($this->session->flashdata('sukses_logout')) { ?>
-		<script>
-			Swal.fire({
-			title: 'Berhasil Logout',
-			text: '<?= $this->session->flashdata('sukses_logout')?>',
-			icon: 'success'
-				})
-		
-		</script>
-		<?php } ?>
-		<?php if($this->session->flashdata('warning')) { ?>
-		<script>
-			Swal.fire({
-			title: 'Gagal Login.!',
-			text: '<?= $this->session->flashdata('warning')?>',
-			icon: 'error'
-				})
-		</script>
-		<?php } ?>
-		<!-- END -->
+  <?php if($this->session->flashdata('sukses_logout')) { ?>
+    <script>
+      Swal.fire({
+      title: 'Berhasil Logout',
+      text: '<?= $this->session->flashdata('sukses_logout')?>',
+      icon: 'success'
+        })
+    
+    </script>
+    <?php } ?>
+    <?php if($this->session->flashdata('warning')) { ?>
+    <script>
+      Swal.fire({
+      title: 'Gagal Login.!',
+      text: '<?= $this->session->flashdata('warning')?>',
+      icon: 'error'
+        })
+    </script>
+    <?php } ?>
+     <script>
+      Vue.use(Toasted);
+
+       var lupapw = new Vue({
+        el: '#lupapw',
+        mounted() {
+          AOS.init();
+        },
+     
+    methods:{
+      EmailAvailability: function(){
+          var self = this;
+          var email = this.email.trim();
+          // Make a request for a user with a given ID
+          axios.get('<?= site_url('auth/check_email') ?>', {
+            params: {
+              email:email
+            }
+          })
+            .then(function (response) {
+
+              if(response.data == 'Unvailable'){
+                self.$toasted.success(
+                  "Email anda benar.. Silahkan lanjutkan!",
+                  {
+                    position: "top-center",
+                    className: "rounded",
+                    duration: 5000,
+                  }
+                );
+                self.email_unavailable = false;
+              }else{
+                self.$toasted.error(
+                  "Maaf, email anda tidak terdaftar.. Mohon cek kembali!.",
+                  {
+                    position: "top-center",
+                    className: "rounded",
+                    duration: 5000,
+                  }
+                );
+                self.email_unavailable = true;
+              }
+            })
+            .catch(function (error) {
+              console.log(error);
+            });
+        
+      },
+       onSubmit: function() {
+        console.log('Form has been submitted!');
+      }
+    },
+      data() {
+          return {
+            email: "",
+            email_unavailable: false
+          }
+      }
+  });
+    </script>
+    <script src="<?= site_url('assets/front-end/script/navbar-scroll.js') ?>"></script>
+    <!-- END -->
   </body>
 </html>
