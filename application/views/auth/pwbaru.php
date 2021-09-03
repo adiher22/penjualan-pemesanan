@@ -58,7 +58,7 @@
              <h2>
                Masukan password baru anda
              </h2><br>
-             <form action="<?= site_url('auth/proses') ?>" method="POST" class="mt-3">
+             <form action="<?= site_url('resetPassword/newpassword/' . $this->session->userdata('reset')) ?>" method="POST" class="mt-3">
               <div class="form-group">
                 <label>Password baru</label>
                 <input type="password" name="password" class="form-control w-75" required>

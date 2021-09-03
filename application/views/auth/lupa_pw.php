@@ -59,14 +59,14 @@
                Anda lupa password ?,<br>
                Masukan email anda untuk reset password.
              </h2><br>
-             <form action="<?= site_url('resetPass') ?>" method="POST" class="mt-3">
+             <form action="<?= site_url('resetPassword/sendEmail') ?>" method="POST" class="mt-3">
               <div class="form-group">
                 <label>Email Address</label>
                 <input type="email" name="email" id="email" v-model="email" @change="EmailAvailability()"
                       :class="{ 'is_invalid' : this.email_unavailable }" class="form-control w-75" required="email">
               </div>
            
-              <button type="submit" name="submit" :disabled="this.email_unavailable" class="btn btn-primary btn-block w-75 mt-4">Masukan Email Anda</button>
+              <button type="submit" name="submit" :disabled="this.email_unavailable" class="btn btn-primary btn-block w-75 mt-4">Kirim Permintaan</button>
               <a href="<?= site_url('auth') ?>" class="btn btn-success btn-block w-75 mt-2">Kembali ke Login</a>
              </form>
            </div>
@@ -105,11 +105,11 @@
       AOS.init();
     </script>
     <script src="<?= site_url('assets/front-end/script/navbar-scroll.js') ?>"></script>
-  <?php if($this->session->flashdata('sukses_logout')) { ?>
+  <?php if($this->session->flashdata('sukses')) { ?>
     <script>
       Swal.fire({
-      title: 'Berhasil Logout',
-      text: '<?= $this->session->flashdata('sukses_logout')?>',
+      title: 'Berhasil Dikirim..!',
+      text: '<?= $this->session->flashdata('sukses')?>',
       icon: 'success'
         })
     
@@ -118,8 +118,17 @@
     <?php if($this->session->flashdata('warning')) { ?>
     <script>
       Swal.fire({
-      title: 'Gagal Login.!',
+      title: 'Gagal Dikirim..!!',
       text: '<?= $this->session->flashdata('warning')?>',
+      icon: 'error'
+        })
+    </script>
+    <?php } ?>
+    <?php if($this->session->flashdata('gagalToken')) { ?>
+    <script>
+      Swal.fire({
+      title: 'Gagal kirim token..!!',
+      text: '<?= $this->session->flashdata('gagalToken')?>',
       icon: 'error'
         })
     </script>

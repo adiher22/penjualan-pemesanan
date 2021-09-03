@@ -107,6 +107,13 @@ class M_customer extends CI_Model {
 		$this->db->where('id_cust', $id);
 		$this->db->update('customer', $params);
 	}
+	public function ubahPw($post,$email){
+
+		$params['password'] = sha1($post['password']);
+
+		$this->db->where('email', $email);
+		$this->db->update('customer', $params);
+	}
 	public function editProfile($post,$id_customer){
 
 		$params['nama_cust'] = $post['nama_cust'];

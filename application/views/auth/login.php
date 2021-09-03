@@ -112,6 +112,16 @@
 		
 		</script>
 		<?php } ?>
+    <?php if($this->session->flashdata('sukses')) { ?>
+		<script>
+			Swal.fire({
+			title: 'Password berhasil diubah..!',
+			text: '<?= $this->session->flashdata('sukses')?>',
+			icon: 'success'
+				})
+		
+		</script>
+		<?php } ?>
 		<?php if($this->session->flashdata('warning')) { ?>
 		<script>
 			Swal.fire({
