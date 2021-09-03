@@ -21,6 +21,12 @@ class ResetPassword extends CI_Controller {
         $this->load->view('auth/lupa_pw',$data);
     }
 
+	public function newpassword()
+	{
+		$data['title'] = "Password baru";
+		$data['copyright'] = "Adiher";
+		$this->load->view('auth/pwbaru', $data);
+	}
 }
 
 /* End of file ResetPassword.php */

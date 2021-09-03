@@ -52,7 +52,7 @@
        <div class="container">
          <div class="row align-items-center row-login">
            <div class="col-lg-6 text-center">
-             <img src="<?= site_url('assets/front-end/images/undraw_authentication_fsn5.svg') ?>" alt="" class="w-50 mb-4 mb-lg-none">
+             <img src="<?= site_url('assets/front-end/images/undraw_forgot_password_gi2d.svg') ?>" alt="" class="w-50 mb-4 mb-lg-none">
            </div>
            <div class="col-lg-5">
              <h2>
