@@ -34,10 +34,14 @@ Elements :
 - Bootstrap v4.x
 - AdminLTE
 - Jquery
-- Datatables
+- Datatables ServerSide & Client Side
 - Vue.js v2.x
 - Axios 
 - SCSS 
 
 ## Screenshot 
+Halaman Utama <br>
+<img src="assets/ss/ss1.jpg"><br>
+Halaman Dashboard Admin <br>
+<img src="assets/ss/ss2.jpg>
 
